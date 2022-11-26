@@ -1,10 +1,14 @@
 <?php
 
-
+/**
+ * 
+ * Template Name: HomePage
+ * 
+ * */
 get_header();
 
 ?>
-Test
+
 
 
 <?php get_footer(); ?>
