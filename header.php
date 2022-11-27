@@ -204,8 +204,9 @@
             <div class="header__second-line">
                 <div class="header__container container grid grid-mobile">
                     <div class="header__left-second">
-                        <a href="index.html" class="logo header__logo ">
-                            <img src="img/sprite.svg#logo" alt="logo site">
+                        <a href="<?php echo home_url('/'); ?>" class="logo header__logo ">
+                            <!-- <img src="<?php echo _assets_paths('img/sprite.svg#logo'); ?>" alt="logo site"> -->
+                            <?php the_custom_logo(); ?>
                         </a>
                         <div class="header__search-field">
                             <input type="text" name="search" class="input header__input" id="search" placeholder="Search...">
