@@ -12,8 +12,11 @@ get_header();
 
 <?php
 
-///Slider Homepage
+///Slider Homepage and icons
 get_template_part('template-parts/homepage-slider');
+
+///Slider Homepage and icons
+get_template_part('template-parts/homepage-main-description');
 
 ?>
 

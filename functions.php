@@ -6,6 +6,12 @@ function _assets_paths($path)
     return get_template_directory_uri() . '/assets/' . $path;
 }
 
+add_action('wp_enqueue_scripts', 'theme_enqueue_styles', 99);
+function theme_enqueue_styles()
+{
+    wp_enqueue_style("css-main", _assets_paths("/css/main.css"), [], "1.0", 'all');
+}
+
 function shop_scripts()
 {
     wp_enqueue_script('js-vendor-swiper', _assets_paths('/js/vendor/swiper.min.js'), ['jquery'], true);
@@ -17,8 +23,9 @@ function shop_scripts()
     wp_enqueue_script('js-main', _assets_paths('/js/script.js'),  ['jquery'], true);
 
 
-    wp_enqueue_style("css-main", _assets_paths("/css/main.css"), [], "1.0", 'all');
+    // wp_enqueue_style("css-main", _assets_paths("/css/main.css"), [], "1.0", 'all');
     wp_enqueue_style("css-vendor", _assets_paths("/css/vendor.css"), [], "1.0", 'all');
+    wp_enqueue_style("css-custom", _assets_paths("/css/custom.css"), [], "1.0", 'all');
 }
 
 add_action("wp_enqueue_scripts", "shop_scripts");

@@ -21,7 +21,9 @@
                                     <p data-aos="fade-down" class="slider-homepage__descr">
                                         <?php echo $description; ?>
                                     </p>
-                                    <a href="<?php echo $link; ?>" data-aos="fade-down" class="slider-homepage__btn btn">Подробнее</a>
+                                    <button data-aos="fade-down" class="slider-homepage__btn btn">
+                                        <a href="<?php echo $link; ?>">Подробнее</a>
+                                    </button>
                                 </div>
                             </div>
                         <?php
