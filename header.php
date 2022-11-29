@@ -182,14 +182,12 @@
                                 </div>
                                 <div class="list-wrapper">
                                     <button type="button" class="back-one-level">
-
                                         <span>Back</span>
                                     </button>
                                     <div class="sub-menu-wrapper"></div>
                                 </div>
                                 <div class="list-wrapper">
                                     <button type="button" class="back-one-level">
-
                                         <span>Back</span>
                                     </button>
                                     <div class="sub-menu-wrapper"></div>
