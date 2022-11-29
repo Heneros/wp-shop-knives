@@ -95,7 +95,16 @@ jQuery(function ($) {
   });
 
 
+  const slider__heading = document.querySelectorAll(".slider-homepage__title");
 
+  slider__heading.forEach(element => {
+    let text = element.innerHTML.split(' ');
+    const results = text.filter(el => {
+      return el !== '';
+    });
+    let first = results.splice(0, 3);
+    element.innerHTML = `${first.join(' ')} <br><span>${results.join(' ')}</span>`;
+  });
 
 
 
@@ -117,6 +126,7 @@ jQuery(function ($) {
   const isActiveClass = "is-active";
 
   toggleMenu.addEventListener("click", function () {
+
     menuWrapper.classList.toggle(isVisibleClass);
     toggleMenu.classList.toggle(isActiveClass);
     header__logo.classList.toggle('hidden');
@@ -224,12 +234,12 @@ jQuery(function ($) {
     breakpoints: {}
   }); ///Add span
 
-  var slider__heading = document.querySelectorAll(".slider-homepage__title");
-  slider__heading.forEach(function (element) {
-    var text = element.innerHTML.split(' ');
-    var first = text.splice(0, 2);
-    element.innerHTML = " ".concat(first.join(' '), " <br><span>").concat(text.join(' '), "</span>");
-  });
+  // var slider__heading = document.querySelectorAll(".slider-homepage__title");
+  // slider__heading.forEach(function (element) {
+  //   var text = element.innerHTML.split(' ');
+  //   var first = text.splice(0, 2);
+  //   element.innerHTML = " ".concat(first.join(' '), " <br><span>").concat(text.join(' '), "</span>");
+  // });
 
 
   var noveltySlider = new Swiper('.novelty-slider', {
