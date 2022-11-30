@@ -6,6 +6,14 @@
                 Go to catalog
             </a>
         </div>
+        <?php
+        $args = [
+            'post_type' => 'product',
+            'posts_per_page' => 12
+        ];
+        $loop = new WP_Query($args);
+
+        ?>
         <div class="bestsellers-products bestsellers-products-swiper swiper">
             <div class="swiper-wrapper">
 
