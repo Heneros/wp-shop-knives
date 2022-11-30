@@ -25,7 +25,7 @@ if (empty($product) || !$product->is_visible()) {
 	return;
 }
 ?>
-<div <?php wc_product_class('bestsellers-products-item', $product); ?>>
+<div <?php wc_product_class('bestsellers-products-item 123', $product); ?>>
 	<?php
 	/**
 	 * Hook: woocommerce_before_shop_loop_item.

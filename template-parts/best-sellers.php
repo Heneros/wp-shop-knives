@@ -12,57 +12,26 @@
             'posts_per_page' => 12
         ];
         $loop = new WP_Query($args);
-
+        if ($loop->have_posts()) :
         ?>
-        <div class="bestsellers-products bestsellers-products-swiper swiper">
-            <div class="swiper-wrapper">
-
-                <div class="swiper-slide">
-                    <div class="bestsellers-products-item">
-                        <div class="bestsellers-products-item__img">
-                            <img src="img/slider-img.png" alt="slider image">
+            <div class="bestsellers-products bestsellers-products-swiper swiper">
+                <div class="swiper-wrapper">
+                    <?php
+                    while ($loop->have_posts()) :
+                        $loop->the_post();
+                    ?>
+                        <div class="swiper-slide">
+                            <?php
+                            wc_get_template_part('content', 'product');
+                            ?>
                         </div>
-                        <div class="bestsellers-products-item__text">
-                            <div class="bestsellers-products-item__top">
-                                <a href="product-page.html">
-                                    <h1 class="sub-title">Knife unique</h1>
-                                </a>
-                                <div class="bestsellers-products-item__line">
-                                    <span class="bestsellers-products-item__size">435X13</span>
-                                    <span class="bestsellers-products-item__structure">walnut, aluminum</span>
-                                </div>
-                                <div class="bestsellers-products-item__line">
-                                    <div class="bestsellers-products-item__stars">
-                                        <img src="img/star.svg" alt="icon star">
-                                        <img src="img/star.svg" alt="icon star">
-                                        <img src="img/star.svg" alt="icon star">
-                                        <img src="img/star.svg" alt="icon star">
-                                        <img src="img/star.svg" alt="icon star">
-                                    </div>
-                                    <span class="bestsellers-products-item__reviews">12 reviews</span>
-                                </div>
-                            </div>
-                            <div class="bestsellers-products-item__bottom">
-                                <span class="bestsellers-products-item__price">
-                                    135$
-                                </span>
-                                <div class="bestsellers-products-item__icons">
-                                    <span class="bestsellers-products-item__scales">
-                                        <img src="img/sprite.svg#scales" alt="icon scales">
-                                    </span>
-                                    <a href="#!" class="bestsellers-products-item__favorites">
-                                        <img src="img/sprite.svg#favorites-yellow" alt="icon favorite">
-                                    </a>
-                                </div>
-                            </div>
-                            <button class="bestsellers-products-item__btn btn-yellow" type="submit">Add To Cart</button>
-                        </div>
-                    </div>
+                    <?php
+                    endwhile;
+                    ?>
                 </div>
-
+                <div class="bestsellers-products__pagination swiper-pagination"></div>
             </div>
-            <div class="bestsellers-products__pagination swiper-pagination"></div>
-        </div>
+        <?php endif; ?>
         <div class="text-above-adaptive">
             <a href="shop.html" class="catalog">
                 Go to catalog

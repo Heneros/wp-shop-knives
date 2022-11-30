@@ -1,5 +1,9 @@
 <?php
 
+require get_template_directory() . '/woocommerce/includes/WC-action.php';
+
+
+
 
 function _assets_paths($path)
 {
