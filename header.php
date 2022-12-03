@@ -212,7 +212,7 @@
                     <div class="header__right-second">
                         <div class="header__location">
                             <span class="icon icon-location">
-                                <img src="img/sprite.svg#location" alt="icon location">
+                                <img src="<?php echo _assets_paths("img/sprite.svg#location"); ?>" alt="icon location">
                             </span>
                             <a href="#!" class="header__name-location location">
                                 Kharkiv

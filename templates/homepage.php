@@ -21,8 +21,8 @@ get_template_part('template-parts/homepage-main-description');
 ///Cards category
 get_template_part('template-parts/cards');
 
-///Bestsellers
-// get_template_part('template-parts/best-sellers');
+///Bestsellers products
+get_template_part('template-parts/best-sellers');
 
 ?>
 
