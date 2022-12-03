@@ -26,10 +26,8 @@ function shop_scripts()
     wp_enqueue_script('js-vendor-nouislider', _assets_paths('/js/vendor/nouislider.min.js'),  ['jquery'], true);
     wp_enqueue_script('js-main', _assets_paths('/js/script.js'),  ['jquery'], true);
 
-
-    // wp_enqueue_style("css-main", _assets_paths("/css/main.css"), [], "1.0", 'all');
-    wp_enqueue_style("css-vendor", _assets_paths("/css/vendor.css"), [], "1.0", 'all');
     wp_enqueue_style("css-custom", _assets_paths("/css/custom.css"), [], "1.0", 'all');
+    wp_enqueue_style("css-vendor", _assets_paths("/css/vendor.css"), [], "1.0", 'all');
 }
 
 add_action("wp_enqueue_scripts", "shop_scripts");

@@ -22,7 +22,7 @@ get_template_part('template-parts/homepage-main-description');
 get_template_part('template-parts/cards');
 
 ///Bestsellers
-get_template_part('template-parts/best-sellers');
+// get_template_part('template-parts/best-sellers');
 
 ?>
 
