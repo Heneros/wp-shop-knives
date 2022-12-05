@@ -24,6 +24,7 @@ global $product;
 if (empty($product) || !$product->is_visible()) {
 	return;
 }
+
 ?>
 <div <?php wc_product_class('bestsellers-products-item', $product); ?>>
 	<?php
@@ -47,6 +48,7 @@ if (empty($product) || !$product->is_visible()) {
 		do_action('woocommerce_before_shop_loop_item_title');
 		?>
 	</div>
+	
 	<div class="bestsellers-products-item__text">
 		<?php
 		/**
@@ -55,11 +57,13 @@ if (empty($product) || !$product->is_visible()) {
 		 * @hooked woocommerce_template_loop_product_title - 10
 		 */
 		?>
+		
 		<div class="bestsellers-products-item__top">
 			<?php
 			do_action('woocommerce_shop_loop_item_title');
 			?>
 		</div>
+		
 		<div class="bestsellers-products-item__bottom">
 			<?php
 			/**
