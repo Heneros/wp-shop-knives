@@ -43,3 +43,29 @@ body {
 .sub-title a {
     color: #141414;
 }
+
+.in-list{
+    /* border-color: black;
+    background: black;
+    border-radius: 72%;
+    width: 42px;
+    height: 23px;
+    position: absolute;
+    right: 0; */
+
+
+
+    width: 42px;
+    height: 42px;
+    border-radius: 42px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 41px;
+    border: 1px solid black;
+    background: black;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    padding-right: 1px;
+}
