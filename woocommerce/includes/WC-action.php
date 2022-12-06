@@ -50,12 +50,12 @@ function print_wish_icon($prod_id)
 ?>
     <?php
     if (is_singular('product')) { ?>
-        <a href="#" class="bestsellers-products-item__favorites echo <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
+        <a href="#" class="bestsellers-products-item__favorites <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
             <!-- svg -->
         </a>
     <?php } else {
     ?>
-        <a href="#" class="bestsellers-products-item__favorites echo <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
+        <a href="#" class="bestsellers-products-item__favorites <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
             <!-- svg -->
         </a>
 <?php
@@ -66,6 +66,11 @@ function print_wish_icon($prod_id)
 add_action("wp_ajax_add_to_wishlist", "add_to_wishlist");
 add_action("wp_ajax_nopriv_add_to_wishlist", "add_to_wishlist");
 
-function add_to_wishlist(){
-    
+function add_to_wishlist()
+{
+    if (isset($_POST['prod_id']) && !empty($_POST['prod_id']) && !in_array($_POST['prod_id'], $_SESSION['wishlist'])) {
+        $_SESSION['wishlist'][] = $_POST['prod_id'];
+        echo json_encode(['response' => 'success']);
+    }
+    die;
 }
