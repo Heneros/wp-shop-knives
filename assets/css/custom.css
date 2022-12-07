@@ -44,7 +44,7 @@ body {
     color: #141414;
 }
 
-.in-list{
+.in-list {
     /* border-color: black;
     background: black;
     border-radius: 72%;
@@ -52,9 +52,6 @@ body {
     height: 23px;
     position: absolute;
     right: 0; */
-
-
-
     width: 42px;
     height: 42px;
     border-radius: 42px;
@@ -69,3 +66,29 @@ body {
     margin-left: 10px;
     padding-right: 1px;
 }
+
+.bestsellers-products-item__favorites {
+    width: 42px;
+    height: 42px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    background-color: black;
+    /* border: 1px solid black; */
+    position: relative;
+}
+
+.bestsellers-products-item__favorites img {
+    position: absolute;
+    left: -7px;
+    bottom: 10px;
+    height: 21px;
+}
+
+/* .bestsellers-products-item__favorites svg {
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
+    top: 5px;
+    position: relative;
+} */

@@ -48,7 +48,7 @@ if (empty($product) || !$product->is_visible()) {
 		do_action('woocommerce_before_shop_loop_item_title');
 		?>
 	</div>
-	
+
 	<div class="bestsellers-products-item__text">
 		<?php
 		/**
@@ -57,13 +57,13 @@ if (empty($product) || !$product->is_visible()) {
 		 * @hooked woocommerce_template_loop_product_title - 10
 		 */
 		?>
-		
+
 		<div class="bestsellers-products-item__top">
 			<?php
 			do_action('woocommerce_shop_loop_item_title');
 			?>
 		</div>
-		
+
 		<div class="bestsellers-products-item__bottom">
 			<?php
 			/**
@@ -72,8 +72,9 @@ if (empty($product) || !$product->is_visible()) {
 			 * @hooked woocommerce_template_loop_rating - 5
 			 * @hooked woocommerce_template_loop_price - 10
 			 */
+			
 			do_action('woocommerce_after_shop_loop_item_title');
-
+			echo print_wish_icon($product->get_id());
 			/**
 			 * Hook: woocommerce_after_shop_loop_item.
 			 *
@@ -84,6 +85,7 @@ if (empty($product) || !$product->is_visible()) {
 		</div>
 		<?php
 		do_action('woocommerce_after_shop_loop_item');
+
 		?>
 	</div>
 </div>
