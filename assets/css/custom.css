@@ -85,6 +85,10 @@ body {
     height: 21px;
 }
 
+
+.add_favorite {
+    z-index: 99999;
+}
 /* .bestsellers-products-item__favorites svg {
     display: inline-block;
     vertical-align: middle;

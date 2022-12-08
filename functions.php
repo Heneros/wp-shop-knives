@@ -24,6 +24,7 @@ function shop_scripts()
     wp_enqueue_script('js-vendor-formstyler', _assets_paths('/js/vendor/jquery.formstyler.min.js'), ['jquery'], true);
     wp_enqueue_script('js-vendor-rateyo', _assets_paths('/js/vendor/jquery.rateyo.min.js'), ['jquery'], true);
     wp_enqueue_script('js-vendor-nouislider', _assets_paths('/js/vendor/nouislider.min.js'),  ['jquery'], true);
+    wp_enqueue_script('js-custom', _assets_paths('/js/custom.js'), ['jquery'], true);
     wp_enqueue_script('js-main', _assets_paths('/js/script.js'),  ['jquery'], true);
 
     wp_enqueue_style("css-custom", _assets_paths("/css/custom.css"), [], "1.0", 'all');
