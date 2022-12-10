@@ -33,10 +33,9 @@ function custom_loop_product_title()
 
         <?php
               wc_display_product_attributes($product);
-        echo wc_get_product_tag_list($product->get_id());
-  
+              
+         echo wc_get_product_tag_list( $product->get_id(), ' ', '<span class="bestsellers-products-item__structure">' . ' ', '</span>' );
     }
-
         ?>
         </div>
     <?php
