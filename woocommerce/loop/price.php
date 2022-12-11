@@ -31,7 +31,5 @@ global $product;
 	<span class="bestsellers-products-item__scales">
 		<img src="<?php echo _assets_paths('img/sprite.svg#scales'); ?>" alt="icon scales">
 	</span>
-	<a href="#!" class="bestsellers-products-item__favorites">
-		<!-- <img src="<?php echo _assets_paths('img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite"> -->
-	</a>
+
 </div>

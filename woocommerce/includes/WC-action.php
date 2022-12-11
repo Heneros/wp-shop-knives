@@ -22,19 +22,22 @@ function custom_loop_product_title()
             <a href="<?php echo $product->get_permalink(); ?>">
                 <?php
                 echo $product->get_name();
-                // foreach ($attributesProduct as $attributeProduct) {
-                //     echo ' ' .  $attributeProduct;
-                // } 
                 ?>
             </a>
         </h2>
         <div class="bestsellers-products-item__line">
-
-
+            <?php
+            wc_display_product_attributes($product);
+            ?>
+            <span class="bestsellers-products-item__structure">
+              <?php
+                $tags_product = get_the_terms($product->ID, 'product_tag');
+                foreach ($tags_product as $tag_product) {
+                    echo ' ' . $tag_product->name;
+                }
+                ?>
+            </span>
         <?php
-              wc_display_product_attributes($product);
-              
-         echo wc_get_product_tag_list( $product->get_id(), ' ', '<span class="bestsellers-products-item__structure">' . ' ', '</span>' );
     }
         ?>
         </div>

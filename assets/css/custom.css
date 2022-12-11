@@ -89,6 +89,16 @@ body {
 .add_favorite {
     z-index: 99999;
 }
+
+.bestsellers-products-item__favorites.in_list{
+    background-color: #e8aa31;
+    background-image: url('../img/favorites.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.bestsellers-products-item__favorites.in_list img{
+ display: none;
+}
 /* .bestsellers-products-item__favorites svg {
     display: inline-block;
     vertical-align: middle;
