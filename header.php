@@ -58,10 +58,16 @@
                             <div class="header-mobile__icon mobile-favorites">
                             </div>
                         </a>
+                        <?php
+                        global $woocommerce;
+                        $cart = WC()->cart;
+                        $items_count = WC()->cart->get_cart_contents_count();
+
+                        ?>
                         <a href="#!" class="header__cart-link js-open-cart">
                             <div class="header-mobile__icon header__cart-svg header-mobile__cart">
                                 <div class="cart-num">
-                                    0
+                                    <?php echo  $items_count ? $items_count : '15';?>
                                 </div>
                             </div>
                             <div class="cart-products">
@@ -228,7 +234,7 @@
                             <a href="#!" class="header__cart-link js-open-cart">
                                 <div class=" header__cart-svg">
                                     <div class="cart-num">
-                                        0
+                                    <?php echo  $items_count ? $items_count : '0';?>
                                     </div>
                                 </div>
                             </a>
