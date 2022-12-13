@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
                         if(res.found_posts == 0){
                             $(".clear_wishlist").hide();
                         }
-                        $('.products-wishlist ul').html(res.products);
+                        $('.products-wishlist').html(res.products);
                     }
                 }
             }

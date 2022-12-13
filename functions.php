@@ -3,10 +3,6 @@
 require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
 
-// function wc_get_product_tag_list( $product_id, $sep = ', ', $before = '<p>', $after = '</p>' ) {
-// 	return get_the_term_list( $product_id, 'product_tag', $before, $sep, $after );
-// }
-
 
 
 
@@ -23,6 +19,9 @@ function theme_enqueue_styles()
 
 function shop_scripts()
 {
+    wp_enqueue_script("ajax-script", get_template_directory_uri(). '/js/admin-ajax.js', array("jquery"));
+    wp_localize_script("ajax-script", 'my_ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+
     wp_enqueue_script('js-vendor-swiper', _assets_paths('/js/vendor/swiper.min.js'), ['jquery'], true);
     wp_enqueue_script('js-vendor-aos', _assets_paths('/js/vendor/aos.js'),  ['jquery'], true);
     wp_enqueue_script('js-vendor-rangeSlider', _assets_paths('/js/vendor/ion.rangeSlider.min.js'),  ['jquery'], true);
