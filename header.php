@@ -54,7 +54,7 @@
                         </a>
                         <a href="#!" class="header-mobile__person">
                         </a>
-                        <a href="#!" class="header-mobile__favorites">
+                        <a href="<?php echo site_url('/wishlist'); ?>" class="header-mobile__favorites">
                             <div class="header-mobile__icon mobile-favorites">
                             </div>
                         </a>
@@ -223,7 +223,7 @@
                             <p class="header__order-text">Request a call </p>
                         </div>
                         <div class="header__cart-block">
-                            <a href="#!" class="header__favorites">
+                            <a href="<?php echo site_url('/wishlist'); ?>" class="header__favorites">
                             </a>
                             <a href="#!" class="header__cart-link js-open-cart">
                                 <div class=" header__cart-svg">

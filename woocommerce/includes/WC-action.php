@@ -78,3 +78,31 @@ function print_wish_icon($prod_id)
         }
         die;
     }
+
+add_action("wp_ajax_remove_from_wishlist", "remove_from_wishlist");
+add_action("wp_ajax_nopriv_remove_from_wishlist", "remove_from_wishlist");
+
+
+function remove_from_wishlist(){
+    if(isset($_POST['prod_id']) && !empty($_POST['prod_id'])){
+        foreach($_SESSION['wishlist'] as $k=> $item){
+            if($item == $_POST['prod_id']){
+                unset($_SESSION['wishlist'][$k]);
+            }
+        }
+        $prods = [];
+        if(isset($_SESSION['wishlist'])){
+            $prods = $_SESSION['wishlist'];
+        }
+        $args = [
+            'post_type' => 'product',
+            'post__in' => ((!isset($prods) || empty($prods)) ? array(-1) : $prods)
+        ];
+        $wishlist_prods = new WP_Query($args);
+        ob_start();
+        get_template_part("elements/filtered-products", '', ['objects' => $wishlist_prods]);
+        $content = ob_get_clean();
+        echo json_encode(['response' => 'success', 'products' => ($content) ? $content : '<p>No products been found.</p>', 'found_posts' =>  $wishlist_prods->found_posts]);
+    }
+    die;
+}
