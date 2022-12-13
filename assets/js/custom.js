@@ -5,7 +5,6 @@ jQuery(document).ready(function ($) {
         var prod_id = $(this).attr('data-prodid');
         var that = $(this);
         var action = '';
-        // alert(prod_id )
         if($(that).hasClass('in_list')){
             action = 'remove_from_wishlist';
         }else{
@@ -23,7 +22,7 @@ jQuery(document).ready(function ($) {
                 var res = JSON.parse(data);
                 if(res.response == 'success' && action == 'add_to_wishlist'){
                     $(that).addClass('in_list');
-                } else if(res.response == 'success' && action == 'remove_from _wishlist'){
+                } else if(res.response == 'success' && action == 'remove_from_wishlist'){
                     $(that).removeClass('in_list');
                     if($('.product-wishlist').length){
                         $('.found_recent b').html(res.found_posts);
@@ -35,7 +34,6 @@ jQuery(document).ready(function ($) {
                 }
             }
         })
-
-    })
+    });
 
 })
