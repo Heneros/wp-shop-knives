@@ -67,7 +67,7 @@
                         <a href="#!" class="header__cart-link js-open-cart">
                             <div class="header-mobile__icon header__cart-svg header-mobile__cart">
                                 <div class="cart-num">
-                                    <?php echo  $items_count ? $items_count : '15';?>
+                                    <?php echo  $items_count ? $items_count : '15'; ?>
                                 </div>
                             </div>
                             <div class="cart-products">
@@ -234,7 +234,7 @@
                             <a href="#!" class="header__cart-link js-open-cart">
                                 <div class=" header__cart-svg">
                                     <div class="cart-num">
-                                    <?php echo  $items_count ? $items_count : '0';?>
+                                        <?php echo  $items_count ? $items_count : '0'; ?>
                                     </div>
                                 </div>
                             </a>
@@ -247,11 +247,59 @@
                                 </span>
                             </p>
                             <div class="cart-products">
-                                <div class="cart-content">
-                                    <h2 class="cart-title"> Empty Cart</h2>
-                                    <p class="cart-message">
-                                        You dont have any products
-                                    </p>
+                                <div class="cart-content" id="mini-cart-all-items">
+                                    <?php
+                                    $customSubTotal = 0;
+                                    $is_on_sale = [];
+                                    $items = $woocommerce->cart->get_cart();
+                                    if (!empty($items)) {
+                                        foreach ($items as $item => $values) {
+                                            $_productMiniCart = wc_get_product($values['data']->get_id());
+                                            $product_id = $values['product_id'];
+                                            $image_url = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), '');
+                                            $productImage = $image_url[0];
+                                            $check_type =  $_productMiniCart->get_type();
+                                            $prodPrice = 0;
+                                            $quantity = $values['quantity'];
+                                            $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_productMiniCart->get_image(), $values, $item);
+                                            if (!empty($_productMiniCart->get_sale_price())) {
+                                                $prodPrice = ceil($_productMiniCart->get_sale_price());
+                                            } else {
+                                                $prodPrice = ceil($_productMiniCart->get_regular_price());
+                                            }
+                                            $lineSubtotal = $prodPrice * $quantity;
+                                            $customSubTotal += $lineSubtotal;
+
+                                            if ($_productMiniCart->is_on_sale()) {
+                                                array_push($is_on_sale, 1);
+                                            }
+                                    ?>
+                                            <div class="card-item">
+                                                <div class="card-img">
+                                                    <?php echo $thumbnail; ?>
+                                                </div>
+                                                <div class="card-info">
+                                                    <a class="card-info__title" href="<?php  get_the_permalink(); ?>">
+                                                        <?php
+                                                        echo $_productMiniCart->get_title();
+                                                        ?>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <h2 class="cart-title"> Empty Cart</h2>
+                                        <p class="cart-message">
+                                            You dont have any products
+                                        </p>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
