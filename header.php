@@ -279,11 +279,16 @@
                                                     <?php echo $thumbnail; ?>
                                                 </div>
                                                 <div class="card-info">
-                                                    <a class="card-info__title" href="<?php  get_the_permalink(); ?>">
+                                                    <a class="card-info__title" href="<?php get_the_permalink(); ?>">
                                                         <?php
                                                         echo $_productMiniCart->get_title();
                                                         ?>
                                                     </a>
+                                                </div>
+                                                <div class="card-quantity js-quantity">
+                                                    <button class="icon icon-minus js-quantity-minus">-</button>
+                                                    <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="<?php echo $quantity; ?>">
+                                                    <button class="icon icon-plus js-quantity-plus">+</button>
                                                 </div>
                                             </div>
                                         <?php
