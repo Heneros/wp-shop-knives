@@ -22,7 +22,7 @@ jQuery(function ($) {
   }, 200);
 
   //Increment quantity products
-  $(document).on("click", '.js-quantity-plus', function () {
+  $(document.body).on("click", '.js-quantity-plus', function () {
     var btn = $(this);
     var block = btn.closest('.js-quantity');
     var kol = block.find('.js-quantity-input').val(); //If bigger than 100. you need to stop
@@ -35,7 +35,7 @@ jQuery(function ($) {
     block.find('.js-quantity-input').trigger('change');
   }); //Decreament quantity products
 
-  $(document).on("click", '.js-quantity-minus', function () {
+  $(document.body).on("click", '.js-quantity-minus', function () {
     var btn = $(this);
     var block = btn.closest('.js-quantity');
     var kol = block.find('.js-quantity-input').val();

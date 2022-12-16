@@ -152,8 +152,8 @@
     width: 33px;
 }
 
-.icon-plus,
-.icon-minus {
+.header .icon-plus,
+.header .icon-minus {
     background-color: #141414;
     color: #fff;
     padding: 5px;
@@ -164,7 +164,11 @@
     cursor: pointer;
 }
 
-.card-info__title{
+.header .icon:hover {
+    background-color: #e8aa31;
+}
+
+.card-info__title {
     overflow: hidden;
     font-size: 12px;
     max-width: 120px;
@@ -174,6 +178,16 @@
     -webkit-box-orient: vertical;
 }
 
-.card-quantity{
+.card-price {
+    margin-left: 8px;
+}
+
+
+.card-quantity {
     margin-left: 25px;
+}
+
+.header .cart-products.active {
+    width: 480px;
+    max-height: 480px;
 }

@@ -279,11 +279,16 @@
                                                     <?php echo $thumbnail; ?>
                                                 </div>
                                                 <div class="card-info">
-                                                    <a class="card-info__title" href="<?php get_the_permalink(); ?>">
+                                                    <a class="card-info__title" href="<?php echo the_permalink($product_id); ?>">
                                                         <?php
                                                         echo $_productMiniCart->get_title();
                                                         ?>
                                                     </a>
+                                                </div>
+                                                <div class="card-price">
+                                                    <?php
+                                                    echo $_productMiniCart->get_price_html();
+                                                    ?>
                                                 </div>
                                                 <div class="card-quantity js-quantity">
                                                     <button class="icon icon-minus js-quantity-minus">-</button>
@@ -294,6 +299,14 @@
                                         <?php
                                         }
                                         ?>
+                                        <div class="cart-price">
+                                            <div class="total-price-description">
+                                            Total Price
+                                            </div>
+                                            <?php
+                                              echo WC()->cart->get_total();
+                                            ?>
+                                        </div>
 
                                     <?php
                                     } else {
