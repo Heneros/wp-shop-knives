@@ -64,14 +64,14 @@
                         $items_count = WC()->cart->get_cart_contents_count();
 
                         ?>
-                        <a href="#!" class="header__cart-link js-open-cart">
+                        <a href="#!" class="header__cart-link">
                             <div class="header-mobile__icon header__cart-svg header-mobile__cart">
                                 <div class="cart-num">
                                     <?php echo  $items_count ? $items_count : '15'; ?>
                                 </div>
                             </div>
-                            <div class="cart-products">
-                            </div>
+                            <!-- <div class="cart-products">
+                            </div> -->
                         </a>
                         <div class="header-mobile__burger" id="burger-menu">
                             <a href="#!" class="header__logo-white">

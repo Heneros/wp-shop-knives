@@ -40,5 +40,9 @@ jQuery(document).ready(function ($) {
 
 
     /////////Add to favorites
-    
-})
+
+
+
+
+});
+
