@@ -39,7 +39,21 @@ jQuery(document).ready(function ($) {
 
 
 
-    /////////Add to favorites
+    ////////Mini Cart Update
+    function miniCartAjaxUpdate(){
+        $.ajax({
+            type: "post",
+            url: my_ajax_object.ajax_url,
+            cache: false,
+            data:{
+                action: 'update_mini_cart_action'
+            },
+            success: function(response){
+                let miniCartCount = document.getElementById('mini-cart-count');
+                let miniCartItemsContainer = document.getElementById('mini-cart-all-items')
+            }
+        })
+    }
 
 
 

@@ -233,7 +233,7 @@
                             </a>
                             <a href="#!" class="header__cart-link js-open-cart">
                                 <div class=" header__cart-svg">
-                                    <div class="cart-num">
+                                    <div class="cart-num" id="mini-cart-count">
                                         <?php echo  $items_count ? $items_count : '0'; ?>
                                     </div>
                                 </div>
