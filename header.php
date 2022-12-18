@@ -240,7 +240,10 @@
                             </a>
                             <p class="header__text-cart">
                                 <span class="text-cart-price">
-                                    0 $
+                                    <!-- 0 $ -->
+                                    <?php
+                                    echo WC()->cart->get_total();
+                                    ?>
                                 </span>
                                 <span class="text-cart-order">
                                     Checkout
@@ -301,10 +304,10 @@
                                         ?>
                                         <div class="cart-price">
                                             <div class="total-price-description">
-                                            Total Price
+                                                Total Price
                                             </div>
                                             <?php
-                                              echo WC()->cart->get_total();
+                                            echo WC()->cart->get_total();
                                             ?>
                                         </div>
 
