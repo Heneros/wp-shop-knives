@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Loop Rating
  *
@@ -15,14 +16,20 @@
  * @version 3.6.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
 global $product;
 
-if ( ! wc_review_ratings_enabled() ) {
+if (!wc_review_ratings_enabled()) {
 	return;
-}
+} ?>
 
-echo wc_get_rating_html( $product->get_average_rating() ); // WordPress.XSS.EscapeOutput.OutputNotEscaped.
+<div class="bestsellers-products-item__stars">
+	<div class="stars">
+		<span style="width: <?php echo (($average / 5) * 100) ?>%"></span>
+	</div>
+</div>
+<?php
+// WordPress.XSS.EscapeOutput.OutputNotEscaped.
