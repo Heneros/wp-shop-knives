@@ -24,7 +24,10 @@ global $product;
 
 if (!wc_review_ratings_enabled()) {
 	return;
-} ?>
+}
+
+$average      = $product->get_average_rating();
+?>
 
 <div class="bestsellers-products-item__stars">
 	<div class="stars">
