@@ -209,3 +209,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.stars_sm {
+    width: 68px;
+    height: 12px;
+    background-image: url('../img/stars_sm.png');
+}

@@ -61,7 +61,8 @@ if (empty($product) || !$product->is_visible()) {
 		<div class="bestsellers-products-item__top">
 			<?php
 			do_action('woocommerce_shop_loop_item_title');
-		
+			// do_action('woocommerce_template_loop_rating');
+			
 			?>
 		</div>
 
@@ -71,7 +72,7 @@ if (empty($product) || !$product->is_visible()) {
 			/**
 			 * Hook: woocommerce_after_shop_loop_item_title.
 			 *
-			 * @hooked woocommerce_template_loop_rating - 5
+			 *
 			 * @hooked woocommerce_template_loop_price - 10
 			 */
 
