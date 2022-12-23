@@ -57,8 +57,11 @@ jQuery(document).ready(function ($) {
                 miniCartItemsContainer.innerHTML = '';
                 miniCartSubtotal.innerHTML = '';
 
-                // mini-cart-all-items
-                // cart-subtotal
+                
+                $("#cart-subtotal").append(response.cart_total);
+                $("#mini-cart-all-items").append(response.cart_contents);
+                
+                
             }
         })
     }
