@@ -50,7 +50,15 @@ jQuery(document).ready(function ($) {
             },
             success: function(response){
                 let miniCartCount = document.getElementById('mini-cart-count');
-                let miniCartItemsContainer = document.getElementById('mini-cart-all-items')
+                let miniCartItemsContainer = document.getElementById('mini-cart-all-items');
+                let miniCartSubtotal = document.getElementById('cart-subtotal');
+
+                miniCartCount.innerText = response.cart_items_count;
+                miniCartItemsContainer.innerHTML = '';
+                miniCartSubtotal.innerHTML = '';
+
+                // mini-cart-all-items
+                // cart-subtotal
             }
         })
     }

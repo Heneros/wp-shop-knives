@@ -306,11 +306,12 @@
                                             <div class="total-price-description">
                                                 Total Price
                                             </div>
-                                            <?php
-                                            echo WC()->cart->get_total();
-                                            ?>
+                                            <span id="cart-subtotal">
+                                                <?php
+                                                echo WC()->cart->get_total();
+                                                ?>
+                                            </span>
                                         </div>
-
                                     <?php
                                     } else {
                                     ?>
