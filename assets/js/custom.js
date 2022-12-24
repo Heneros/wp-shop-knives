@@ -39,16 +39,17 @@ jQuery(document).ready(function ($) {
 
 
 
+
     ////////Mini Cart Update
-    function miniCartAjaxUpdate(){
+    function miniCartAjaxUpdate() {
         $.ajax({
             type: "post",
             url: my_ajax_object.ajax_url,
             cache: false,
-            data:{
+            data: {
                 action: 'update_mini_cart_action'
             },
-            success: function(response){
+            success: function (response) {
                 let miniCartCount = document.getElementById('mini-cart-count');
                 let miniCartItemsContainer = document.getElementById('mini-cart-all-items');
                 let miniCartSubtotal = document.getElementById('cart-subtotal');
@@ -57,26 +58,26 @@ jQuery(document).ready(function ($) {
                 miniCartItemsContainer.innerHTML = '';
                 miniCartSubtotal.innerHTML = '';
 
-                
+
                 $("#cart-subtotal").append(response.cart_total);
                 $("#mini-cart-all-items").append(response.cart_contents);
-                
-                
+
+
             }
         })
     }
-
-    function addToCart(url){
+    ////////////Add To cart
+    function addToCart(url) {
         $.ajax({
-            url: my_ajax_object.ajax_url,
-            type: "POST",
-            error: function(response){
+            url: url,
+            type: "post",
+            error: function (response) {
                 console.log(response);
             },
-            success: function(response){
+            success: function (response) {
                 miniCartAjaxUpdate();
-                let miniCartCount = document.getElementById("mini-cart-count")[0];
-                let currentCount = parseInt(miniCartCount.innerHTML) + 1;
+                let miniCartCount = document.getElementById("mini-cart-count");
+                let currentCount = parseInt(miniCartCount.innerText) + 1;
                 miniCartCount.innerText = currentCount;
             }
         });
@@ -84,39 +85,40 @@ jQuery(document).ready(function ($) {
     }
 
 
-$(".add_to_cart_button").on("click", function(e){
-    e.preventDefault();
-
-    let addToCartUrl = this.href;
-    let getIdFromUrl = addToCartUrl.split("=");
-    let productID = parseInt(getIdFromUrl[1]);
-    $.ajax({
-        type: "post",
-        url: my_ajax_object.ajax_url,
-        cache: false,
-        data: {
-            product_id: productID,
-            action: "check_if_product_exist_in_cart"
-        }, 
-        success: function(response){
-            $.ajax({
-                type: "post",
-                url: my_ajax_object.ajax_url,
-                cache: false,
-                data:{
-                    product_id: productID,
-                    action: "check_if_product_in_stock"
-                },
-                success: function(response_s){
-                    if(response_s.stock_status == true){
-                        addToCart(addToCartUrl);
-                    }else{
-                        alert("Error addtocart");
+    $(document).on("click", ".add-to-cart-btn", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        let thisBtn = this;
+        let addToCartUrl = this.href;
+        let getIdFromUrl = addToCartUrl.split("=");
+        let productID = parseInt(getIdFromUrl[1]);
+        $.ajax({
+            type: "post",
+            url: my_ajax_object.ajax_url,
+            cache: false,
+            data: {
+                product_id: productID,
+                action: "check_if_product_exist_in_cart"
+            },
+            success: function (response) {
+                $.ajax({
+                    type: "post",
+                    url: my_ajax_object.ajax_url,
+                    cache: false,
+                    data: {
+                        product_id: productID,
+                        action: "check_if_product_in_stock"
+                    },
+                    success: function (response_s) {
+                        if (response_s.stock_status == true) {
+                            addToCart(addToCartUrl);
+                        } else {
+                            alert("Error addtocart");
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
+        })
     })
-})
 });
 

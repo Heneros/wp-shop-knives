@@ -27,7 +27,7 @@ echo apply_filters(
 		'<a href="%s" data-quantity="%s" class="%s bestsellers-products-item__btn btn-yellow js-open-cart" %s>%s</a>',
 		esc_url( $product->add_to_cart_url() ),
 		esc_attr( isset( $args['quantity'] ) ? $args['quantity'] : 1 ),
-		esc_attr( isset( $args['class'] ) ? $args['class'] : 'button' ),
+		esc_attr('add-to-cart-btn'),
 		isset( $args['attributes'] ) ? wc_implode_html_attributes( $args['attributes'] ) : '',
 		esc_html( $product->add_to_cart_text() )
 	),

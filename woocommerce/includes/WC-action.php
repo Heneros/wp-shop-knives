@@ -128,26 +128,20 @@ function print_wish_icon($prod_id)
         $miniCartItems = '';
         $items = $woocommerce->cart->get_cart();
         $customSubTotal = 0;
-        $is_on_sale = [];
-        if (!empty($items)) {
-            foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-                $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
-                $product_id = $cart_item['product_id'];
-                $image_url = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), '');
-                $prodPrice = 0;
-                $quantity = $cart_item['quantity'];
-                $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
-                if (!empty($_product->get_sale_price())) {
-                    $prodPrice = ceil($_product->get_sale_price());
-                } else {
-                    $prodPrice = ceil($_product->get_regular_price());
-                }
-                $lineSubTotal = $prodPrice * $quantity;
-                $customSubTotal += $lineSubTotal;
-                if ($_product->is_on_sale()) {
-                    array_push($is_on_sale, 1);
-                }
-                $miniCartItems .= '
+        foreach ($items as $item => $values) {
+            $_product = wc_get_product($values['data']->get_id());
+            $product_id = $values['product_id'];
+            $prodPrice = 0;
+            $quantity = $values['quantity'];
+            if (!empty($_product->get_sale_price())) {
+                $prodPrice = $_product->get_sale_price();
+            } else {
+                $prodPrice = $_product->get_price();
+            }
+            $lineSubTotal = $prodPrice * $quantity;
+            $customSubTotal += $lineSubTotal;
+            $thumbnail = apply_filters('woocommerce_cart_thumbnail', $_product->get_image(), $values, $item);
+            $miniCartItems .= '
             <div class="card-item">
             <div class="card-img">
             ' . $thumbnail . '
@@ -155,12 +149,14 @@ function print_wish_icon($prod_id)
             <div class="card-info">
                 <a class="card-info__title" href="' .  get_the_permalink($product_id) . '">
                 ' .
-                    wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key) . '&nbsp;')
-                    . '
+                $_product->get_title()
+                . '
                 </a>
             </div>
             <div class="card-price">
-            ' . apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key) . '
+            ' .
+                $_product->get_price_html()
+                . '
             </div>
             <div class="card-quantity js-quantity">
                 <button class="icon icon-minus js-quantity-minus">-</button>
@@ -170,7 +166,12 @@ function print_wish_icon($prod_id)
         </div>
     <?php
             ';
-            }
+        }
+
+        if (WC()->cart->tax_display_cart == 'excl') {
+            $cart_subtotal = WC()->cart->subtotal_ex_tax;
+        } else {
+            $cart_subtotal = WC()->cart->subtotal;
         }
         $data = [
             'cart_contents' => $miniCartItems,
@@ -183,3 +184,55 @@ function print_wish_icon($prod_id)
 
     add_action("wp_ajax_update_mini_cart_action", "update_mini_cart_action");
     add_action("wp_ajax_nopriv_update_mini_cart_action", "update_mini_cart_action");
+
+
+    add_action("wp_ajax_check_if_product_exist_in_cart", "check_if_product_exist_in_cart");
+    add_action("wp_ajax_nopriv_check_if_product_exist_in_cart", "check_if_product_exist_in_cart");
+
+    function check_if_product_exist_in_cart()
+    {
+        $product_id = (int)$_POST['product_id'];
+        $in_cart = [];
+        if (count(WC()->cart->get_cart()) !== 0) {
+            foreach (WC()->cart->get_cart() as $cart_item) {
+                $product_in_cart = $cart_item['product_id'];
+                if ($product_in_cart === $product_id) {
+                    $in_cart = [
+                        'in_cart' => true
+                    ];
+                    wp_send_json($in_cart);
+                } else {
+                    $in_cart = [
+                        'in_cart' => false
+                    ];
+                    wp_send_json($in_cart);
+                }
+            }
+        } else {
+            $in_cart = [
+                'in_cart' => false
+            ];
+            wp_send_json($in_cart);
+        }
+        wp_die();
+    }
+
+
+    add_action("wp_ajax_check_if_product_in_stock", "check_if_product_in_stock");
+    add_action("wp_ajax_nopriv_check_if_product_in_stock", "check_if_product_in_stock");
+
+
+    function check_if_product_in_stock()
+    {
+        $p_id = (int)$_POST['product_id'];
+        $p = wc_get_product($p_id);
+        if ($p->get_stock_status() == 'instock') {
+            $s_status = true;
+        } else {
+            $s_status = false;
+        }
+        wp_send_json([
+            'stock_status' => $s_status
+        ]);
+        wp_die();
+    }

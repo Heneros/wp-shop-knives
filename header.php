@@ -66,8 +66,8 @@
                         ?>
                         <a href="#!" class="header__cart-link">
                             <div class="header-mobile__icon header__cart-svg header-mobile__cart">
-                                <div class="cart-num">
-                                    <?php echo  $items_count ? $items_count : '15'; ?>
+                                <div class="cart-num" id="">
+                                    <?php echo $items_count ? $items_count : '15'; ?>
                                 </div>
                             </div>
                             <!-- <div class="cart-products">
@@ -232,9 +232,12 @@
                             <a href="<?php echo site_url('/wishlist'); ?>" class="header__favorites">
                             </a>
                             <a href="#!" class="header__cart-link js-open-cart">
-                                <div class=" header__cart-svg">
+                                <div class="header__cart-svg">
                                     <div class="cart-num" id="mini-cart-count">
-                                        <?php echo  $items_count ? $items_count : '0'; ?>
+                                        <?php
+                                        global $woocommerce;
+                                        $cart = WC()->cart;
+                                        echo $woocommerce->cart->cart_contents_count; ?>
                                     </div>
                                 </div>
                             </a>
@@ -252,6 +255,7 @@
                             <div class="cart-products">
                                 <div class="cart-content" id="mini-cart-all-items">
                                     <?php
+                                    global $woocommerce;
                                     $customSubTotal = 0;
                                     $is_on_sale = [];
                                     $items = $woocommerce->cart->get_cart();
