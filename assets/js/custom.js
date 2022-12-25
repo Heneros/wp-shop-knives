@@ -26,8 +26,8 @@ jQuery(document).ready(function ($) {
                 } else if (res.response == 'success' && action == 'remove_from_wishlist') {
                     $(that).removeClass('in_list');
                     if ($('.product-wishlist').length) {
-                        $('.found_recent b').html(res.found_posts);
-                        if (res.found_posts == 0) {
+                        $('.found_recent b').html(res.found_POSTs);
+                        if (res.found_POSTs == 0) {
                             $(".clear_wishlist").hide();
                         }
                         $('.products-wishlist').html(res.products);
@@ -42,8 +42,9 @@ jQuery(document).ready(function ($) {
 
     ////////Mini Cart Update
     function miniCartAjaxUpdate() {
+
         $.ajax({
-            type: "post",
+            method: "POST",
             url: my_ajax_object.ajax_url,
             cache: false,
             data: {
@@ -52,14 +53,14 @@ jQuery(document).ready(function ($) {
             success: function (response) {
                 let miniCartCount = document.getElementById('mini-cart-count');
                 let miniCartItemsContainer = document.getElementById('mini-cart-all-items');
-                let miniCartSubtotal = document.getElementById('cart-subtotal');
+                let miniCartSubtotal = document.getElementById('mini-cart-subtotal');
 
                 miniCartCount.innerText = response.cart_items_count;
                 miniCartItemsContainer.innerHTML = '';
                 miniCartSubtotal.innerHTML = '';
 
 
-                $("#cart-subtotal").append(response.cart_total);
+                $("#mini-cart-subtotal").append(response.cart_total);
                 $("#mini-cart-all-items").append(response.cart_contents);
 
 
@@ -68,9 +69,10 @@ jQuery(document).ready(function ($) {
     }
     ////////////Add To cart
     function addToCart(url) {
+
         $.ajax({
             url: url,
-            type: "post",
+            method: "POST",
             error: function (response) {
                 console.log(response);
             },
@@ -85,16 +87,17 @@ jQuery(document).ready(function ($) {
     }
 
 
-    $(document).on("click", ".add-to-cart-btn", function (e) {
+    $(".add-to-cart-btn").on('click', function (e) {
         e.preventDefault();
+
         var $this = $(this);
         let thisBtn = this;
         let addToCartUrl = this.href;
         let getIdFromUrl = addToCartUrl.split("=");
         let productID = parseInt(getIdFromUrl[1]);
         $.ajax({
-            type: "post",
-            url: my_ajax_object.ajax_url,
+            method: 'POST',
+            url: woocommerce_params.ajax_url,
             cache: false,
             data: {
                 product_id: productID,
@@ -102,8 +105,8 @@ jQuery(document).ready(function ($) {
             },
             success: function (response) {
                 $.ajax({
-                    type: "post",
-                    url: my_ajax_object.ajax_url,
+                    method: 'POST',
+                    url: woocommerce_params.ajax_url,
                     cache: false,
                     data: {
                         product_id: productID,

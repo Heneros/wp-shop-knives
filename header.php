@@ -310,9 +310,9 @@
                                             <div class="total-price-description">
                                                 Total Price
                                             </div>
-                                            <span id="cart-subtotal">
+                                            <span id="cart-subtotal" id="mini-cart-subtotal">
                                                 <?php
-                                                echo WC()->cart->get_total();
+                                                echo wc_price(WC()->cart->subtotal_ex_tax)
                                                 ?>
                                             </span>
                                         </div>

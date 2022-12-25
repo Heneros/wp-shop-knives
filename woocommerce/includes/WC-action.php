@@ -124,7 +124,6 @@ function print_wish_icon($prod_id)
     function update_mini_cart_action()
     {
         global $woocommerce;
-
         $miniCartItems = '';
         $items = $woocommerce->cart->get_cart();
         $customSubTotal = 0;
@@ -140,17 +139,16 @@ function print_wish_icon($prod_id)
             }
             $lineSubTotal = $prodPrice * $quantity;
             $customSubTotal += $lineSubTotal;
-            $thumbnail = apply_filters('woocommerce_cart_thumbnail', $_product->get_image(), $values, $item);
+            $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $item);
             $miniCartItems .= '
+
             <div class="card-item">
-            <div class="card-img">
+              <div class="card-img">
             ' . $thumbnail . '
             </div>
             <div class="card-info">
                 <a class="card-info__title" href="' .  get_the_permalink($product_id) . '">
-                ' .
-                $_product->get_title()
-                . '
+                ' . $_product->get_title() . ' 
                 </a>
             </div>
             <div class="card-price">
@@ -164,7 +162,6 @@ function print_wish_icon($prod_id)
                 <button class="icon icon-plus js-quantity-plus">+</button>
             </div>
         </div>
-    <?php
             ';
         }
 
@@ -218,8 +215,6 @@ function print_wish_icon($prod_id)
     }
 
 
-    add_action("wp_ajax_check_if_product_in_stock", "check_if_product_in_stock");
-    add_action("wp_ajax_nopriv_check_if_product_in_stock", "check_if_product_in_stock");
 
 
     function check_if_product_in_stock()
@@ -236,3 +231,5 @@ function print_wish_icon($prod_id)
         ]);
         wp_die();
     }
+    add_action("wp_ajax_check_if_product_in_stock", "check_if_product_in_stock");
+    add_action("wp_ajax_nopriv_check_if_product_in_stock", "check_if_product_in_stock");
