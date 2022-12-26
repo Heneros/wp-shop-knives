@@ -233,3 +233,18 @@ function print_wish_icon($prod_id)
     }
     add_action("wp_ajax_check_if_product_in_stock", "check_if_product_in_stock");
     add_action("wp_ajax_nopriv_check_if_product_in_stock", "check_if_product_in_stock");
+
+
+
+    function update_product_quantity()
+    {
+        global $woocommerce;
+        global $product;
+        $variation_ids_in_cart = array();
+        $current_variation_prod = 0;
+        $product_id = (int)$_POST['prod_id'];
+        $quantity = (int)$_POST['quantity'];
+        $post_type = get_post_type($product_id);
+        if (!is_object($product)) {
+        }
+    }

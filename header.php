@@ -299,23 +299,14 @@
                                                 </div>
                                                 <div class="card-quantity js-quantity">
                                                     <button class="icon icon-minus js-quantity-minus">-</button>
-                                                    <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="<?php echo $quantity; ?>">
+                                                    <input class="card-input js-quantity-input" type="text"  value="<?php echo $quantity; ?>">
                                                     <button class="icon icon-plus js-quantity-plus">+</button>
                                                 </div>
                                             </div>
                                         <?php
                                         }
                                         ?>
-                                        <div class="cart-price">
-                                            <div class="total-price-description">
-                                                Total Price
-                                            </div>
-                                            <span id="cart-subtotal" id="mini-cart-subtotal">
-                                                <?php
-                                                echo wc_price(WC()->cart->subtotal_ex_tax)
-                                                ?>
-                                            </span>
-                                        </div>
+                                   
                                     <?php
                                     } else {
                                     ?>
@@ -327,6 +318,16 @@
                                     }
                                     ?>
                                 </div>
+                                <div class="cart-price">
+                                            <div class="total-price-description">
+                                                Total Price
+                                            </div>
+                                            <span class="cart-subtotal" id="mini-cart-subtotal">
+                                                <?php
+                                                echo wc_price(WC()->cart->subtotal_ex_tax)
+                                                ?>
+                                            </span>
+                                        </div>
                             </div>
                         </div>
                     </div>

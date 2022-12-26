@@ -55,7 +55,7 @@ jQuery(document).ready(function ($) {
                 let miniCartItemsContainer = document.getElementById('mini-cart-all-items');
                 let miniCartSubtotal = document.getElementById('mini-cart-subtotal');
 
-                miniCartCount.innerText = response.cart_items_count;
+
                 miniCartItemsContainer.innerHTML = '';
                 miniCartSubtotal.innerHTML = '';
 
@@ -63,7 +63,7 @@ jQuery(document).ready(function ($) {
                 $("#mini-cart-subtotal").append(response.cart_total);
                 $("#mini-cart-all-items").append(response.cart_contents);
 
-
+                miniCartCount.innerText = response.cart_items_count;
             }
         })
     }
@@ -122,6 +122,19 @@ jQuery(document).ready(function ($) {
                 })
             }
         })
+    });
+
+
+    $(document.body).on("click", ".card-quantity .js-quantity-plus", function (e) {
+        e.preventDefault();
+
+        let quantity_inp = this.nextElementSibling;
+
+        quantity_inp.value = parseInt(quantity_inp.value) + 1;
+
+        miniCartAjaxUpdate();
     })
+
+
 });
 

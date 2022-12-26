@@ -215,3 +215,8 @@
     height: 12px;
     background-image: url('../img/stars_sm.png');
 }
+
+.cart-price {
+    padding-bottom: 25px;
+    text-align: center;
+}
