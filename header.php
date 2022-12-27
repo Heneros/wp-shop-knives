@@ -297,16 +297,27 @@
                                                     echo $_productMiniCart->get_price_html();
                                                     ?>
                                                 </div>
+
                                                 <div class="card-quantity js-quantity">
                                                     <button class="icon icon-minus js-quantity-minus">-</button>
-                                                    <input class="card-input js-quantity-input" type="text"  value="<?php echo $quantity; ?>">
+                                                    <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity; ?>">
                                                     <button class="icon icon-plus js-quantity-plus">+</button>
                                                 </div>
+                                                <?php
+                                                echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+                                                    '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+                                                    esc_url(wc_get_cart_remove_url($item)),
+                                                    esc_attr__('Remove this item', 'woocommerce'),
+                                                    esc_attr($product_id),
+                                                    esc_attr($item),
+                                                    esc_attr($_productMiniCart->get_sku()),
+                                                ), $item);
+                                                ?>
                                             </div>
                                         <?php
                                         }
                                         ?>
-                                   
+
                                     <?php
                                     } else {
                                     ?>
@@ -319,15 +330,15 @@
                                     ?>
                                 </div>
                                 <div class="cart-price">
-                                            <div class="total-price-description">
-                                                Total Price
-                                            </div>
-                                            <span class="cart-subtotal" id="mini-cart-subtotal">
-                                                <?php
-                                                echo wc_price(WC()->cart->subtotal_ex_tax)
-                                                ?>
-                                            </span>
-                                        </div>
+                                    <div class="total-price-description">
+                                        Total Price
+                                    </div>
+                                    <span class="cart-subtotal" id="mini-cart-subtotal">
+                                        <?php
+                                        echo wc_price(WC()->cart->subtotal_ex_tax)
+                                        ?>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

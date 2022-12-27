@@ -161,6 +161,19 @@ function print_wish_icon($prod_id)
                 <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
                 <button class="icon icon-plus js-quantity-plus">+</button>
             </div>
+            '
+                . apply_filters(
+                    'woocommerce_cart_item_remove_link',
+                    sprintf(
+                        '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+                        esc_url(wc_get_cart_remove_url($item)),
+                        esc_attr__("Remove this item", "woocommerce"),
+                        esc_attr($product_id),
+                        esc_attr($item),
+                        esc_attr($_product->get_sku())
+                    )
+                ) .
+                '
         </div>
             ';
         }
@@ -246,5 +259,29 @@ function print_wish_icon($prod_id)
         $quantity = (int)$_POST['quantity'];
         $post_type = get_post_type($product_id);
         if (!is_object($product)) {
+            $product = wc_get_product($product_id);
+        }
+        foreach (WC()->cart->get_cart() as $cart_item) {
+            if ($cart_item['variation_id'] > 0 && in_array($cart_item['variation_id'], $product->get_children()))
+                $variation_ids_in_cart[] = $cart_item['variation_id'];
+        }
+        if ($post_type != 'product') {
+            if (!empty($variation_ids_in_cart)) {
+                foreach ($variation_ids_in_cart as $item_var_prod_id) {
+                    if ($item_var_prod_id == $product_id) {
+                        $current_variation_prod = $item_var_prod_id;
+                    }
+                }
+                $prod_unique_id = $woocommerce->cart_generate_cart_id($product_id);
+                unset($woocommerce->cart->cart_contents[$prod_unique_id]);
+                $woocommerce->cart->add_to_cart($product_id, $quantity, $current_variation_prod);
+            }
+        } else {
+            $prod_unique_id = $woocommerce->cart->generate_cart_id($product_id);
+            unset($woocommerce->cart->cart_contents[$prod_unique_id]);
+            $woocommerce->cart->add_to_cart($product_id, $quantity);
         }
     }
+
+    add_action("wp_ajax_update_product_quantity", "update_product_quantity");
+    add_action("wp_ajax_nopriv_update_product_quantity", "update_product_quantity");
