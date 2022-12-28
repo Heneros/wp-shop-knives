@@ -149,6 +149,32 @@ jQuery(document).ready(function ($) {
         })
     });
 
+    $(document.body).on("click", ".card-quantity .js-quantity-minus", function (e) {
+        e.preventDefault();
+        let quantity_inp_elem = this.parentElement.previousElementSibling;
+        let quantity_inp = this.nextElementSibling;
+        let prod_id = quantity_inp_elem.getAttribute("data-product_id");
+
+        if (parseInt(quantity_inp.value) != 1) {
+            quantity_inp.value = parseInt(quantity_inp.value) - 1;
+            
+            // $.ajax({
+            //     type: "POST",
+            //     url: my_ajax_object.ajax_url,
+            //     cache: false,
+            //     data: {
+            //         prod_id: prod_id,
+            //         quantity: quantity_inp.value,
+            //         action: "update_product_quantity"
+            //     },
+            //     success: function (response) {
+            //         miniCartAjaxUpdate();
+            //     }
+            // })
+        }
+        // console.log(quantity_inp);
+    })
+
 
 });
 
