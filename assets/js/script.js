@@ -22,31 +22,31 @@ jQuery(function ($) {
   }, 200);
 
   //Increment quantity products
-  $(document.body).on("click", '.js-quantity-plus', function () {
-    var btn = $(this);
-    var block = btn.closest('.js-quantity');
-    var kol = block.find('.js-quantity-input').val(); //If bigger than 100. you need to stop
+  // $(document.body).on("click", '.js-quantity-plus', function () {
+  //   var btn = $(this);
+  //   var block = btn.closest('.js-quantity');
+  //   var kol = block.find('.js-quantity-input').val(); //If bigger than 100. you need to stop
 
-    if (kol <= 1000) {
-      kol++;
-    }
+  //   if (kol <= 1000) {
+  //     kol++;
+  //   }
 
-    block.find('.js-quantity-input').val(kol);
-    block.find('.js-quantity-input').trigger('change');
-  }); //Decreament quantity products
+  //   block.find('.js-quantity-input').val(kol);
+  //   block.find('.js-quantity-input').trigger('change');
+  // }); //Decreament quantity products
 
-  $(document.body).on("click", '.js-quantity-minus', function () {
-    var btn = $(this);
-    var block = btn.closest('.js-quantity');
-    var kol = block.find('.js-quantity-input').val();
+  // $(document.body).on("click", '.js-quantity-minus', function () {
+  //   var btn = $(this);
+  //   var block = btn.closest('.js-quantity');
+  //   var kol = block.find('.js-quantity-input').val();
 
-    if (kol > 1) {
-      kol--;
-    }
+  //   if (kol > 1) {
+  //     kol--;
+  //   }
 
-    block.find('.js-quantity-input').val(kol);
-    block.find('.js-quantity-input').trigger('change');
-  }); ///Tabs
+  //   block.find('.js-quantity-input').val(kol);
+  //   block.find('.js-quantity-input').trigger('change');
+  // }); ///Tabs
 
   $(".js-tabs-head-item").on('click', function () {
     if (!$(this).hasClass('active')) {

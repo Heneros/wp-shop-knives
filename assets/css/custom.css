@@ -102,7 +102,7 @@
 }
 
 .cart-content {
-    margin: unset !important;
+    /* margin: unset !important; */
     padding: 38px 45px 39px 45px;
     width: max-content;
     max-height: max-content;
