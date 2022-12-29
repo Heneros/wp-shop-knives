@@ -220,3 +220,22 @@
     padding-bottom: 25px;
     text-align: center;
 }
+
+body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input {
+    background: rgba(7, 7, 7, .03);
+    padding-left: 43px;
+    border-radius: 3px;
+    width: 100%;
+    outline: 0;
+    height: 41px;
+    transition: .3s ease-out;
+    border: 1px solid #141414;
+}
+
+.header__search-field::after {
+    display: none !important;
+}
+body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:hover, 
+body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus{
+    border: 1px solid #e8aa31;
+}

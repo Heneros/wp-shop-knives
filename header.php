@@ -75,7 +75,8 @@
                         </a>
                         <div class="header-mobile__burger" id="burger-menu">
                             <a href="#!" class="header__logo-white">
-                                <img src="img/sprite.svg#logo-white" alt="cart icon">
+                                <!-- <img src="img/sprite.svg#logo-white" alt="cart icon"> -->
+                                <?php echo _assets_paths('img/sprite.svg#logo-white'); ?>
                             </a>
                             <button type="button" class="hamburger burger-icon">
                                 <span class="hamburger-bar"></span>
@@ -212,7 +213,8 @@
                             <?php the_custom_logo(); ?>
                         </a>
                         <div class="header__search-field">
-                            <input type="text" name="search" class="input header__input" id="search" placeholder="Search...">
+                            <!-- <input type="text" name="search" class="input header__input" id="search" placeholder="Search..."> -->
+                            <?php echo do_shortcode('[fibosearch]'); ?>
                         </div>
                     </div>
                     <div class="header__right-second">
