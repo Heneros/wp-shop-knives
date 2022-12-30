@@ -108,8 +108,14 @@ jQuery(function ($) {
 
 
 
-  const header__logo = document.querySelector('.header__logo');
+  // $(document.body).on("click", function (e) {
+  //   if (!e.target.closest(".dgwt-wcas-search-wrapp")) {
+  //     $(".dgwt-wcas-overlay-mobile").toggle("visible")
+  //   }
+  // });
 
+  // const header__logo = document.querySelector('.header__logo');
+  const header__logo = document.querySelector('.custom-logo-link');
   const body = document.querySelector('body');
   const pageHeader = document.querySelector(".page-header");
   const header__search = document.querySelector('.header__search-field');
