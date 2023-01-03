@@ -4,11 +4,11 @@ jQuery(function ($) {
   AOS.init({});
 
   $(document.body).on("click", ".js-open-cart", function () {
-    $(".cart-popup").toggleClass("active"); // alert(123);
+    $(".cart-products").toggleClass("active"); // alert(123);
   });
   $(document.body).on("click", function (e) {
-    if (!$(e.target).closest(".cart-popup").length && !$(e.target).closest(".js-open-cart").length) {
-      $(".cart-popup").removeClass("active");
+    if (!$(e.target).closest(".cart-products").length && !$(e.target).closest(".js-open-cart").length) {
+      $(".cart-products").removeClass("active");
     }
     e.stopPropagation();
   });

@@ -97,17 +97,8 @@
     position: relative;
 }
 
-.header .cart-products.active {
-    top: -100px;
-    overflow-y: auto;
-    border: 1px solid #e8aa31;
-    display: block;
-    overflow-y: scroll;
-}
-
-
 .cart-products.active {
-
+    overflow-y: scroll;
 }
 
 .cart-content {
@@ -134,15 +125,11 @@
 }
 
 
+
 .header .card-img {
     margin-right: 25px;
 }
 
-.header .cart-products {
-    display: none;
-    top: 0;
-    transition: max-height .3s .1s, width .3s .1s, box-shadow .7s .5s, top .3s .1s;
-}
 
 .card-input {
     background: rgba(210, 210, 210, .15);
@@ -289,31 +276,57 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 
     .header__second-line {
         height: 90px;
-        z-index: 999999;
+        z-index: 999;
         position: relative;
     }
 
-    /* .cart-products-mobile {
-        position: absolute;
-        height: 330px;
-        background: #fff;
-        display: none;
-        z-index: 99999999;
-        margin-top: 120px;
-        overflow: hidden;
-        width: 40%;
-    } */
-
-    /* .cart-products-mobile.active {
-        display: block;
+    .header .cart-products {
+        left: 0;
+        right: 0 !important;
+        margin: 120px auto 0 auto;
     }
 
-    .cart-products-mobile .cart-content {
-        padding: 5px 15px;
-        overflow-y: scroll;
+    .header .cart-products.active {
+        top: -38px;
+    }
+
+}
+
+@media(max-width: 500px) {
+    .header .cart-products {
+        left: unset;
+    }
+
+    .header .cart-products .cart-content {
+        padding: 38px 0px 39px 0px;
+        width: auto;
+    }
+    .header .card-img {
+        margin-left: 89px;
+    }
+/* 
+    .header .card-img {
+        margin-right: unset;
+    }
+
+    .card-quantity {
+        margin-left: 5px;
     } */
 
-    .cart-popup{
-        display: none;
+    .header .cart-products  .card-item {
+        justify-content: center;
     }
+}
+
+.header .cart-products {
+    top: 0;
+    right: 45px;
+    transition: max-height .3s .1s, width .3s .1s, box-shadow .7s .5s, top .3s .1s;
+}
+
+.header .cart-products {
+    top: -12px;
+    /* right: 45px; */
+    overflow-y: auto;
+    border: 1px solid #e8aa31;
 }
