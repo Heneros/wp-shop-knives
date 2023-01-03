@@ -2,16 +2,18 @@
 
 jQuery(function ($) {
   AOS.init({});
+
   $(document.body).on("click", ".js-open-cart", function () {
-    $(".cart-products").toggleClass("active"); // alert(123);
+    $(".cart-popup").toggleClass("active"); // alert(123);
   });
   $(document.body).on("click", function (e) {
-    if (!$(e.target).closest(".cart-products").length && !$(e.target).closest(".js-open-cart").length) {
-      $(".cart-products").removeClass("active");
+    if (!$(e.target).closest(".cart-popup").length && !$(e.target).closest(".js-open-cart").length) {
+      $(".cart-popup").removeClass("active");
     }
-
     e.stopPropagation();
   });
+
+
   setTimeout(function () {
     $('.loader-screen').animate({
       height: '100%',

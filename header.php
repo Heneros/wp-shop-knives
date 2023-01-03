@@ -64,18 +64,16 @@
                         $items_count = WC()->cart->get_cart_contents_count();
 
                         ?>
-                        <a href="#!" class="header__cart-link">
-                            <div class="header-mobile__icon header__cart-svg header-mobile__cart">
+                        <a href="#!" class="header__cart-link ">
+                            <div class="header-mobile__icon header__cart-svg header-mobile__cart js-open-cart">
                                 <div class="cart-num" id="">
-                                    <?php echo $items_count ? $items_count : '15'; ?>
+                                    <?php echo $items_count ? $items_count : '0'; ?>
                                 </div>
                             </div>
-                            <!-- <div class="cart-products">
-                            </div> -->
+
                         </a>
                         <div class="header-mobile__burger" id="burger-menu">
                             <a href="#!" class="header__logo-white">
-                                <!-- <img src="img/sprite.svg#logo-white" alt="cart icon"> -->
                                 <?php echo _assets_paths('img/sprite.svg#logo-white'); ?>
                             </a>
                             <button type="button" class="hamburger burger-icon">
@@ -245,7 +243,6 @@
                             </a>
                             <p class="header__text-cart">
                                 <span class="text-cart-price">
-                                    <!-- 0 $ -->
                                     <?php
                                     echo WC()->cart->get_total();
                                     ?>
@@ -254,8 +251,8 @@
                                     Checkout
                                 </span>
                             </p>
-                            <div class="cart-products">
-                                <div class="cart-content" id="mini-cart-all-items">
+                            <div class="cart-popup">
+                                <div class="cart-popup" id="mini-cart-all-items">
                                     <?php
                                     global $woocommerce;
                                     $customSubTotal = 0;
