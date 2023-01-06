@@ -34,6 +34,7 @@ function custom_loop_product_title()
                 ?>
             </a>
         </h2>
+        
         <div class="bestsellers-products-item__line">
             <?php
             wc_display_product_attributes($product);
@@ -49,7 +50,9 @@ function custom_loop_product_title()
         <?php
     }
         ?>
+  
         </div>
+
     <?php
 }
 

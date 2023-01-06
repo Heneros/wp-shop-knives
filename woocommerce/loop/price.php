@@ -27,7 +27,7 @@ global $product;
 	<span class="bestsellers-products-item__price"><?php echo $price_html; ?></span>
 <?php endif; ?>
 
-<div class="bestsellers-products-item__icons" bis_skin_checked="1">
+<div class="bestsellers-products-item__icons" >
 	<span class="bestsellers-products-item__scales">
 		<img src="<?php echo _assets_paths('img/sprite.svg#scales'); ?>" alt="icon scales">
 	</span>

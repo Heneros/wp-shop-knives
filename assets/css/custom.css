@@ -301,10 +301,12 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
         padding: 38px 0px 39px 0px;
         width: auto;
     }
+
     .header .card-img {
         margin-left: 89px;
     }
-/* 
+
+    /* 
     .header .card-img {
         margin-right: unset;
     }
@@ -313,7 +315,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
         margin-left: 5px;
     } */
 
-    .header .cart-products  .card-item {
+    .header .cart-products .card-item {
         justify-content: center;
     }
 }
@@ -329,4 +331,8 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     /* right: 45px; */
     overflow-y: auto;
     border: 1px solid #e8aa31;
+}
+
+.bestsellers-products-item__btn {
+    text-transform: capitalize;
 }
