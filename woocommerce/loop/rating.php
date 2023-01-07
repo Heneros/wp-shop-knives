@@ -34,7 +34,7 @@ $average      = $product->get_average_rating();
 		<span style="width: <?php echo (($average / 5) * 100) ?>%"></span>
 	</div>
 	<div class="bestsellers-products-item__reviews">
-		Reviews: <?php echo get_comments_number($post->ID); ?>
+		Reviews: <?php echo get_comments_number($product->ID); ?>
 	</div>
 
 </div>
