@@ -336,3 +336,8 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 .bestsellers-products-item__btn {
     text-transform: capitalize;
 }
+
+.bestsellers-products-item__rating{
+    display: flex;
+    justify-content: space-between;
+}

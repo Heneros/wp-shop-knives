@@ -29,10 +29,14 @@ if (!wc_review_ratings_enabled()) {
 $average      = $product->get_average_rating();
 ?>
 
-<div class="bestsellers-products-item__stars">
+<div class="bestsellers-products-item__line">
 	<div class="stars stars_sm">
 		<span style="width: <?php echo (($average / 5) * 100) ?>%"></span>
 	</div>
+	<div class="bestsellers-products-item__reviews">
+		Reviews: <?php echo get_comments_number($post->ID); ?>
+	</div>
+
 </div>
 <?php
 // WordPress.XSS.EscapeOutput.OutputNotEscaped.
