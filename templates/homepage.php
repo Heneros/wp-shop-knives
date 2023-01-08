@@ -24,6 +24,8 @@ get_template_part('template-parts/cards');
 ///Bestsellers products
 get_template_part('template-parts/best-sellers');
 
+///Novelty
+get_template_part('template-parts/novelty');
 ?>
 
 <?php get_footer(); ?>

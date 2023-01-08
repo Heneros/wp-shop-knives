@@ -5,6 +5,26 @@ require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
 
 
+function add_additional_class_on_li($classes, $item, $args)
+{
+    if (isset($args->add_li_class)) {
+        $classes[] = $args->add_li_class;
+    }
+    return $classes;
+}
+add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
+
+function add_menu_link_class($atts, $item, $args)
+{
+    if (property_exists($args, 'link_class')) {
+        $atts['class'] = $args->link_class;
+    }
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'add_menu_link_class', 1, 3);
+
+
+
 
 function _assets_paths($path)
 {
@@ -50,6 +70,8 @@ add_action("after_setup_theme", "shop_setup");
 
 function shop_setup()
 {
+    register_nav_menu("menu-header-first", "Menu Header First");
+
     add_theme_support('title-tag');
 
     add_theme_support('custom-logo');

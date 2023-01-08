@@ -22,25 +22,20 @@
         <div class="main-wrapperOverflow"></div>
         <!-- <header data-aos="fade-down" class="header page-header" id="myHeader"> -->
         <header class="header page-header" id="myHeader">
+
             <div class="header__first-line">
                 <div class="header__container grid container grid-mobile">
+
                     <div class="header__left">
-                        <nav class="nav header__nav">
-                            <ul class="nav__list list-reset">
-                                <li class="nav__item">
-                                    <a href="#!" class="nav__link">About Us</a>
-                                </li>
-                                <li class="nav__item">
-                                    <a href="#!" class="nav__link">Payment and delivery</a>
-                                </li>
-                                <li class="nav__item">
-                                    <a href="#!" class="nav__link">News</a>
-                                </li>
-                                <li class="nav__item">
-                                    <a href="#!" class="nav__link">Contacts</a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <?php
+                        wp_nav_menu([
+                            'theme_location' => 'menu-header-first',
+                            'add_li_class' => 'nav__item',
+                            'link_class' => 'nav__link',
+                            'menu_class' => 'nav__list list-reset',
+                            'container' => 'nav'
+                        ]);
+                        ?>
                     </div>
                     <div class="header__right">
                         <div class="header__profile">
@@ -202,6 +197,7 @@
                     <!---Burger Mobile -->
                 </div>
             </div><!-- First Line -->
+
             <!-- Second Line -->
             <div class="header__second-line">
                 <div class="header__container container grid grid-mobile">

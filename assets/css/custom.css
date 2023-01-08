@@ -185,11 +185,11 @@
 }
 
 .bestsellers-products-item__size {
-    flex: 1;
+    /* flex: 1; */
 }
 
 .bestsellers-products-item__structure {
-    flex: 1;
+    /* flex: 1; */
     text-align: center;
 }
 
