@@ -54,14 +54,18 @@ jQuery(document).ready(function ($) {
                 let miniCartCount = document.getElementById('mini-cart-count');
                 let miniCartItemsContainer = document.getElementById('mini-cart-all-items');
                 let miniCartSubtotal = document.getElementById('mini-cart-subtotal');
+                let checkoutTotalPrice = document.getElementById('checkout-total-price');
 
 
                 miniCartItemsContainer.innerHTML = '';
                 miniCartSubtotal.innerHTML = '';
 
+                checkoutTotalPrice.innerHTML = response.cart_total;
 
                 $("#mini-cart-subtotal").append(response.cart_total);
                 $("#mini-cart-all-items").append(response.cart_contents);
+
+
 
                 miniCartCount.innerText = response.cart_items_count;
             }

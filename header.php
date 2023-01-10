@@ -238,7 +238,7 @@
                                 </div>
                             </a>
                             <p class="header__text-cart">
-                                <span class="text-cart-price">
+                                <span class="text-cart-price" id="checkout-total-price">
                                     <?php
                                     echo WC()->cart->get_total();
                                     ?>
