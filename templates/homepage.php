@@ -26,6 +26,12 @@ get_template_part('template-parts/best-sellers');
 
 ///Novelty
 get_template_part('template-parts/novelty');
+
+///Promotions
+get_template_part('template-parts/promotions');
+
+///Promotions Second
+get_template_part('template-parts/promotions-second');
 ?>
 
 <?php get_footer(); ?>

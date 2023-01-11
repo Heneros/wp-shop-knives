@@ -61,12 +61,12 @@ if (empty($product) || !$product->is_visible()) {
 		<div class="bestsellers-products-item__top">
 			<?php
 			do_action('woocommerce_shop_loop_item_title');
-	
+
 
 			?>
 
 		</div>
-	
+
 		<div class="bestsellers-products-item__bottom">
 			<?php
 
@@ -87,10 +87,10 @@ if (empty($product) || !$product->is_visible()) {
 			 */
 			?>
 		</div>
+		<?php
+		do_action('woocommerce_after_shop_loop_item');
 
+		?>
 	</div>
-	<?php
-	do_action('woocommerce_after_shop_loop_item');
 
-	?>
 </div>
