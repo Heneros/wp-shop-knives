@@ -32,6 +32,15 @@ get_template_part('template-parts/promotions');
 
 ///Promotions Second
 get_template_part('template-parts/promotions-second');
+
+///Novelty Second
+get_template_part('template-parts/novelty-second');
+
+///Promotions Thord
+get_template_part('template-parts/promotions-third');
+
+///Promotions Four
+get_template_part('template-parts/promotions-four');
 ?>
 
 <?php get_footer(); ?>
