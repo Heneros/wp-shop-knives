@@ -31,7 +31,9 @@
                 </div>
                 <div class="bestsellers-products__pagination swiper-pagination"></div>
             </div>
-        <?php endif; ?>
+        <?php endif;
+        wp_reset_postdata();
+        ?>
         <div class="text-above-adaptive">
             <a href="shop.html" class="catalog">
                 Go to catalog

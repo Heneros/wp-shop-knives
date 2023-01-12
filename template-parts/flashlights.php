@@ -1,7 +1,7 @@
 <section class="bestsellers" data-aos="fade-up" data-aos-offset="-500">
     <div class="container">
         <div class="text-above">
-            <h1 class="title">Promotions</h1>
+            <h1 class="title">Flashlights</h1>
             <a href="shop.html" class="catalog">
                 Go to catalog
             </a>
@@ -10,7 +10,7 @@
         $args = [
             'post_type' => 'product',
             'posts_per_page' => 12,
-            'order'=> 'ASC'
+            'order'=> 'DESC'
         ];
         $loop = new WP_Query($args);
         if ($loop->have_posts()) :
@@ -33,7 +33,7 @@
                 <div class="bestsellers-products__pagination swiper-pagination"></div>
             </div>
         <?php endif;
-             wp_reset_postdata();
+                     wp_reset_postdata();
         ?>
         <div class="text-above-adaptive">
             <a href="shop.html" class="catalog">

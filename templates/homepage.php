@@ -41,6 +41,19 @@ get_template_part('template-parts/promotions-third');
 
 ///Promotions Four
 get_template_part('template-parts/promotions-four');
+
+///Blog
+get_template_part('template-parts/blog');
+
+///Banners
+get_template_part('template-parts/banners');
+
+///Flashlight
+get_template_part('template-parts/flashlights');
+
+///Flashlight
+get_template_part('template-parts/footer-description');
+
 ?>
 
 <?php get_footer(); ?>

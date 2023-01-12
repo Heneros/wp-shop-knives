@@ -4,6 +4,12 @@ require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
 
 
+function wpdocs_custom_excerpt_length( $length ) {
+	return 10;
+}
+add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
+
+
 
 function add_additional_class_on_li($classes, $item, $args)
 {
