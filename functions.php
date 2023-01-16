@@ -2,12 +2,41 @@
 
 require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
-
-
-function wpdocs_custom_excerpt_length( $length ) {
-	return 10;
+///Contact form 7.Remove styles.
+add_filter('wpcf7_autop_or_not', '__return_false');
+function rjs_lwp_contactform_css_js()
+{
+    global $post;
+    if (is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'contact-form-7')) {
+        wp_enqueue_script('contact-form-7');
+        wp_enqueue_style('contact-form-7');
+    } else {
+        wp_dequeue_script('contact-form-7');
+        wp_dequeue_style('contact-form-7');
+    }
 }
-add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
+
+add_action('wp_enqueue_scripts', 'rjs_lwp_contactform_css_js');
+
+
+
+
+if (function_exists('acf_add_options_page')) {
+    acf_add_options_page(array(
+        'page_title' => 'Theme General Settings',
+        'menu_title' => 'Theme Settings',
+        'menu_slug' => 'theme-general-settings',
+        'capability' => 'edit_posts',
+        'redirect' => false
+    ));
+}
+
+
+// function wpdocs_custom_excerpt_length($length)
+// {
+//     return 10;
+// }
+// add_filter('excerpt_length', 'wpdocs_custom_excerpt_length', 999);
 
 
 
@@ -77,6 +106,10 @@ add_action("after_setup_theme", "shop_setup");
 function shop_setup()
 {
     register_nav_menu("menu-header-first", "Menu Header First");
+    register_nav_menu("menu-footer-information", "Menu Footer Information");
+    register_nav_menu("menu-footer-support", "Menu Footer Support");
+    register_nav_menu("menu-footer-additional", "Menu Footer Additional");
+    register_nav_menu("menu-footer-personal", "Menu Footer Personal");
 
     add_theme_support('title-tag');
 

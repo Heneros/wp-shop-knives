@@ -177,22 +177,9 @@ jQuery(document).ready(function ($) {
     });
 
 
-    ///mobile cart show
-
-    // $(document.body).on("click", ".js-header-mobile__cart", function () {
-    //     $(".cart-products-mobile").toggleClass("active"); // alert(123);
-    // });
-    // $(document.body).on("click", function (e) {
-    //     if (!$(e.target).closest(".cart-products-mobile").length && !$(e.target).closest(".js-header-mobile__cart").length) {
-    //         $(".cart-products-mobile").removeClass("active");
-    //     }
-    //     e.stopPropagation();
-    // });
+   // $(".btn-footer").html('');
 
 
-
-
-
-
+    $(".btn-footer").prop("value", "");
 });
 

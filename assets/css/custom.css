@@ -361,3 +361,90 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     position: relative;
     bottom: 15px;
 }
+
+.wpcf7-response-output {
+    color: #ffb900;
+}
+
+.mc4wp-checkbox label {
+    /* position: absolute;
+    opacity: 0; */
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    color: rgba(255, 255, 255, .8);
+    font: 500 18px/27px Montserrat, sans-serif;
+}
+
+/* .styled-checkbox:checked+label:before{
+
+} */
+.mc4wp-checkbox [type=checkbox] {
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+
+}
+
+
+.mc4wp-checkbox [type=checkbox]:checked::before {
+    content: "";
+    background: #e8aa31;
+}
+
+.mc4wp-checkbox [type=checkbox]:checked::after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 10px;
+    background: #fff;
+    width: 3px;
+    height: 4px;
+    box-shadow: 2px 0 0 #fff, 4px 0 0 #fff, 4px -2px 0 #fff, 4px -4px 0 #fff, 4px -6px 0 #fff, 4px -8px 0 #fff;
+    transform: rotate(45deg);
+}
+
+.mc4wp-checkbox [type=checkbox]::before {
+    content: "";
+    color: transparent;
+    display: block;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    border: 0;
+    background-color: transparent;
+    background-size: contain;
+}
+
+.footer-item-email p {
+    position: relative;
+    max-width: 369px;
+    display: flex;
+}
+
+.footer .wpcf7-form .footer-item-email:before {
+    content: "";
+    background: url('../img/sprite.svg#arrow-white') no-repeat;
+    position: absolute;
+    right: 2px;
+    top: 18px;
+    z-index: 9999;
+    display: block;
+    transform: rotate(270deg);
+    width: 25px;
+    height: 16px;
+    margin: 0 auto;
+}
+
+.footer-item .input-email{
+    text-transform: unset;
+}
+
+@media (max-width: 1375px) {
+    .footer .wpcf7-form .footer-item-email {
+        margin: 0 auto;
+    }
+}
