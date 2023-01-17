@@ -1,8 +1,9 @@
 <?php
+
 /**
  * The Template for displaying all single products
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/prodact.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -15,48 +16,59 @@
  * @version     1.6.4
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
+get_header();
 
-get_header( 'shop' ); ?>
+$product_id = get_the_ID();
+$product = wc_get_product($product_id);
+?>
+<section class="product-information">
+	<div class="container">
+		<div class="product-information__container">
+			<div class="product-information__breadcrumbs">
+				<a href="<?php echo site_url("/"); ?>" class="breadcrumbs-link breadcrumbs-homepage">Homepage</a>
+				<span class="divide">></span>
+				<a href="<?php echo site_url("/shop"); ?>" class="breadcrumbs-link">Shop</a>
+				<span class="divide">></span>
+				<a href="#!" class="breadcrumbs-link"><?php the_title(); ?></a>
+			</div>
+			<div class="product-information__top">
+				<div class="product-information__left-side">
+					<?php
+					$attachment_ids = $product->get_gallery_image_ids();
+					$image_url = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), '');
+					$productImage  = $image_url[0];
+					?>
+					<div class="product-information__slider">
+						<div class="swiper mySwiperGallery1 mySwiperGallery2">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<img src="<?php echo $productImage ?>" alt="img gallery">
+								</div>
+							</div>
+						</div>
+						<div class="swiper mySwiperGallery1">
+							<div class="swiper-wrapper">
+								<?php
+								foreach ($attachment_ids as $attachment_id) :
+									$img_link = wp_get_attachment_url($attachment_id);
+								?>
+									<div class="swiper-slide">
+										<img src="<?php echo $img_link; ?>" alt="img gallery">
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-information__right-side">
 
-	<?php
-		/**
-		 * woocommerce_before_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
-		 * @hooked woocommerce_breadcrumb - 20
-		 */
-		do_action( 'woocommerce_before_main_content' );
-	?>
-
-		<?php while ( have_posts() ) : ?>
-			<?php the_post(); ?>
-
-			<?php wc_get_template_part( 'content', 'single-product' ); ?>
-
-		<?php endwhile; // end of the loop. ?>
-
-	<?php
-		/**
-		 * woocommerce_after_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-		 */
-		do_action( 'woocommerce_after_main_content' );
-	?>
-
-	<?php
-		/**
-		 * woocommerce_sidebar hook.
-		 *
-		 * @hooked woocommerce_get_sidebar - 10
-		 */
-		do_action( 'woocommerce_sidebar' );
-	?>
-
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 <?php
-get_footer( 'shop' );
-
-/* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */
+get_footer();

@@ -120,6 +120,7 @@ function shop_setup()
     add_theme_support('wc-product-gallery-lightbox');
     add_theme_support('wc-product-gallery-slider');
     add_theme_support('automatic-feed-links');
+    
     add_theme_support(
         'html5',
         array(
