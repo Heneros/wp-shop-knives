@@ -34,7 +34,7 @@ function custom_loop_product_title()
                 ?>
             </a>
         </h2>
-        
+
         <div class="bestsellers-products-item__line">
             <?php
             wc_display_product_attributes($product);
@@ -50,7 +50,7 @@ function custom_loop_product_title()
         <?php
     }
         ?>
-  
+
         </div>
 
     <?php
@@ -74,7 +74,7 @@ function print_wish_icon($prod_id)
             <a href="#!" class="bestsellers-products-item__favorites add_favorite <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
                 <img src="<?php echo _assets_paths('img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite">
             </a>
-    <?php
+        <?php
         }
         return;
     }
@@ -288,3 +288,106 @@ function print_wish_icon($prod_id)
 
     add_action("wp_ajax_update_product_quantity", "update_product_quantity");
     add_action("wp_ajax_nopriv_update_product_quantity", "update_product_quantity");
+
+
+    ///Product Variation
+    function create_product_variation($product_id, $variation_data)
+    {
+        $product = wc_get_product($product_id);
+        $variation_post = array(
+            'post_title' => $product->get_title(),
+            'post_name' => 'product-' . $product_id . '-variation',
+            'post_status' => 'publish',
+            'post_parent' => $product_id,
+            'post_type' => 'product_variation',
+            'guid' => $product->get_permalink()
+        );
+        $variation_id = wp_insert_post($variation_post);
+        $variation = new WC_Product_Variation($variation_id);
+        foreach ($variation_data['attributes'] as $attribute => $term_name) {
+            $taxonomy = 'pa_' . $attribute;
+            if (!taxonomy_exists($taxonomy)) {
+                register_taxonomy(
+                    $taxonomy,
+                    'product_variation',
+                    array(
+                        'hierarchical' => true,
+                        'label' => ucfirst($attribute),
+                        'query_var' => true,
+                        'rewrite' => array('slug' => sanitize_title($attribute))
+                    )
+                );
+            }
+            if (!term_exists($term_name, $taxonomy))
+                wp_insert_term($term_name, $taxonomy);
+            $term_slug = get_term_by('name', $term_name, $taxonomy)->slug;
+            $post_term_names = wp_get_post_terms($product_id, $taxonomy, array('fields' => 'names'));
+            if (!in_array($term_name, $post_term_names))
+                wp_set_post_terms($product_id, $term_name, $taxonomy, true);
+            update_post_meta($variation_id, 'attribute_', $taxonomy, $term_slug);
+        }
+        if (!empty($variation_data['sku']))
+            $variation->set_sku($variation_data['sku']);
+        if (empty($variation_data['sale_price'])) {
+            $variation->set_price($variation_data['regular_price']);
+        } else {
+            $variation->set_price($variation_data['sale_price']);
+            $variation->set_sale_price($variation_data['sale_price']);
+        }
+        $variation->set_regular_price($variation_data['regular_price']);
+        if (!empty($variation_data['stock_qty'])) {
+            $variation->set_stock_quantity($variation_data['stock_qty']);
+            $variation->set_manage_stock(true);
+            $variation->set_stock_status('');
+        } else {
+            $variation->set_manage_stock(false);
+        }
+        $variation->set_weight('');
+        $variation->save('');
+    }
+
+
+    function wc_display_variation_dropdown_on_produc($product)
+    {
+        // echo 'test';
+        global $product;
+        if ($product->is_type('variable')) {
+            $attribute_keys = array_keys($product->get_attributes());
+        ?>
+            <form class="variations_form cart" method="post" enctype="multipart/form-data" data-product_id="<?php echo absint($product->id); ?>" data-product_variations="<?php echo htmlspecialchars(json_encode($product->get_available_variations())) ?>">
+                <?php do_action('woocommerce_before_variations_form'); ?>
+                <?php if (empty($product->get_available_variations()) && false !== $product->get_available_variations()) : ?>
+                    <span></span>
+                <?php else : ?>
+
+                    <?php
+                    foreach ($product->get_variation_attributes() as $attribute_name => $options) :
+                    ?>
+
+                        <?php
+                        $result = preg_replace("(pa_)", '', $attribute_name);
+                        echo '<div class="product-information__right-item-left">' . $result . '</div>';
+                        // echo '<div class="jq-selectbox jqselect filter-style select-item">';
+                        $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urlencode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
+
+                        wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
+                        // echo '</div>';
+
+                        ?>
+
+                    <?php
+                    endforeach;
+                    ?>
+
+                <?php endif; ?>
+            </form>
+    <?php
+        }
+    }
+
+
+
+    add_filter( 'woocommerce_dropdown_variation_attribute_options_args', static function( $args ) {
+        $args['class'] = 'jq-selectbox jqselect filter-style select-item';
+        return $args;
+    }, 2 );

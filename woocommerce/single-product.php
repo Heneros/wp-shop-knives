@@ -42,14 +42,7 @@ $product = wc_get_product($product_id);
 					$productImage  = $image_url[0];
 					?>
 					<div class="product-information__slider">
-						<div class="swiper mySwiperGallery1 mySwiperGallery2">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide">
-									<img src="<?php echo $productImage ?>" alt="img gallery">
-								</div>
-							</div>
-						</div>
-						<div class="swiper mySwiperGallery1">
+						<div class="swiper mySwiperGallery2">
 							<div class="swiper-wrapper">
 								<?php
 								foreach ($attachment_ids as $attachment_id) :
@@ -61,10 +54,159 @@ $product = wc_get_product($product_id);
 								<?php endforeach; ?>
 							</div>
 						</div>
+						<div thumbsSlider="" class="swiper mySwiperGallery1">
+							<div class="swiper-wrapper">
+								<?php
+								foreach ($attachment_ids as $attachment_id) :
+									$img_link = wp_get_attachment_url($attachment_id);
+								?>
+									<div class="swiper-slide">
+										<img src="<?php echo $img_link; ?>" alt="img gallery">
+									</div>
+								<?php endforeach; ?>
+
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="product-information__right-side">
-
+					<div class="product-information__right-wrapper">
+						<div class="product-information__right-top-block">
+							<div class="product-information__right-top">
+								<div class="product-information__title-rating">
+									<h2 class="title-rating">Knife Unique</h2>
+									<div class="product-information__stars">
+										<img src="img/star.svg" alt="icon star">
+										<img src="img/star.svg" alt="icon star">
+										<img src="img/star.svg" alt="icon star">
+										<img src="img/star.svg" alt="icon star">
+										<img src="img/star.svg" alt="icon star">
+									</div>
+								</div>
+								<div class="product-information__icons">
+									<span class="product-information__scales">
+										<img src="img/sprite.svg#scales" alt="icon scales">
+									</span>
+									<a href="#!" class="product-information__favorites">
+										<img src="img/sprite.svg#favorites-yellow" alt="icon favorite">
+									</a>
+								</div>
+							</div>
+							<span class="available">In stock</span>
+						</div>
+						<div class="line"></div>
+						<div class="product-information__right-middle">
+							<ul class="list-reset product-information__right-list">
+								<li class="product-information__right-item-left"> Vendor Code:</li>
+								<li class="product-information__right-item-left"> Trademark:</li>
+								<li class="product-information__right-item-left"> Seria:</li>
+								<li class="product-information__right-item-left"> Bonus points:</li>
+							</ul>
+							<ul class="list-reset product-information__right-list">
+								<li class="product-information__right-item-right"> 54654DFR546</li>
+								<li class="product-information__right-item-right"> DFFFDF(Germany)</li>
+								<li class="product-information__right-item-right"> Knifes seria(5d5d)</li>
+								<li class="product-information__right-item-right"> 323</li>
+							</ul>
+						</div>
+						<div class="line"></div>
+						<div class="product-information__right-dropdowns">
+							<div class="product-information__right-block">
+								<div class="product-information__right-item-left">
+									Steel
+								</div>
+								<?php  wc_display_variation_dropdown_on_produc($product); ?>
+								<!-- <div class="info-dropdown"> 
+									<select class="filter-style select-item">
+										<option value="">Test123</option>
+										<option value="">Newness</option>
+										<option value="">Rating</option>
+									</select>
+								</div> -->
+							</div>
+							<div class="product-information__right-block">
+								<div class="product-information__right-item-left">
+									Handle
+								</div>
+								<div class="info-dropdown">
+									<select class="filter-style select-item">
+										<option value="">Test123</option>
+										<option value="">Newness</option>
+										<option value="">Rating</option>
+									</select>
+								</div>
+							</div>
+							<div class="product-information__right-block">
+								<div class="product-information__right-item-left">
+									Guard and back
+								</div>
+								<div class="info-dropdown">
+									<select class="filter-style select-item">
+										<option value="">Test123</option>
+										<option value="">Newness</option>
+										<option value="">Rating</option>
+									</select>
+								</div>
+							</div>
+							<div class="product-information__right-block">
+								<div class="product-information__right-item-left">
+									Blade processing
+								</div>
+								<div class="info-dropdown">
+									<select class="filter-style select-item">
+										<option value="">Test123</option>
+										<option value="">Newness</option>
+										<option value="">Rating</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="line"></div>
+						<div class="product-information__right-bottom">
+							<div class="product-information__price-info">
+								<span class="price">3 555 $</span>
+								<div class="info-points">
+									<p class="description">
+										+ 15 points per purchase.
+									</p>
+									<div class="tooltip">
+										<span class="tooltip-text">
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rerum numquam
+											deserunt a quidem ipsam.
+										</span>
+										?
+									</div>
+								</div>
+							</div>
+							<div class="product-information__btns">
+								<div class="product-information__quantity js-quantity">
+									<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
+									<input class="product-information__input h5 js-quantity-input" type="text" name="prod_quantity" min="1" value="1">
+									<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
+								</div>
+								<div class="group-btns">
+									<?php
+									echo apply_filters(
+										'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
+										sprintf(
+											'<a href="%s" data-quantity="%s" class="%s btn btn-bottom btn-yellow js-open-cart" %s>%s</a>',
+											esc_url($product->add_to_cart_url()),
+											esc_attr(isset($args['quantity']) ? $args['quantity'] : 1),
+											esc_attr('add-to-cart-btn'),
+											isset($args['attributes']) ? wc_implode_html_attributes($args['attributes']) : '',
+											esc_html($product->add_to_cart_text())
+										),
+										$product,
+										$args
+									);
+									?>
+									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
+										Buy in 1 click
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
