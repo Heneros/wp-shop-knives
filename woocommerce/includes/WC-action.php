@@ -363,18 +363,19 @@ function print_wish_icon($prod_id)
                     <?php
                     foreach ($product->get_variation_attributes() as $attribute_name => $options) :
                     ?>
+                        <div class="product-information__right-block">
+                            <?php
+                            $result = preg_replace("(pa_)", '', $attribute_name);
+                            echo '<div class="product-information__right-item-left">' . $result . '</div>';
 
-                        <?php
-                        $result = preg_replace("(pa_)", '', $attribute_name);
-                        echo '<div class="product-information__right-item-left">' . $result . '</div>';
-                        // echo '<div class="jq-selectbox jqselect filter-style select-item">';
-                        $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urlencode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
+                            echo '<div class="info-dropdown">';
 
-                        wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
-                        // echo '</div>';
+                            $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urlencode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
+                            wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
 
-                        ?>
-
+                            echo '</div>';
+                            ?>
+                        </div>
                     <?php
                     endforeach;
                     ?>
@@ -386,8 +387,49 @@ function print_wish_icon($prod_id)
     }
 
 
-
-    add_filter( 'woocommerce_dropdown_variation_attribute_options_args', static function( $args ) {
-        $args['class'] = 'jq-selectbox jqselect filter-style select-item';
+    ///Add class to variations select.
+    add_filter('woocommerce_dropdown_variation_attribute_options_args', static function ($args) {
+        $args['class'] = 'filter-style select-item';
         return $args;
-    }, 2 );
+    }, 2);
+
+
+
+    ///Display on content-product single attribute
+    add_action('woocommerce_single_product_summary', 'product_attribute_dimensions', 45);
+    function product_attribute_dimensions()
+    {
+        global $product;
+
+        $taxonomies = array('pa_size');
+        foreach ($taxonomies as $taxonomy) {
+            $value = $product->get_attribute($taxonomy);
+            if ($value) {
+                $label = get_taxonomy($taxonomy)->labels->singular_name;
+                echo '<span class="bestsellers-products-item__size">' . $label . ': ' . $value . '</span>';
+            }
+        }
+    }
+
+
+
+
+
+    function get_variable_product_data_by_id()
+    {
+        global $woocommerce;
+        $variation_id = (int)$_POST['var_id'];
+        $variation = wc_get_product($variation_id);
+        $variableProductImage = wp_get_attachment_image_src(get_post_thumbnail_id($variation_id), '');
+        $v_product_data = [
+            'p_image' => $variableProductImage[0],
+            'p_sku' => $variation->get_sku(),
+            'p_price' => $variation->get_price_html()
+        ];
+        wp_send_json($v_product_data);
+        wp_die();
+    }
+
+
+    add_action("wp_ajax_get_variable_product_data_by_id", "get_variable_product_data_by_id");
+    add_action("wp_ajax_nopriv_get_variable_product_data_by_id", "get_variable_product_data_by_id");

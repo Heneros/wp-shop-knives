@@ -24,9 +24,7 @@ if (!$product_attributes) {
 	return;
 }
 if (is_page('11')) {
-	foreach ($product_attributes as $product_attribute_key => $product_attribute) :
-		echo '<span class="bestsellers-products-item__size">' . wp_kses_post($product_attribute['value']) . '</span>';
-	endforeach;
+	product_attribute_dimensions();
 } else {
 ?>
 	<table class="woocommerce-product-attributes shop_attributes">

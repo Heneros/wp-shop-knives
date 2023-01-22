@@ -177,9 +177,35 @@ jQuery(document).ready(function ($) {
     });
 
 
-   // $(".btn-footer").html('');
+    // $(".btn-footer").html('');
 
 
     $(".btn-footer").prop("value", "");
+
+
+
+
+    $('input.variation_id').change(function () {
+        if ('' != $("input.variation_id").val()) {
+            var var_id = $("input.variation_id").val();
+            $.ajax({
+                url: woocommerce_params.ajax_url,
+                method: "POST",
+                data: {
+                    var_id: var_id,
+                    action: 'get_variable_product_data_by_id'
+                },
+                success: function (response) {
+                    console.log(response);
+                    let variable_product_price = document.getElementById('variable_product_price');
+                    variable_product_price.innerHTML = response.p_price;
+                }
+            });
+        }
+    });
+
+
+
+
 });
 

@@ -85,10 +85,11 @@ $product = wc_get_product($product_id);
 								</div>
 								<div class="product-information__icons">
 									<span class="product-information__scales">
-										<img src="img/sprite.svg#scales" alt="icon scales">
+										<img src="<?php echo _assets_paths('img/sprite.svg#scales'); ?>" alt="icon scales">
 									</span>
 									<a href="#!" class="product-information__favorites">
-										<img src="img/sprite.svg#favorites-yellow" alt="icon favorite">
+										<!-- <img src="<?php echo _assets_paths('/img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite"> -->
+										<?php echo print_wish_icon($product->get_id()); ?>
 									</a>
 								</div>
 							</div>
@@ -111,105 +112,63 @@ $product = wc_get_product($product_id);
 						</div>
 						<div class="line"></div>
 						<div class="product-information__right-dropdowns">
-							<div class="product-information__right-block">
-								<div class="product-information__right-item-left">
-									Steel
-								</div>
-								<?php  wc_display_variation_dropdown_on_produc($product); ?>
-								<!-- <div class="info-dropdown"> 
-									<select class="filter-style select-item">
-										<option value="">Test123</option>
-										<option value="">Newness</option>
-										<option value="">Rating</option>
-									</select>
-								</div> -->
-							</div>
-							<div class="product-information__right-block">
-								<div class="product-information__right-item-left">
-									Handle
-								</div>
-								<div class="info-dropdown">
-									<select class="filter-style select-item">
-										<option value="">Test123</option>
-										<option value="">Newness</option>
-										<option value="">Rating</option>
-									</select>
-								</div>
-							</div>
-							<div class="product-information__right-block">
-								<div class="product-information__right-item-left">
-									Guard and back
-								</div>
-								<div class="info-dropdown">
-									<select class="filter-style select-item">
-										<option value="">Test123</option>
-										<option value="">Newness</option>
-										<option value="">Rating</option>
-									</select>
-								</div>
-							</div>
-							<div class="product-information__right-block">
-								<div class="product-information__right-item-left">
-									Blade processing
-								</div>
-								<div class="info-dropdown">
-									<select class="filter-style select-item">
-										<option value="">Test123</option>
-										<option value="">Newness</option>
-										<option value="">Rating</option>
-									</select>
+
+							<?php wc_display_variation_dropdown_on_produc($product); ?>
+						</div>
+					</div>
+					<div class="line"></div>
+					<div class="product-information__right-bottom">
+						<div class="product-information__price-info">
+							<?php if ($product->is_type('variable')) { ?>
+								<span class="price" id="variable_product_price"><?php echo $product->get_price_html(); ?></span>
+							<?php } else { ?>
+								<span class="price"><?php echo $product->get_price_html(); ?></span>
+							<?php	} ?>
+							<div class="info-points">
+								<p class="description">
+									+ 15 points per purchase.
+								</p>
+								<div class="tooltip">
+									<span class="tooltip-text">
+										Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rerum numquam
+										deserunt a quidem ipsam.
+									</span>
+									?
 								</div>
 							</div>
 						</div>
-						<div class="line"></div>
-						<div class="product-information__right-bottom">
-							<div class="product-information__price-info">
-								<span class="price">3 555 $</span>
-								<div class="info-points">
-									<p class="description">
-										+ 15 points per purchase.
-									</p>
-									<div class="tooltip">
-										<span class="tooltip-text">
-											Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rerum numquam
-											deserunt a quidem ipsam.
-										</span>
-										?
-									</div>
-								</div>
+						<div class="product-information__btns">
+							<div class="product-information__quantity js-quantity">
+								<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
+								<input class="product-information__input h5 js-quantity-input" type="text" name="prod_quantity" min="1" value="1">
+								<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
 							</div>
-							<div class="product-information__btns">
-								<div class="product-information__quantity js-quantity">
-									<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
-									<input class="product-information__input h5 js-quantity-input" type="text" name="prod_quantity" min="1" value="1">
-									<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
-								</div>
-								<div class="group-btns">
-									<?php
-									echo apply_filters(
-										'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
-										sprintf(
-											'<a href="%s" data-quantity="%s" class="%s btn btn-bottom btn-yellow js-open-cart" %s>%s</a>',
-											esc_url($product->add_to_cart_url()),
-											esc_attr(isset($args['quantity']) ? $args['quantity'] : 1),
-											esc_attr('add-to-cart-btn'),
-											isset($args['attributes']) ? wc_implode_html_attributes($args['attributes']) : '',
-											esc_html($product->add_to_cart_text())
-										),
-										$product,
-										$args
-									);
-									?>
-									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
-										Buy in 1 click
-									</a>
-								</div>
+							<div class="group-btns">
+								<?php
+								echo apply_filters(
+									'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
+									sprintf(
+										'<a href="%s" data-quantity="%s" class="%s btn btn-bottom btn-yellow js-open-cart" %s>%s</a>',
+										esc_url($product->add_to_cart_url()),
+										esc_attr(isset($args['quantity']) ? $args['quantity'] : 1),
+										esc_attr('add-to-cart-btn'),
+										isset($args['attributes']) ? wc_implode_html_attributes($args['attributes']) : '',
+										esc_html($product->add_to_cart_text())
+									),
+									$product,
+									$args
+								);
+								?>
+								<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
+									Buy in 1 click
+								</a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </section>
 <?php
