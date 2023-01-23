@@ -347,7 +347,7 @@ function print_wish_icon($prod_id)
     }
 
 
-    function wc_display_variation_dropdown_on_produc($product)
+    function wc_display_variation_dropdown_on_product($product)
     {
         // echo 'test';
         global $product;
@@ -367,9 +367,7 @@ function print_wish_icon($prod_id)
                             <?php
                             $result = preg_replace("(pa_)", '', $attribute_name);
                             echo '<div class="product-information__right-item-left">' . $result . '</div>';
-
                             echo '<div class="info-dropdown">';
-
                             $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urlencode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
                             wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
 
@@ -388,10 +386,10 @@ function print_wish_icon($prod_id)
 
 
     ///Add class to variations select.
-    add_filter('woocommerce_dropdown_variation_attribute_options_args', static function ($args) {
-        $args['class'] = 'filter-style select-item';
-        return $args;
-    }, 2);
+    // add_filter('woocommerce_dropdown_variation_attribute_options_args', static function ($args) {
+    //     $args['class'] = 'filter-style select-item';
+    //     return $args;
+    // }, 2);
 
 
 
@@ -427,9 +425,9 @@ function print_wish_icon($prod_id)
             'p_price' => $variation->get_price_html()
         ];
         wp_send_json($v_product_data);
-        wp_die();
+        die;
     }
 
 
-    add_action("wp_ajax_get_variable_product_data_by_id", "get_variable_product_data_by_id");
-    add_action("wp_ajax_nopriv_get_variable_product_data_by_id", "get_variable_product_data_by_id");
+    add_action('wp_ajax_get_variable_product_data_by_id', 'get_variable_product_data_by_id');
+    add_action('wp_ajax_nopriv_get_variable_product_data_by_id', 'get_variable_product_data_by_id');

@@ -111,9 +111,48 @@ $product = wc_get_product($product_id);
 							</ul>
 						</div>
 						<div class="line"></div>
+						<!-- <script>
+							jQuery(document).ready(function($) {
+								$('input.variation_id').change(function() {
+									// let preloader = document.getElementById('preloader');
+									// preloader.style.display = 'flex';
+									if ('' != $('input.variation_id').val()) {
+										var var_id = $('input.variation_id').val();
+										$.ajax({
+											url: my_ajax_object.ajax_url,
+											type: 'post',
+											data: {
+												var_id: var_id,
+												action: 'get_variable_product_data_by_id'
+											},
+											success: function(response) {
+												console.log(response);
+												let big_img_container = document.getElementsByClassName('swiper-slide-active')[0];
+												let big_image_href_img_src = big_img_container.getElementsByTagName('img')[0];
+												let product_sku_m = document.getElementById('p_sku_m');
+												let product_sku_d = document.getElementById('p_sku_d');
+												let variable_product_price = document.getElementById('variable_product_price');
+												if (response.p_image) {
+													big_image_href_img_src.src = response.p_image;
+												}
+												product_sku_m.innerHTML = '<span>מק”ט:</span>  ' + response.p_sku;
+												product_sku_d.innerHTML = '<span>מק”ט:</span>  ' + response.p_sku;
+												variable_product_price.innerHTML = response.p_price;
+												// preloader.style.display = 'none';
+											}
+										});
+									}
+								});
+							});
+						</script> -->
 						<div class="product-information__right-dropdowns">
 
-							<?php wc_display_variation_dropdown_on_produc($product); ?>
+							<?php
+
+						///	wc_display_variation_dropdown_on_product($product);
+
+							do_action('woocommerce_single_product_summary');
+							?>
 						</div>
 					</div>
 					<div class="line"></div>
