@@ -291,98 +291,61 @@ function print_wish_icon($prod_id)
 
 
     ///Product Variation
-    function create_product_variation($product_id, $variation_data)
-    {
-        $product = wc_get_product($product_id);
-        $variation_post = array(
-            'post_title' => $product->get_title(),
-            'post_name' => 'product-' . $product_id . '-variation',
-            'post_status' => 'publish',
-            'post_parent' => $product_id,
-            'post_type' => 'product_variation',
-            'guid' => $product->get_permalink()
-        );
-        $variation_id = wp_insert_post($variation_post);
-        $variation = new WC_Product_Variation($variation_id);
-        foreach ($variation_data['attributes'] as $attribute => $term_name) {
-            $taxonomy = 'pa_' . $attribute;
-            if (!taxonomy_exists($taxonomy)) {
-                register_taxonomy(
-                    $taxonomy,
-                    'product_variation',
-                    array(
-                        'hierarchical' => true,
-                        'label' => ucfirst($attribute),
-                        'query_var' => true,
-                        'rewrite' => array('slug' => sanitize_title($attribute))
-                    )
-                );
-            }
-            if (!term_exists($term_name, $taxonomy))
-                wp_insert_term($term_name, $taxonomy);
-            $term_slug = get_term_by('name', $term_name, $taxonomy)->slug;
-            $post_term_names = wp_get_post_terms($product_id, $taxonomy, array('fields' => 'names'));
-            if (!in_array($term_name, $post_term_names))
-                wp_set_post_terms($product_id, $term_name, $taxonomy, true);
-            update_post_meta($variation_id, 'attribute_', $taxonomy, $term_slug);
-        }
-        if (!empty($variation_data['sku']))
-            $variation->set_sku($variation_data['sku']);
-        if (empty($variation_data['sale_price'])) {
-            $variation->set_price($variation_data['regular_price']);
-        } else {
-            $variation->set_price($variation_data['sale_price']);
-            $variation->set_sale_price($variation_data['sale_price']);
-        }
-        $variation->set_regular_price($variation_data['regular_price']);
-        if (!empty($variation_data['stock_qty'])) {
-            $variation->set_stock_quantity($variation_data['stock_qty']);
-            $variation->set_manage_stock(true);
-            $variation->set_stock_status('');
-        } else {
-            $variation->set_manage_stock(false);
-        }
-        $variation->set_weight('');
-        $variation->save('');
-    }
+    // function create_product_variation($product_id, $variation_data)
+    // {
+    //     $product = wc_get_product($product_id);
+    //     $variation_post = array(
+    //         'post_title' => $product->get_title(),
+    //         'post_name' => 'product-' . $product_id . '-variation',
+    //         'post_status' => 'publish',
+    //         'post_parent' => $product_id,
+    //         'post_type' => 'product_variation',
+    //         'guid' => $product->get_permalink()
+    //     );
+    //     $variation_id = wp_insert_post($variation_post);
+    //     $variation = new WC_Product_Variation($variation_id);
+    //     foreach ($variation_data['attributes'] as $attribute => $term_name) {
+    //         $taxonomy = 'pa_' . $attribute;
+    //         if (!taxonomy_exists($taxonomy)) {
+    //             register_taxonomy(
+    //                 $taxonomy,
+    //                 'product_variation',
+    //                 array(
+    //                     'hierarchical' => true,
+    //                     'label' => ucfirst($attribute),
+    //                     'query_var' => true,
+    //                     'rewrite' => array('slug' => sanitize_title($attribute))
+    //                 )
+    //             );
+    //         }
+    //         if (!term_exists($term_name, $taxonomy))
+    //             wp_insert_term($term_name, $taxonomy);
+    //         $term_slug = get_term_by('name', $term_name, $taxonomy)->slug;
+    //         $post_term_names = wp_get_post_terms($product_id, $taxonomy, array('fields' => 'names'));
+    //         if (!in_array($term_name, $post_term_names))
+    //             wp_set_post_terms($product_id, $term_name, $taxonomy, true);
+    //         update_post_meta($variation_id, 'attribute_', $taxonomy, $term_slug);
+    //     }
+    //     if (!empty($variation_data['sku']))
+    //         $variation->set_sku($variation_data['sku']);
+    //     if (empty($variation_data['sale_price'])) {
+    //         $variation->set_price($variation_data['regular_price']);
+    //     } else {
+    //         $variation->set_price($variation_data['sale_price']);
+    //         $variation->set_sale_price($variation_data['sale_price']);
+    //     }
+    //     $variation->set_regular_price($variation_data['regular_price']);
+    //     if (!empty($variation_data['stock_qty'])) {
+    //         $variation->set_stock_quantity($variation_data['stock_qty']);
+    //         $variation->set_manage_stock(true);
+    //         $variation->set_stock_status('');
+    //     } else {
+    //         $variation->set_manage_stock(false);
+    //     }
+    //     $variation->set_weight('');
+    //     $variation->save('');
+    // }
 
-
-    function wc_display_variation_dropdown_on_product($product)
-    {
-        // echo 'test';
-        global $product;
-        if ($product->is_type('variable')) {
-            $attribute_keys = array_keys($product->get_attributes());
-        ?>
-            <form class="variations_form cart" method="post" enctype="multipart/form-data" data-product_id="<?php echo absint($product->id); ?>" data-product_variations="<?php echo htmlspecialchars(json_encode($product->get_available_variations())) ?>">
-                <?php do_action('woocommerce_before_variations_form'); ?>
-                <?php if (empty($product->get_available_variations()) && false !== $product->get_available_variations()) : ?>
-                    <span></span>
-                <?php else : ?>
-
-                    <?php
-                    foreach ($product->get_variation_attributes() as $attribute_name => $options) :
-                    ?>
-                        <div class="product-information__right-block">
-                            <?php
-                            $result = preg_replace("(pa_)", '', $attribute_name);
-                            echo '<div class="product-information__right-item-left">' . $result . '</div>';
-                            echo '<div class="info-dropdown">';
-                            $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urlencode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
-                            wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
-
-                            echo '</div>';
-                            ?>
-                        </div>
-                    <?php
-                    endforeach;
-                    ?>
-
-                <?php endif; ?>
-            </form>
-    <?php
-        }
-    }
 
 
     ///Add class to variations select.
@@ -431,3 +394,94 @@ function print_wish_icon($prod_id)
 
     add_action('wp_ajax_get_variable_product_data_by_id', 'get_variable_product_data_by_id');
     add_action('wp_ajax_nopriv_get_variable_product_data_by_id', 'get_variable_product_data_by_id');
+
+
+
+
+
+    function woo_display_variation_dropdown_on_shop_page($product)
+    {
+
+        global $product;
+
+        if ($product->is_type('variable')) {
+
+            $attribute_keys = array_keys($product->get_attributes());
+        ?>
+
+            <form class="variations_form cart 55551" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint($product->id); ?>" data-product_variations="<?php echo htmlspecialchars(json_encode($product->get_available_variations())) ?>">
+                <?php do_action('woocommerce_before_variations_form'); ?>
+
+                <?php if (empty($product->get_available_variations()) && false !== $product->get_available_variations()) : ?>
+                    <!--                <p class="stock out-of-stock">--><?php //_e('מוצר זה כרגע אזל במלאי ואינו זמין.', 'woocommerce'); 
+                                                                            ?><!--</p>-->
+                    <span></span>
+                <?php else : ?>
+                    <table class="variations" cellspacing="0">
+                        <tbody>
+                            <?php foreach ($product->get_variation_attributes() as $attribute_name => $options) : ?>
+                                <tr>
+                                    <!--                            <td class="label">-->
+                                    <!--                                <label for="-->
+                                    <?php //echo sanitize_title($attribute_name); 
+                                    ?><!--">-->
+                                    <?php //echo wc_attribute_label($attribute_name); 
+                                    ?><!--</label>-->
+                                    <!--                            </td>-->
+                                    <td class="value">
+                                        <?php
+                                        $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urldecode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
+                                        wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
+                                        echo end($attribute_keys) === $attribute_name ? apply_filters('woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . __('Clear', 'woocommerce') . '</a>') : '';
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+                    <?php do_action('woocommerce_before_add_to_cart_button'); ?>
+
+                    <div class="single_variation_wrap" style="display:none;">
+                        <?php
+                        /**
+                         * woocommerce_before_single_variation Hook.
+                         */
+                        do_action('woocommerce_before_single_variation');
+
+                        /**
+                         * woocommerce_single_variation hook. Used to output the cart button and placeholder for variation data.
+                         * @since 2.4.0
+                         * @hooked woocommerce_single_variation - 10 Empty div for variation data.
+                         * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
+                         */
+                        do_action('woocommerce_single_variation');
+
+                        /**
+                         * woocommerce_after_single_variation Hook.
+                         */
+                        do_action('woocommerce_after_single_variation');
+                        ?>
+                    </div>
+
+                    <?php do_action('woocommerce_after_add_to_cart_button'); ?>
+                <?php endif; ?>
+
+                <?php do_action('woocommerce_after_variations_form'); ?>
+            </form>
+
+    <?php }
+        //    else {
+        //
+        //        echo sprintf('<a rel="nofollow" href="%s" data-quantity="%s" data-product_id="%s" data-product_sku="%s" class="%s">%s</a>',
+        //            esc_url($product->add_to_cart_url()),
+        //            esc_attr(isset($quantity) ? $quantity : 1),
+        //            esc_attr($product->id),
+        //            esc_attr($product->get_sku()),
+        //            esc_attr(isset($class) ? $class : 'button'),
+        //            esc_html($product->add_to_cart_text())
+        //        );
+        //
+        //    }
+
+    }
