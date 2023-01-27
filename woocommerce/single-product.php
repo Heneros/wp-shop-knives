@@ -23,6 +23,10 @@ get_header();
 
 $product_id = get_the_ID();
 $product = wc_get_product($product_id);
+$product_sku = $product->get_sku();
+$image_url = wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), '');
+$product_image = $image_url[0];
+$average_rating      = $product->get_average_rating();
 ?>
 <section class="product-information">
 	<div class="container">
@@ -52,6 +56,9 @@ $product = wc_get_product($product_id);
 										<img src="<?php echo $img_link; ?>" alt="img gallery">
 									</div>
 								<?php endforeach; ?>
+								<div class="swiper-slide">
+									<img src="<?php echo $product_image; ?>" alt="img gallery">
+								</div>
 							</div>
 						</div>
 						<div thumbsSlider="" class="swiper mySwiperGallery1">
@@ -64,7 +71,6 @@ $product = wc_get_product($product_id);
 										<img src="<?php echo $img_link; ?>" alt="img gallery">
 									</div>
 								<?php endforeach; ?>
-
 							</div>
 						</div>
 					</div>
@@ -74,13 +80,14 @@ $product = wc_get_product($product_id);
 						<div class="product-information__right-top-block">
 							<div class="product-information__right-top">
 								<div class="product-information__title-rating">
-									<h2 class="title-rating">Knife Unique</h2>
-									<div class="product-information__stars">
-										<img src="img/star.svg" alt="icon star">
-										<img src="img/star.svg" alt="icon star">
-										<img src="img/star.svg" alt="icon star">
-										<img src="img/star.svg" alt="icon star">
-										<img src="img/star.svg" alt="icon star">
+									<h2 class="title-rating"><?php the_title(); ?></h2>
+									<?php
+
+									?>
+									<div class="bestsellers-products-item__line">
+										<div class="stars stars_sm">
+											<span style="width: <?php echo (($average_rating / 5) * 100) ?>%"></span>
+										</div>
 									</div>
 								</div>
 								<div class="product-information__icons">
@@ -89,7 +96,9 @@ $product = wc_get_product($product_id);
 									</span>
 									<a href="#!" class="product-information__favorites">
 										<!-- <img src="<?php echo _assets_paths('/img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite"> -->
-										<?php echo print_wish_icon($product->get_id()); ?>
+										<?php
+										echo print_wish_icon($product->get_id());
+										?>
 									</a>
 								</div>
 							</div>
@@ -104,7 +113,9 @@ $product = wc_get_product($product_id);
 								<li class="product-information__right-item-left"> Bonus points:</li>
 							</ul>
 							<ul class="list-reset product-information__right-list">
-								<li class="product-information__right-item-right"> 54654DFR546</li>
+
+								<li class="product-information__right-item-right" id="p_sku"> <?php echo $product_sku; ?></li>
+
 								<li class="product-information__right-item-right"> DFFFDF(Germany)</li>
 								<li class="product-information__right-item-right"> Knifes seria(5d5d)</li>
 								<li class="product-information__right-item-right"> 323</li>
@@ -115,7 +126,7 @@ $product = wc_get_product($product_id);
 						<div class="product-information__right-dropdowns">
 							<?php
 							if ($product->is_type('variable')) {
-								woo_display_variation_dropdown_on_shop_page($product);
+								wc_display_variation_product($product);
 								do_action('woocommerce_single_product_summary');
 							?>
 								<style>
@@ -142,10 +153,10 @@ $product = wc_get_product($product_id);
 									.product-information__right-dropdowns .price {
 										display: none !important;
 									}
+
 									.product-information__right-dropdowns .bestsellers-products-item__size {
 										display: none !important;
 									}
-									
 								</style>
 							<?php
 							}
@@ -181,19 +192,25 @@ $product = wc_get_product($product_id);
 							</div>
 							<div class="group-btns">
 								<?php
-								echo apply_filters(
-									'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
-									sprintf(
-										'<a href="%s" data-quantity="%s" class="%s btn btn-bottom btn-yellow js-open-cart" %s>%s</a>',
-										esc_url($product->add_to_cart_url()),
-										esc_attr(isset($args['quantity']) ? $args['quantity'] : 1),
-										esc_attr('add-to-cart-btn'),
-										isset($args['attributes']) ? wc_implode_html_attributes($args['attributes']) : '',
-										esc_html($product->add_to_cart_text())
-									),
-									$product,
-									$args
-								);
+								if ($product->is_type('variable')) { ?>
+
+									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
+										Buy in 1 click
+									</a>
+								<?php }
+								// echo apply_filters(
+								// 	'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
+								// 	sprintf(
+								// 		'<a href="%s" data-quantity="%s" class="%s btn btn-bottom btn-yellow js-open-cart" %s>%s</a>',
+								// 		esc_url($product->add_to_cart_url()),
+								// 		esc_attr(isset($args['quantity']) ? $args['quantity'] : 1),
+								// 		esc_attr('add-to-cart-btn'),
+								// 		isset($args['attributes']) ? wc_implode_html_attributes($args['attributes']) : '',
+								// 		esc_html($product->add_to_cart_text())
+								// 	),
+								// 	$product,
+								// 	$args
+								// );
 								?>
 								<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
 									Buy in 1 click

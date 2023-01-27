@@ -61,8 +61,6 @@ if (empty($product) || !$product->is_visible()) {
 		<div class="bestsellers-products-item__top">
 			<?php
 			do_action('woocommerce_shop_loop_item_title');
-
-
 			?>
 
 		</div>

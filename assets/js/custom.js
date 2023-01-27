@@ -197,7 +197,17 @@ jQuery(document).ready(function ($) {
                 },
                 success: function (response) {
                     console.log(response);
+                    let big_img_container = document.getElementsByClassName('swiper-slide-active')[0];
+                    let big_image_href_img_src = big_img_container.getElementsByTagName('img')[0];
+
+
+                    let product_p_sku = document.getElementById('p_sku');
                     let variable_product_price = document.getElementById('variable_product_price');
+                               if (response.p_image) {
+                            big_image_href_img_src.src = response.p_image;
+                        }
+
+                    product_p_sku.innerHTML = response.p_sku;
                     variable_product_price.innerHTML = response.p_price;
                 }
             });

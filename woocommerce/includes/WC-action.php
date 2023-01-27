@@ -64,8 +64,6 @@ function print_wish_icon($prod_id)
     if (isset($_SESSION['wishlist']) && in_array($prod_id, $_SESSION['wishlist'])) {
         $class = 'in_list';
     }
-    ?>
-        <?php
         if (is_singular('product')) { ?>
             <a href="#!" class="bestsellers-products-item__favorites add_favorite <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
                 <img src="<?php echo _assets_paths('img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite">
@@ -352,7 +350,7 @@ function print_wish_icon($prod_id)
     // add_filter('woocommerce_dropdown_variation_attribute_options_args', static function ($args) {
     //     $args['class'] = 'filter-style select-item';
     //     return $args;
-    // }, 2);
+    // }, );
 
 
 
@@ -378,7 +376,6 @@ function print_wish_icon($prod_id)
 
     function get_variable_product_data_by_id()
     {
-        global $woocommerce;
         $variation_id = (int)$_POST['var_id'];
         $variation = wc_get_product($variation_id);
         $variableProductImage = wp_get_attachment_image_src(get_post_thumbnail_id($variation_id), '');
@@ -399,7 +396,7 @@ function print_wish_icon($prod_id)
 
 
 
-    function woo_display_variation_dropdown_on_shop_page($product)
+    function wc_display_variation_product($product)
     {
 
         global $product;
@@ -409,30 +406,22 @@ function print_wish_icon($prod_id)
             $attribute_keys = array_keys($product->get_attributes());
         ?>
 
-            <form class="variations_form cart 55551" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint($product->id); ?>" data-product_variations="<?php echo htmlspecialchars(json_encode($product->get_available_variations())) ?>">
+            <form class="variations_form cart filter-style select-item" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint($product->id); ?>" data-product_variations="<?php echo htmlspecialchars(json_encode($product->get_available_variations())) ?>">
                 <?php do_action('woocommerce_before_variations_form'); ?>
 
                 <?php if (empty($product->get_available_variations()) && false !== $product->get_available_variations()) : ?>
-                    <!--                <p class="stock out-of-stock">--><?php //_e('מוצר זה כרגע אזל במלאי ואינו זמין.', 'woocommerce'); 
-                                                                            ?><!--</p>-->
+           
                     <span></span>
                 <?php else : ?>
                     <table class="variations" cellspacing="0">
                         <tbody>
                             <?php foreach ($product->get_variation_attributes() as $attribute_name => $options) : ?>
                                 <tr>
-                                    <!--                            <td class="label">-->
-                                    <!--                                <label for="-->
-                                    <?php //echo sanitize_title($attribute_name); 
-                                    ?><!--">-->
-                                    <?php //echo wc_attribute_label($attribute_name); 
-                                    ?><!--</label>-->
-                                    <!--                            </td>-->
                                     <td class="value">
                                         <?php
                                         $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urldecode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
                                         wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
-                                        echo end($attribute_keys) === $attribute_name ? apply_filters('woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . __('Clear', 'woocommerce') . '</a>') : '';
+                                
                                         ?>
                                     </td>
                                 </tr>
