@@ -53,17 +53,17 @@ function custom_loop_product_title()
 
         </div>
 
-    <?php
-}
-
-
-
-function print_wish_icon($prod_id)
-{
-    $class = '';
-    if (isset($_SESSION['wishlist']) && in_array($prod_id, $_SESSION['wishlist'])) {
-        $class = 'in_list';
+        <?php
     }
+
+
+
+    function print_wish_icon($prod_id)
+    {
+        $class = '';
+        if (isset($_SESSION['wishlist']) && in_array($prod_id, $_SESSION['wishlist'])) {
+            $class = 'in_list';
+        }
         if (is_singular('product')) { ?>
             <a href="#!" class="bestsellers-products-item__favorites add_favorite <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
                 <img src="<?php echo _assets_paths('img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite">
@@ -142,7 +142,6 @@ function print_wish_icon($prod_id)
             $customSubTotal += $lineSubTotal;
             $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $item);
             $miniCartItems .= '
-
             <div class="card-item">
               <div class="card-img">
             ' . $thumbnail . '
@@ -288,6 +287,34 @@ function print_wish_icon($prod_id)
     add_action("wp_ajax_nopriv_update_product_quantity", "update_product_quantity");
 
 
+
+
+
+
+
+    function add_to_cart_variable_product()
+    {
+        global $woocommerce;
+        $quantity = (int)$_POST['prod_obj']['quantity'];
+        $variation_id = (int)$_POST['prod_obj']['variation_id'];
+        $product_id = (int)$_POST['prod_obj']['productID'];
+
+        $p = wc_get_product($variation_id);
+        if ($p->get_stock_status() == 'instock') {
+            $s_status = true;
+            $woocommerce->cart->add_to_cart($variation_id, $quantity);
+        } else {
+            $s_status = false;
+        }
+        wp_send_json([
+            'stock_status' => $s_status
+        ]);
+    }
+    add_action("wp_ajax_add_to_cart_variable_product", "add_to_cart_variable_product");
+    add_action("wp_ajax_nopriv_add_to_cart_variable_product", "add_to_cart_variable_product");
+
+
+
     ///Product Variation
     // function create_product_variation($product_id, $variation_data)
     // {
@@ -408,9 +435,7 @@ function print_wish_icon($prod_id)
 
             <form class="variations_form cart filter-style select-item" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint($product->id); ?>" data-product_variations="<?php echo htmlspecialchars(json_encode($product->get_available_variations())) ?>">
                 <?php do_action('woocommerce_before_variations_form'); ?>
-
                 <?php if (empty($product->get_available_variations()) && false !== $product->get_available_variations()) : ?>
-           
                     <span></span>
                 <?php else : ?>
                     <table class="variations" cellspacing="0">
@@ -421,7 +446,6 @@ function print_wish_icon($prod_id)
                                         <?php
                                         $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urldecode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
                                         wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
-                                
                                         ?>
                                     </td>
                                 </tr>
@@ -437,40 +461,15 @@ function print_wish_icon($prod_id)
                          * woocommerce_before_single_variation Hook.
                          */
                         do_action('woocommerce_before_single_variation');
-
-                        /**
-                         * woocommerce_single_variation hook. Used to output the cart button and placeholder for variation data.
-                         * @since 2.4.0
-                         * @hooked woocommerce_single_variation - 10 Empty div for variation data.
-                         * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
-                         */
                         do_action('woocommerce_single_variation');
-
-                        /**
-                         * woocommerce_after_single_variation Hook.
-                         */
                         do_action('woocommerce_after_single_variation');
                         ?>
                     </div>
-
                     <?php do_action('woocommerce_after_add_to_cart_button'); ?>
                 <?php endif; ?>
-
                 <?php do_action('woocommerce_after_variations_form'); ?>
             </form>
-
     <?php }
-        //    else {
-        //
-        //        echo sprintf('<a rel="nofollow" href="%s" data-quantity="%s" data-product_id="%s" data-product_sku="%s" class="%s">%s</a>',
-        //            esc_url($product->add_to_cart_url()),
-        //            esc_attr(isset($quantity) ? $quantity : 1),
-        //            esc_attr($product->id),
-        //            esc_attr($product->get_sku()),
-        //            esc_attr(isset($class) ? $class : 'button'),
-        //            esc_html($product->add_to_cart_text())
-        //        );
-        //
-        //    }
-
     }
+
+

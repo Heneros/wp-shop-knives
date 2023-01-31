@@ -38,7 +38,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
                 <?php foreach ($attributes as $attribute_name => $options) : ?>
                     <tr>
                         <td class="label"><label for="<?php echo esc_attr(sanitize_title($attribute_name)); ?>"><?php echo wc_attribute_label($attribute_name); // WPCS: XSS ok. 
-                                                                                                                    ?></label></td>
+                                                                                                                ?></label></td>
                         <td class="value">
                             <?php
                             wc_dropdown_variation_attribute_options(
@@ -56,7 +56,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
             </tbody>
         </table>
         <?php do_action('woocommerce_after_variations_table'); ?>
-
+        <div class="line"></div>
         <div class="single_variation_wrap" style="display: none;">
             <?php
             /**
@@ -71,12 +71,13 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
              * @hooked woocommerce_single_variation - 10 Empty div for variation data.
              * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
              */
-            do_action('woocommerce_single_variation');
 
             /**
              * Hook: woocommerce_after_single_variation.
              */
             do_action('woocommerce_after_single_variation');
+            do_action('woocommerce_single_variation');
+
             ?>
         </div>
     <?php endif; ?>

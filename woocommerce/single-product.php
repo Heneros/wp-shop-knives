@@ -81,9 +81,6 @@ $average_rating      = $product->get_average_rating();
 							<div class="product-information__right-top">
 								<div class="product-information__title-rating">
 									<h2 class="title-rating"><?php the_title(); ?></h2>
-									<?php
-
-									?>
 									<div class="bestsellers-products-item__line">
 										<div class="stars stars_sm">
 											<span style="width: <?php echo (($average_rating / 5) * 100) ?>%"></span>
@@ -95,7 +92,6 @@ $average_rating      = $product->get_average_rating();
 										<img src="<?php echo _assets_paths('img/sprite.svg#scales'); ?>" alt="icon scales">
 									</span>
 									<a href="#!" class="product-information__favorites">
-										<!-- <img src="<?php echo _assets_paths('/img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite"> -->
 										<?php
 										echo print_wish_icon($product->get_id());
 										?>
@@ -112,11 +108,10 @@ $average_rating      = $product->get_average_rating();
 								<li class="product-information__right-item-left"> Seria:</li>
 								<li class="product-information__right-item-left"> Bonus points:</li>
 							</ul>
+
 							<ul class="list-reset product-information__right-list">
-
 								<li class="product-information__right-item-right" id="p_sku"> <?php echo $product_sku; ?></li>
-
-								<li class="product-information__right-item-right"> DFFFDF(Germany)</li>
+								<li class="product-information__right-item-right" id="trademark"> Test123</li>
 								<li class="product-information__right-item-right"> Knifes seria(5d5d)</li>
 								<li class="product-information__right-item-right"> 323</li>
 							</ul>
@@ -126,11 +121,33 @@ $average_rating      = $product->get_average_rating();
 						<div class="product-information__right-dropdowns">
 							<?php
 							if ($product->is_type('variable')) {
-								wc_display_variation_product($product);
+								// wc_display_variation_product($product);
 								do_action('woocommerce_single_product_summary');
 							?>
 								<style>
-									.variations_form.hidden {
+									.product_meta {
+										display: none !important;
+									}
+
+									.product-information__right-dropdowns .price {
+										display: none !important;
+									}
+
+									.woocommerce-variation-availability {
+										display: none !important;
+									}
+
+									.bestsellers-products-item__size {
+										display: none !important;
+									}
+									.product-information__right-dropdowns .product_title .entry-title{
+										display: none !important;
+									}
+									.single_variation_wrap{
+										
+									}
+
+									/* .variations_form.hidden {
 										display: none;
 									}
 
@@ -156,7 +173,7 @@ $average_rating      = $product->get_average_rating();
 
 									.product-information__right-dropdowns .bestsellers-products-item__size {
 										display: none !important;
-									}
+									} */
 								</style>
 							<?php
 							}
@@ -165,12 +182,8 @@ $average_rating      = $product->get_average_rating();
 					</div>
 					<div class="line"></div>
 					<div class="product-information__right-bottom">
-						<div class="product-information__price-info">
-							<?php if ($product->is_type('variable')) { ?>
-								<span class="price" id="variable_product_price"><?php echo $product->get_price_html(); ?></span>
-							<?php } else { ?>
-								<span class="price"><?php echo $product->get_price_html(); ?></span>
-							<?php	} ?>
+						<div class="product-information__price-info custom_price">
+							<?php wc_get_template('single-product/price.php'); ?>
 							<div class="info-points">
 								<p class="description">
 									+ 15 points per purchase.
@@ -185,33 +198,14 @@ $average_rating      = $product->get_average_rating();
 							</div>
 						</div>
 						<div class="product-information__btns">
-							<div class="product-information__quantity js-quantity">
-								<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
-								<input class="product-information__input h5 js-quantity-input" type="text" name="prod_quantity" min="1" value="1">
-								<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
-							</div>
+						<?php wc_get_template('global/quantity-input.php'); ?>
 							<div class="group-btns">
 								<?php
 								if ($product->is_type('variable')) { ?>
-
-									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
-										Buy in 1 click
+									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow add-to-cart-with-quantity-variable">
+										Add to cart
 									</a>
-								<?php }
-								// echo apply_filters(
-								// 	'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
-								// 	sprintf(
-								// 		'<a href="%s" data-quantity="%s" class="%s btn btn-bottom btn-yellow js-open-cart" %s>%s</a>',
-								// 		esc_url($product->add_to_cart_url()),
-								// 		esc_attr(isset($args['quantity']) ? $args['quantity'] : 1),
-								// 		esc_attr('add-to-cart-btn'),
-								// 		isset($args['attributes']) ? wc_implode_html_attributes($args['attributes']) : '',
-								// 		esc_html($product->add_to_cart_text())
-								// 	),
-								// 	$product,
-								// 	$args
-								// );
-								?>
+								<?php } ?>
 								<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
 									Buy in 1 click
 								</a>

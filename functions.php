@@ -2,6 +2,11 @@
 
 require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
+
+
+
+
+
 ///Contact form 7.Remove styles.
 add_filter('wpcf7_autop_or_not', '__return_false');
 function rjs_lwp_contactform_css_js()
@@ -121,7 +126,7 @@ function shop_setup()
     add_theme_support('wc-product-gallery-lightbox');
     add_theme_support('wc-product-gallery-slider');
     add_theme_support('automatic-feed-links');
-    
+
     add_theme_support(
         'html5',
         array(

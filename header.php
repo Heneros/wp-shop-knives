@@ -559,7 +559,7 @@
                         </div>
                         <span class="cart-subtotal" id="mini-cart-subtotal">
                             <?php
-                            echo wc_price(WC()->cart->subtotal_ex_tax)
+                            echo wc_price(WC()->cart->subtotal_ex_tax);
                             ?>
                         </span>
                     </div>
