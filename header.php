@@ -65,8 +65,8 @@
                                     <?php echo $items_count ? $items_count : '0'; ?>
                                 </div>
                             </div>
-
                         </a>
+
                         <div class="header-mobile__burger" id="burger-menu">
                             <a href="#!" class="header__logo-white">
                                 <?php echo _assets_paths('img/sprite.svg#logo-white'); ?>
@@ -247,6 +247,7 @@
                                     Checkout
                                 </span>
                             </p>
+
 
                         </div>
                     </div>

@@ -473,3 +473,143 @@ function custom_loop_product_title()
     }
 
 
+
+
+
+    //////Vendor Code
+    add_action('woocommerce_variation_options_pricing', 'add_vendor_code_to_variations', 10, 3);
+
+    function add_vendor_code_to_variations($loop, $variation_data, $variation)
+    {
+        woocommerce_wp_text_input(array(
+            'id' => 'vendor_code[' . $loop . ']',
+            'class' => 'short',
+            'label' => __('Custom Field Vendor Code', 'woocommerce'),
+            'value' => get_post_meta($variation->ID, 'vendor_code', true)
+        ));
+    }
+
+
+    add_action('woocommerce_save_product_variation', 'save_vendor_code_variations', 10, 2);
+
+    function save_vendor_code_variations($variation_id, $i)
+    {
+        $vendor_code = $_POST['vendor_code'][$i];
+        if (isset($vendor_code)) update_post_meta($variation_id, 'vendor_code', esc_attr($vendor_code));
+    }
+
+
+    add_filter('woocommerce_available_variation', 'add_vendor_code_variation_data');
+
+    function add_vendor_code_variation_data($variations)
+    {
+        $variations['vendor_code'] = '<div class="woocommerce_vendor_code"><span>' . get_post_meta($variations['variation_id'], 'vendor_code', true) . '</span></div>';
+        return $variations;
+    }
+
+
+    //////Trademark
+    add_action('woocommerce_variation_options_pricing', 'add_trademark_to_variations', 10, 3);
+
+    function add_trademark_to_variations($loop, $variation_data, $variation)
+    {
+        woocommerce_wp_text_input(array(
+            'id' => 'trademark[' . $loop . ']',
+            'class' => 'short',
+            'label' => __('Custom Field Trademark', 'woocommerce'),
+            'value' => get_post_meta($variation->ID, 'trademark', true)
+        ));
+    }
+
+
+    add_action('woocommerce_save_product_variation', 'save_trademark_variations', 10, 2);
+
+    function save_trademark_variations($variation_id, $i)
+    {
+        $trademark = $_POST['trademark'][$i];
+        if (isset($trademark)) update_post_meta($variation_id, 'trademark', esc_attr($trademark));
+    }
+
+
+    add_filter('woocommerce_available_variation', 'add_trademark_variation_data');
+
+    function add_trademark_variation_data($variations)
+    {
+        $variations['trademark'] = '<div class="woocommerce_trademark"><span>' . get_post_meta($variations['variation_id'], 'trademark', true) . '</span></div>';
+        return $variations;
+    }
+
+
+
+
+    //////Seria
+    add_action('woocommerce_variation_options_pricing', 'add_seria_to_variations', 10, 3);
+
+    function add_seria_to_variations($loop, $variation_data, $variation)
+    {
+        woocommerce_wp_text_input(array(
+            'id' => 'seria[' . $loop . ']',
+            'class' => 'short',
+            'label' => __('Custom Field Seria', 'woocommerce'),
+            'value' => get_post_meta($variation->ID, 'seria', true)
+        ));
+    }
+
+
+    add_action('woocommerce_save_product_variation', 'save_seria_variations', 10, 2);
+
+    function save_seria_variations($variation_id, $i)
+    {
+        $seria = $_POST['seria'][$i];
+        if (isset($seria)) update_post_meta($variation_id, 'seria', esc_attr($seria));
+    }
+
+
+    add_filter('woocommerce_available_variation', 'add_seria_variation_data');
+
+    function add_seria_variation_data($variations)
+    {
+        $variations['seria'] = '<div class="woocommerce_seria"><span>' . get_post_meta($variations['variation_id'], 'seria', true) . '</span></div>';
+        return $variations;
+    }
+
+
+    //////Bonus Points
+    add_action('woocommerce_variation_options_pricing', 'add_bonus_points_to_variations', 10, 3);
+
+    function add_bonus_points_to_variations($loop, $variation_data, $variation)
+    {
+        woocommerce_wp_text_input(array(
+            'id' => 'bonus_points[' . $loop . ']',
+            'class' => 'short',
+            'label' => __('Custom Field bonus_points', 'woocommerce'),
+            'value' => get_post_meta($variation->ID, 'bonus_points', true)
+        ));
+    }
+
+
+    add_action('woocommerce_save_product_variation', 'save_bonus_points_variations', 10, 2);
+
+    function save_bonus_points_variations($variation_id, $i)
+    {
+        $bonus_points = $_POST['bonus_points'][$i];
+        if (isset($bonus_points)) update_post_meta($variation_id, 'bonus_points', esc_attr($bonus_points));
+    }
+
+
+    add_filter('woocommerce_available_variation', 'add_bonus_points_variation_data');
+
+    function add_bonus_points_variation_data($variations)
+    {
+        $variations['bonus_points'] = '<div class="woocommerce_bonus_points"><span>' . get_post_meta($variations['variation_id'], 'bonus_points', true) . '</span></div>';
+        return $variations;
+    }
+
+
+
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+    remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);

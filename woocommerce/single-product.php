@@ -101,23 +101,6 @@ $average_rating      = $product->get_average_rating();
 							<span class="available">In stock</span>
 						</div>
 						<div class="line"></div>
-						<div class="product-information__right-middle">
-							<ul class="list-reset product-information__right-list">
-								<li class="product-information__right-item-left"> Vendor Code:</li>
-								<li class="product-information__right-item-left"> Trademark:</li>
-								<li class="product-information__right-item-left"> Seria:</li>
-								<li class="product-information__right-item-left"> Bonus points:</li>
-							</ul>
-
-							<ul class="list-reset product-information__right-list">
-								<li class="product-information__right-item-right" id="p_sku"> <?php echo $product_sku; ?></li>
-								<li class="product-information__right-item-right" id="trademark"> Test123</li>
-								<li class="product-information__right-item-right"> Knifes seria(5d5d)</li>
-								<li class="product-information__right-item-right"> 323</li>
-							</ul>
-						</div>
-						<div class="line"></div>
-
 						<div class="product-information__right-dropdowns">
 							<?php
 							if ($product->is_type('variable')) {
@@ -143,37 +126,7 @@ $average_rating      = $product->get_average_rating();
 									.product-information__right-dropdowns .product_title .entry-title{
 										display: none !important;
 									}
-									.single_variation_wrap{
-										
-									}
-
-									/* .variations_form.hidden {
-										display: none;
-									}
-
-									.single_variation_wrap {
-										display: none !important;
-									}
-
-									.stock {
-										display: none;
-									}
-
-									.product_title.entry-title {
-										display: none !important;
-									}
-
-									.product_meta {
-										display: none !important;
-									}
-
-									.product-information__right-dropdowns .price {
-										display: none !important;
-									}
-
-									.product-information__right-dropdowns .bestsellers-products-item__size {
-										display: none !important;
-									} */
+							
 								</style>
 							<?php
 							}
@@ -198,7 +151,7 @@ $average_rating      = $product->get_average_rating();
 							</div>
 						</div>
 						<div class="product-information__btns">
-						<?php wc_get_template('global/quantity-input.php'); ?>
+		
 							<div class="group-btns">
 								<?php
 								if ($product->is_type('variable')) { ?>
