@@ -201,14 +201,17 @@ jQuery(document).ready(function ($) {
                     let big_image_href_img_src = big_img_container.getElementsByTagName('img')[0];
 
 
-                    let product_p_sku = document.getElementById('p_sku');
+                    // let product_p_sku = document.getElementById('p_sku');
                     let variable_product_price = document.getElementById('variable_product_price');
                     if (response.p_image) {
                         big_image_href_img_src.src = response.p_image;
                     }
 
-                    product_p_sku.innerHTML = response.p_sku;
-                    variable_product_price.innerHTML = response.p_price;
+                    // product_p_sku.innerHTML = response.p_sku;
+                    if (variable_product_price) {
+                        variable_product_price.innerHTML = response.p_price;
+                    }
+
                 }
             });
         }
@@ -235,7 +238,7 @@ jQuery(document).ready(function ($) {
     }
 
     ///Add variable product in cart
-    $(document.body).on("click", ".add-to-cart-with-quantity-variable", function (e) {
+    $(document.body).on("click", ".add-to-cart-with-quantity-variable_product-btn", function (e) {
         e.preventDefault();
 
         let quantity = $("input[name=prod_quantity]").val();
@@ -283,43 +286,26 @@ jQuery(document).ready(function ($) {
 
 
 
-    
-    
-    $('form.variations_form').on('show_variation', function (event, data) {
-        $('.custom_price .product-price').html(data.price_html);
-        if (data.is_in_stock) {
-            $('.product-avail span').html('קיים במלאי');
-        } else {
-            $('.product-avail span').html('אזל מהמלאי');
-        }
-        $('.product-code span').html(data.sku);
 
-        // $('.product-main-info__left .text').html(data.variation_description);
-        // console.log( data.attributes );        // The variation attributes
-        // console.log( data.availability_html ); // The formatted stock status
-        // console.log( data.dimensions );        // The dimensions data
-        // console.log( data.dimensions_html );   // The formatted dimensions
-        // console.log( data.display_price );     // The raw price (float)
-        // console.log( data.display_regular_price ); // The raw regular price (float)
-        // console.log( data.image );             // The image data
-        // console.log( data.image_id );          // The image ID (int)
-        // console.log( data.is_downloadable );   // Is downloadable (boolean)
-        // console.log( data.is_in_stock );       // Is in stock (boolean)
-        // console.log( data.is_purchasable );    // Is purchasable (boolean)
-        // console.log( data.is_sold_individually ); // Is sold individually (yes or no)
-        // console.log( data.is_virtual );        // Is vistual (boolean)
-        // console.log( data.max_qty );           // Max quantity (int)
-        // console.log( data.min_qty );           // Min quantity (int)
-        // console.log( data.price_html );        // Formatted displayed price
-        // console.log( data.sku );               // The variation SKU
-        // console.log( data.variation_description ); // The variation description
-        // console.log( data.variation_is_active );   // Is variation active (boolean)
-        // console.log( data.variation_is_visible );  // Is variation visible (boolean)
-        // console.log( data.weight );            // The weight (float)
-        // console.log( data.weight_html );       // The formatted weight
-    });
+
+    // $('form.variations_form').on('show_variation', function (event, data) {
+    //     $('#variable_product_price').html(data.price_html);
+
+    // });
 
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
 

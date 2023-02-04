@@ -29,7 +29,7 @@ if ($max_value && $min_value === $max_value) {
 	$label = !empty($args['product_name']) ? sprintf(esc_html__('%s quantity', 'woocommerce'), wp_strip_all_tags($args['product_name'])) : esc_html__('Quantity', 'woocommerce');
 ?>
 
-	<div class="quantity product-information__quantity js-quantity">
+	<div class="quantity hidden">
 		<?php do_action('woocommerce_before_quantity_input_field'); ?>
 
 

@@ -103,40 +103,54 @@ $average_rating      = $product->get_average_rating();
 						<div class="line"></div>
 						<div class="product-information__right-dropdowns">
 							<?php
-							if ($product->is_type('variable')) {
-								// wc_display_variation_product($product);
-								do_action('woocommerce_single_product_summary');
+							if ($product->managing_stock() && $product->is_in_stock()) {
+								if ($product->is_type('variable')) {
+									do_action('woocommerce_single_product_summary');
 							?>
-								<style>
-									.product_meta {
-										display: none !important;
-									}
+									<style>
+										.product_meta {
+											display: none !important;
+										}
 
-									.product-information__right-dropdowns .price {
-										display: none !important;
-									}
+										.product-information__right-dropdowns .price {
+											display: none !important;
+										}
 
-									.woocommerce-variation-availability {
-										display: none !important;
-									}
+										.woocommerce-variation-availability {
+											display: none !important;
+										}
 
-									.bestsellers-products-item__size {
-										display: none !important;
-									}
-									.product-information__right-dropdowns .product_title .entry-title{
-										display: none !important;
-									}
-							
-								</style>
-							<?php
-							}
-							?>
+										.bestsellers-products-item__size {
+											display: none !important;
+										}
+
+										.product-information__right-dropdowns .product_title .entry-title {
+											display: none !important;
+										}
+
+										.quantity.hidden {
+											display: none !important;
+										}
+
+										.hidden-btn {
+											display: none !important;
+										}
+									</style>
+									
+								<?php
+								}
+								?>
+
 						</div>
 					</div>
 					<div class="line"></div>
 					<div class="product-information__right-bottom">
 						<div class="product-information__price-info custom_price">
-							<?php wc_get_template('single-product/price.php'); ?>
+							<?php if ($product->is_type('variable')) { ?>
+								<span class="price" id="variable_product_price"><?php echo $product->get_price_html(); ?></span>
+							<?php } else { ?>
+								<span class="price"><?php echo $product->get_price_html(); ?></span>
+							<?php	}	?>
 							<div class="info-points">
 								<p class="description">
 									+ 15 points per purchase.
@@ -146,22 +160,45 @@ $average_rating      = $product->get_average_rating();
 										Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rerum numquam
 										deserunt a quidem ipsam.
 									</span>
-									?
+
 								</div>
 							</div>
 						</div>
 						<div class="product-information__btns">
-		
+							<?php
+								do_action('woocommerce_before_add_to_cart_quantity');
+							?>
+							<div class="product-information__quantity js-quantity">
+								<button class="product-information__minus icon icon-minus calc__minus">-</button>
+								<input class="product-information__input h5 js-quantity-input" type="text" name="prod_quantity" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>">
+								<button class="product-information__plus icon icon-plus calc__plus">+</button>
+							</div>
+							<?php
+								do_action('woocommerce_after_add_to_cart_quantity');
+							?>
+							<input type="hidden" name="add-to-cart" value="<?php echo absint($product->get_id()); ?>" />
+							<input type="hidden" name="product_id" value="<?php echo absint($product->get_id()); ?>" />
+							<input type="hidden" name="action" value="add_to_cart">
 							<div class="group-btns">
 								<?php
 								if ($product->is_type('variable')) { ?>
-									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow add-to-cart-with-quantity-variable">
+									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow  add-to-cart-with-quantity-variable_product-btn  ">
 										Add to cart
 									</a>
-								<?php } ?>
-								<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
-									Buy in 1 click
-								</a>
+									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
+										Buy in 1 click
+									</a>
+									<!-- Simple product -->
+								<?php } else { ?>
+									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow add-to-cart-with-quantity-btn ">
+										Add to cart
+									</a>
+									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
+										Buy in 1 click
+									</a>
+							<?php	}
+							}
+							?>
 							</div>
 						</div>
 					</div>

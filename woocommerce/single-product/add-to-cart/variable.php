@@ -51,26 +51,12 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
             /**
              * Hook: woocommerce_after_single_variation.
              */
-            do_action('woocommerce_after_single_variation');
             do_action('woocommerce_single_variation');
+            do_action('woocommerce_after_single_variation');
+         
 
             ?>
-        </div>
-        <div class="calc">
-            <a href="#" class="calc__plus"></a>
-            <?php
-            woocommerce_quantity_input(
-                array(
-                    'class' => 'calc__input ',
-                    'min_value' => apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product),
-                    'max_value' => apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product),
-                    'input_value' => isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
-                )
-            );
-            ?>
-            <a href="#" class="calc__minus"></a>
-        </div>
-        <table class="variations" cellspacing="0">
+             <table class="variations" cellspacing="0">
             <tbody>
                 <?php foreach ($attributes as $attribute_name => $options) : ?>
                     <tr>
@@ -85,13 +71,16 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
                                     'product'   => $product,
                                 )
                             );
-                            echo end($attribute_keys) === $attribute_name ? wp_kses_post(apply_filters('woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__('Clear', 'woocommerce') . '</a>')) : '';
+                      
                             ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
+
+       
         <?php do_action('woocommerce_after_variations_table'); ?>
 
 
