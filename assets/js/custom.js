@@ -58,7 +58,10 @@ jQuery(document).ready(function ($) {
 
 
                 miniCartItemsContainer.innerHTML = '';
-                miniCartSubtotal.innerHTML = '';
+                if (miniCartSubtotal) {
+                    miniCartSubtotal.innerHTML = '';
+                }
+
 
                 checkoutTotalPrice.innerHTML = response.cart_total;
 

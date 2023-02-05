@@ -468,3 +468,51 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 .product-information__right-top .bestsellers-products-item__favorites {
     background-color: unset;
 }
+
+.variations {
+    position: relative;
+}
+
+.variations .value {
+    background-color: #141414;
+}
+
+
+.value select {
+    background: #fff;
+    height: 40px;
+    padding: 0 45px 0 10px;
+    border: 1px solid rgba(4, 4, 4, .15);
+    border-radius: 3px;
+    box-shadow: unset;
+    font: 500 14px/39px Montserrat, sans-serif;
+    color: rgba(20, 20, 20, .5);
+    text-shadow: unset;
+    cursor: pointer;
+    position: relative;
+    z-index: 999;
+}
+
+.custom-arrow {
+    background-color: #141414;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 34px;
+    height: 100%;
+    border-left: 1px solid #ccc;
+    pointer-events: none;
+    cursor: pointer;
+    z-index: 9999;
+}
+.variations .value::after {
+    content: "^";
+    position: absolute;
+    font-size: 30px;
+    right: 8px;
+    transform: rotateX(125deg);
+    color: #e8aa31;
+    pointer-events: none;
+    cursor: pointer;
+    z-index: 99999;
+}

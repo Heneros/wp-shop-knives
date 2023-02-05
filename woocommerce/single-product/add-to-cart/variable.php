@@ -53,34 +53,38 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
              */
             do_action('woocommerce_single_variation');
             do_action('woocommerce_after_single_variation');
-         
+
 
             ?>
-             <table class="variations" cellspacing="0">
-            <tbody>
-                <?php foreach ($attributes as $attribute_name => $options) : ?>
-                    <tr>
-                        <td class="label"><label for="<?php echo esc_attr(sanitize_title($attribute_name)); ?>"><?php echo wc_attribute_label($attribute_name); // WPCS: XSS ok. 
-                                                                                                                ?></label></td>
-                        <td class="value">
-                            <?php
-                            wc_dropdown_variation_attribute_options(
-                                array(
-                                    'options'   => $options,
-                                    'attribute' => $attribute_name,
-                                    'product'   => $product,
-                                )
-                            );
-                      
-                            ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+            <div class="product-information__right-block">
+                <table class="variations" cellspacing="0">
+                    <tbody>
+                        <?php foreach ($attributes as $attribute_name => $options) : ?>
+                            <tr>
+                                <td class="product-information__right-item-left"><label for="<?php echo esc_attr(sanitize_title($attribute_name)); ?>"><?php echo wc_attribute_label($attribute_name); // WPCS: XSS ok. 
+                                                                                                                                                        ?></label></td>
+
+                                <td class="value">
+                                    <?php
+                                    wc_dropdown_variation_attribute_options(
+                                        array(
+                                            'options'   => $options,
+                                            'attribute' => $attribute_name,
+                                            'product'   => $product,
+                                        )
+                                    );
+                                    ?>
+                                    <span class="custom-arrow"></span>
+                                </td>
+                       
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-       
+
         <?php do_action('woocommerce_after_variations_table'); ?>
 
 
