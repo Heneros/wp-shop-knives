@@ -27,6 +27,9 @@ $product_sku = $product->get_sku();
 $image_url = wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), '');
 $product_image = $image_url[0];
 $average_rating      = $product->get_average_rating();
+
+$product_short_desc = $product->get_short_description();
+$product_description = $product->get_description();
 ?>
 <section class="product-information">
 	<div class="container">
@@ -103,43 +106,41 @@ $average_rating      = $product->get_average_rating();
 						<div class="line"></div>
 						<div class="product-information__right-dropdowns">
 							<?php
-							if ($product->managing_stock() && $product->is_in_stock()) {
-								if ($product->is_type('variable')) {
-									do_action('woocommerce_single_product_summary');
+							if ($product->is_type('variable')) {
+								do_action('woocommerce_single_product_summary');
 							?>
-									<style>
-										.product_meta {
-											display: none !important;
-										}
+								<style>
+									.product_meta {
+										display: none !important;
+									}
 
-										.product-information__right-dropdowns .price {
-											display: none !important;
-										}
+									.product-information__right-dropdowns .price {
+										display: none !important;
+									}
 
-										.woocommerce-variation-availability {
-											display: none !important;
-										}
+									.woocommerce-variation-availability {
+										display: none !important;
+									}
 
-										.bestsellers-products-item__size {
-											display: none !important;
-										}
+									.bestsellers-products-item__size {
+										display: none !important;
+									}
 
-										.product-information__right-dropdowns .product_title .entry-title {
-											display: none !important;
-										}
+									.product-information__right-dropdowns .product_title .entry-title {
+										display: none !important;
+									}
 
-										.quantity.hidden {
-											display: none !important;
-										}
+									.quantity.hidden {
+										display: none !important;
+									}
 
-										.hidden-btn {
-											display: none !important;
-										}
-									</style>
-									
-								<?php
-								}
-								?>
+									.hidden-btn {
+										display: none !important;
+									}
+								</style>
+							<?php
+							}
+							?>
 
 						</div>
 					</div>
@@ -166,15 +167,15 @@ $average_rating      = $product->get_average_rating();
 						</div>
 						<div class="product-information__btns">
 							<?php
-								do_action('woocommerce_before_add_to_cart_quantity');
+							do_action('woocommerce_before_add_to_cart_quantity');
 							?>
 							<div class="product-information__quantity js-quantity">
-								<button class="product-information__minus icon icon-minus calc__minus">-</button>
-								<input class="product-information__input h5 js-quantity-input" type="text" name="prod_quantity" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>">
-								<button class="product-information__plus icon icon-plus calc__plus">+</button>
+								<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
+								<input class="product-information__input h5 js-quantity-input" type="number" name="prod_quantity" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>">
+								<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
 							</div>
 							<?php
-								do_action('woocommerce_after_add_to_cart_quantity');
+							do_action('woocommerce_after_add_to_cart_quantity');
 							?>
 							<input type="hidden" name="add-to-cart" value="<?php echo absint($product->get_id()); ?>" />
 							<input type="hidden" name="product_id" value="<?php echo absint($product->get_id()); ?>" />
@@ -196,9 +197,9 @@ $average_rating      = $product->get_average_rating();
 									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
 										Buy in 1 click
 									</a>
-							<?php	}
-							}
-							?>
+								<?php	}
+
+								?>
 							</div>
 						</div>
 					</div>
@@ -206,6 +207,38 @@ $average_rating      = $product->get_average_rating();
 			</div>
 		</div>
 	</div>
+	</div>
+</section>
+<section class="product-tabs">
+	<div class="container">
+		<div class="product-tabs__container">
+			<ul class="tabs-items js-tabs list-reset">
+				<li><a href="#!" class="item-tab js-tabs-head-item description-tab active ">
+						Description
+					</a></li>
+				<li><a href="#!" class="item-tab js-tabs-head-item characteristic-tab">
+						Characteristic
+					</a></li>
+				<li><a href="#!" class="item-tab js-tabs-head-item feedback-tab ">
+						Feedback
+					</a></li>
+				<li><a href="#!" class="item-tab js-tabs-head-item delivery-tab ">
+						Delivery
+					</a></li>
+			</ul>
+			<div class="line"></div>
+			<div class="js-tabs-body">
+				<div data-tab="description" class="description js-tabs-body-item active">
+					<p>
+						<?php
+
+
+						echo	$product_short_desc;
+						?>
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 <?php
