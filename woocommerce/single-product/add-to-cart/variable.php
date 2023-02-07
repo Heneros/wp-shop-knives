@@ -57,30 +57,28 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 
             ?>
             <div class="product-information__right-block">
-                <table class="variations" cellspacing="0">
-                    <tbody>
-                        <?php foreach ($attributes as $attribute_name => $options) : ?>
-                            <tr>
-                                <td class="product-information__right-item-left"><label for="<?php echo esc_attr(sanitize_title($attribute_name)); ?>"><?php echo wc_attribute_label($attribute_name); // WPCS: XSS ok. 
-                                                                                                                                                        ?></label></td>
+                <div class="variations" cellspacing="0">
 
-                                <td class="value">
-                                    <?php
-                                    wc_dropdown_variation_attribute_options(
-                                        array(
-                                            'options'   => $options,
-                                            'attribute' => $attribute_name,
-                                            'product'   => $product,
-                                        )
-                                    );
-                                    ?>
-                                    <span class="custom-arrow"></span>
-                                </td>
-                       
-                            </tr>
+                    <?php foreach ($attributes as $attribute_name => $options) : ?>
+                  
+                            <div class="product-information__right-item-left "><label for="<?php echo esc_attr(sanitize_title($attribute_name)); ?>"><?php echo wc_attribute_label($attribute_name); // WPCS: XSS ok. 
+                                                                                                                                                        ?></label></div>
+
+                            <div class="value info-dropdown">
+                                <?php
+                                wc_dropdown_variation_attribute_options(
+                                    array(
+                                        'options'   => $options,
+                                        'attribute' => $attribute_name,
+                                        'product'   => $product,
+                                        'class'               => 'filter-style select-item',
+                                    )
+                                );
+                                ?>
+                                <span class="custom-arrow"></span>
                         <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </div>
+                </div>
             </div>
         </div>
 
