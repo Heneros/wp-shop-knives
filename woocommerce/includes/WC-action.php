@@ -617,59 +617,72 @@ function custom_loop_product_title()
 
 
 
+    add_action('woocommerce_product_options_general_product_data', 'woocommerce_product_custom_fields');
+    add_action('woocommerce_process_product_meta', 'woocommerce_product_custom_fields_save');
 
-add_action('woocommerce_product_options_general_product_data', 'woocommerce_product_custom_fields');
-add_action('woocommerce_process_product_meta', 'woocommerce_product_custom_fields_save');
-
-function woocommerce_product_custom_fields()
-{
-    global $woocommerce, $post;
-    echo '<div class="product_custom_field">';
-    woocommerce_wp_text_input(
-        array(
-            'id' => '_custom_product_text_field',
-            'placeholder' => 'Custom Product Text Field',
-            'label' => __('Custom Product Text Field', 'woocommerce'),
-            'desc_tip' => 'true'
-        )
-    );
-    woocommerce_wp_text_input(
-        array(
-            'id' => '_custom_product_number_field',
-            'placeholder' => 'Custom Product Number Field',
-            'label' => __('Custom Product Number Field', 'woocommerce'),
-            'type' => 'number',
-            'custom_attributes' => array(
-                'step' => 'any',
-                'min' => '0'
+    function woocommerce_product_custom_fields()
+    {
+        global $woocommerce, $post;
+        echo '<div class="product_custom_field">';
+        woocommerce_wp_text_input(
+            array(
+                'id' => '_custom_product_vendor_code',
+                'placeholder' => 'Custom Product Vendor',
+                'label' => __('Custom Product  Vendor Code', 'woocommerce'),
+                'desc_tip' => 'true'
             )
-        )
-    );
-    woocommerce_wp_textarea_input(
-        array(
-            'id' => '_custom_product_textarea',
-            'placeholder' => 'Custom Product Textarea',
-            'label' => __('Custom Product Textarea', 'woocommerce')
-        )
-    );
-    echo '</div>';
+        );
+        woocommerce_wp_text_input(
+            array(
+                'id' => '_custom_product_trademark_field',
+                'placeholder' => 'Custom Product Trademark Field',
+                'label' => __('Custom Product Trademark Field', 'woocommerce'),
+            )
+        );
+        woocommerce_wp_text_input(
+            array(
+                'id' => '_custom_product_seria',
+                'placeholder' => 'Custom Product Seria',
+                'label' => __('Custom Product Seria', 'woocommerce'),
+                'type' => 'number',
+                'custom_attributes' => array(
+                    'step' => 'any',
+                    'min' => '0'
+                )
+            )
+        );
+        woocommerce_wp_text_input(
+            array(
+                'id' => '_custom_product_bonus_points',
+                'placeholder' => 'Custom Product Bonus Points',
+                'label' => __('Custom Product Bonus Points', 'woocommerce'),
+                'type' => 'number',
+                'custom_attributes' => array(
+                    'step' => 'any',
+                    'min' => '0'
+                )
+            )
+        );
+        echo '</div>';
+    }
 
-}
 
 
+    function woocommerce_product_custom_fields_save($post_id)
+    {
+        $woocommerce_custom_product_vendor_code = $_POST['_custom_product_vendor_code'];
+        if (!empty($woocommerce_custom_product_vendor_code))
+            update_post_meta($post_id, '_custom_product_vendor_code', esc_attr($woocommerce_custom_product_vendor_code));
 
-function woocommerce_product_custom_fields_save($post_id)
-{
-    $woocommerce_custom_product_text_field = $_POST['_custom_product_text_field'];
-    if (!empty($woocommerce_custom_product_text_field))
-        update_post_meta($post_id, '_custom_product_text_field', esc_attr($woocommerce_custom_product_text_field));
+        $woocommerce_custom_product_trademark_field = $_POST['_custom_product_trademark_field'];
+        if (!empty($woocommerce_custom_product_trademark_field))
+            update_post_meta($post_id, '_custom_product_trademark_field', esc_attr($woocommerce_custom_product_trademark_field));
 
-    $woocommerce_custom_product_number_field = $_POST['_custom_product_number_field'];
-    if (!empty($woocommerce_custom_product_number_field))
-        update_post_meta($post_id, '_custom_product_number_field', esc_attr($woocommerce_custom_product_number_field));
+        $woocommerce_custom_product_textarea = $_POST['_custom_product_seria'];
+        if (!empty($woocommerce_custom_product_textarea))
+            update_post_meta($post_id, '_custom_product_seria', esc_html($woocommerce_custom_product_textarea));
 
-    $woocommerce_custom_procut_textarea = $_POST['_custom_product_textarea'];
-    if (!empty($woocommerce_custom_procut_textarea))
-        update_post_meta($post_id, '_custom_product_textarea', esc_html($woocommerce_custom_procut_textarea));
-
-}
+        $woocommerce_custom_product_bonus_points = $_POST['_custom_product_bonus_points'];
+        if (!empty($woocommerce_custom_product_bonus_points))
+            update_post_meta($post_id, '_custom_product_bonus_points', esc_html($woocommerce_custom_product_bonus_points));
+    }

@@ -287,16 +287,63 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    function addToCartWithQuantity(url) {
+        $.ajax({
+            url: url,
+            method: 'POST',
+            error: function (response) {
+                console.log(response);
+            }, success: function (response) {
+                miniCartAjaxUpdate()
+            }
+        })
+    }
 
 
 
 
-    // $('form.variations_form').on('show_variation', function (event, data) {
-    //     $('#variable_product_price').html(data.price_html);
+    $(".add-to-cart-with-quantity-btn").on('click', function (e) {
+        e.preventDefault();
+        let addToCartUrlWithQuantity = this.href;
+        let quantity = $("input[name=prod_quantity]").val();
+        let getIdFromUrl = addToCartUrlWithQuantity.split('=');
+        let productID = parseInt(getIdFromUrl[1]);
+        if (parseInt(quantity) == 0) {
+            console.log("Not added to cart. Simple product");
+        } else {
+            $.ajax({
+                method: "POST",
+                url: woocommerce_params.ajax_url,
 
-    // });
+                cache: false,
+                data: {
+                    product_id: productID,
+                    action: 'check_if_product_exist_in_cart'
+                },
+                success: function (response_s) {
+                    addToCartUrlWithQuantity += '&quantity=' + quantity;
+                    $.ajax({
+                        method: 'POST',
+                        url: woocommerce_params.ajax_url,
+                        cache: false,
+                        data: {
+                            product_id: productID,
+                            action: 'check_if_product_in_stock'
+                        },
+                        success: function (response_s) {
+                            if (response_s.stock_status == true) {
+                                addToCartWithQuantity(addToCartUrlWithQuantity)
+                            } else {
+                                console.log("Not added to cart with quantity. Simple product.");
+                            }
+                        }
+                    })
+                }
+            })
+        }
+    });
 
-
+ 
 
 });
 

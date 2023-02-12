@@ -149,15 +149,17 @@ $product_description = $product->get_description();
 									</ul>
 									<ul class="list-reset product-information__right-list">
 										<li class="product-information__right-item-right"> <?php 
-										echo get_post_meta($post->ID, '_custom_product_text_field', true);
+										echo get_post_meta($post->ID, '_custom_product_vendor_code', true);
 										?></li>
 										<li class="product-information__right-item-right"> <?php 
-										echo get_post_meta($post->ID, '_custom_product_number_field', true);
+										echo get_post_meta($post->ID, '_custom_product_trademark_field', true);
 										?></li>
 										<li class="product-information__right-item-right"> <?php 
-										echo get_post_meta($post->ID, '_custom_product_textarea', true);
+										echo get_post_meta($post->ID, '_custom_product_seria', true);
 										?></li>
-										<li class="product-information__right-item-right"> 323</li>
+											<li class="product-information__right-item-right"> <?php 
+										echo get_post_meta($post->ID, '_custom_product_bonus_points', true);
+										?></li>
 									</ul>
 								</div>
 							<?php
@@ -211,7 +213,9 @@ $product_description = $product->get_description();
 										Buy in 1 click
 									</a>
 									<!-- Simple product -->
-								<?php } else { ?>
+								<?php }
+								
+								else { ?>
 									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow add-to-cart-with-quantity-btn ">
 										Add to cart
 									</a>
