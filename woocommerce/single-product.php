@@ -139,9 +139,30 @@ $product_description = $product->get_description();
 									}
 								</style>
 							<?php
+							} else { ?>
+								<div class="product-information__right-middle">
+									<ul class="list-reset product-information__right-list">
+										<li class="product-information__right-item-left"> Vendor Code:</li>
+										<li class="product-information__right-item-left"> Trademark:</li>
+										<li class="product-information__right-item-left"> Seria:</li>
+										<li class="product-information__right-item-left"> Bonus points:</li>
+									</ul>
+									<ul class="list-reset product-information__right-list">
+										<li class="product-information__right-item-right"> <?php 
+										echo get_post_meta($post->ID, '_custom_product_text_field', true);
+										?></li>
+										<li class="product-information__right-item-right"> <?php 
+										echo get_post_meta($post->ID, '_custom_product_number_field', true);
+										?></li>
+										<li class="product-information__right-item-right"> <?php 
+										echo get_post_meta($post->ID, '_custom_product_textarea', true);
+										?></li>
+										<li class="product-information__right-item-right"> 323</li>
+									</ul>
+								</div>
+							<?php
 							}
 							?>
-
 						</div>
 					</div>
 					<div class="line"></div>
@@ -231,9 +252,7 @@ $product_description = $product->get_description();
 				<div data-tab="description" class="description js-tabs-body-item active">
 					<p>
 						<?php
-
-
-						echo	$product_short_desc;
+						echo $product_short_desc;
 						?>
 					</p>
 				</div>
