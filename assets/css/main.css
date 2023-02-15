@@ -7243,7 +7243,7 @@ input[type=submit].styler[disabled] {
 
 .product-tabs .characteristic,
 .product-tabs .delivery,
-.product-tabs .description,
+.product-tabs .description-product,
 .product-tabs .feedback {
     display: none
 }
@@ -7529,3 +7529,4 @@ input[type=submit].styler[disabled] {
 }
 
 /*# sourceMappingURL=main.css.map */
+

@@ -5,9 +5,6 @@ require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
 
 
-
-
-
 ///Contact form 7.Remove styles.
 add_filter('wpcf7_autop_or_not', '__return_false');
 function rjs_lwp_contactform_css_js()

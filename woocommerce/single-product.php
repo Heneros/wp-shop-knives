@@ -138,6 +138,8 @@ $product_description = $product->get_description();
 										display: none !important;
 									}
 								</style>
+
+
 							<?php
 							} else { ?>
 								<div class="product-information__right-middle">
@@ -148,18 +150,18 @@ $product_description = $product->get_description();
 										<li class="product-information__right-item-left"> Bonus points:</li>
 									</ul>
 									<ul class="list-reset product-information__right-list">
-										<li class="product-information__right-item-right"> <?php 
-										echo get_post_meta($post->ID, '_custom_product_vendor_code', true);
-										?></li>
-										<li class="product-information__right-item-right"> <?php 
-										echo get_post_meta($post->ID, '_custom_product_trademark_field', true);
-										?></li>
-										<li class="product-information__right-item-right"> <?php 
-										echo get_post_meta($post->ID, '_custom_product_seria', true);
-										?></li>
-											<li class="product-information__right-item-right"> <?php 
-										echo get_post_meta($post->ID, '_custom_product_bonus_points', true);
-										?></li>
+										<li class="product-information__right-item-right"> <?php
+																							echo get_post_meta($post->ID, '_custom_product_vendor_code', true);
+																							?></li>
+										<li class="product-information__right-item-right"> <?php
+																							echo get_post_meta($post->ID, '_custom_product_trademark_field', true);
+																							?></li>
+										<li class="product-information__right-item-right"> <?php
+																							echo get_post_meta($post->ID, '_custom_product_seria', true);
+																							?></li>
+										<li class="product-information__right-item-right"> <?php
+																							echo get_post_meta($post->ID, '_custom_product_bonus_points', true);
+																							?></li>
 									</ul>
 								</div>
 							<?php
@@ -197,14 +199,11 @@ $product_description = $product->get_description();
 								<input class="product-information__input h5 js-quantity-input" type="number" name="prod_quantity" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>">
 								<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
 							</div>
-							<?php
-							do_action('woocommerce_after_add_to_cart_quantity');
-							?>
-							<input type="hidden" name="add-to-cart" value="<?php echo absint($product->get_id()); ?>" />
-							<input type="hidden" name="product_id" value="<?php echo absint($product->get_id()); ?>" />
-							<input type="hidden" name="action" value="add_to_cart">
+
+
 							<div class="group-btns">
 								<?php
+								do_action('woocommerce_after_add_to_cart_quantity');
 								if ($product->is_type('variable')) { ?>
 									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow  add-to-cart-with-quantity-variable_product-btn  ">
 										Add to cart
@@ -213,9 +212,7 @@ $product_description = $product->get_description();
 										Buy in 1 click
 									</a>
 									<!-- Simple product -->
-								<?php }
-								
-								else { ?>
+								<?php } else { ?>
 									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow add-to-cart-with-quantity-btn ">
 										Add to cart
 									</a>
@@ -223,6 +220,7 @@ $product_description = $product->get_description();
 										Buy in 1 click
 									</a>
 								<?php	}
+
 
 								?>
 							</div>
@@ -238,13 +236,13 @@ $product_description = $product->get_description();
 	<div class="container">
 		<div class="product-tabs__container">
 			<ul class="tabs-items js-tabs list-reset">
-				<li><a href="#!" class="item-tab js-tabs-head-item description-tab active ">
+				<li><a href="#!" class="item-tab js-tabs-head-item description-tab  ">
 						Description
-					</a></li>
-				<li><a href="#!" class="item-tab js-tabs-head-item characteristic-tab">
+					</a></li>`
+				<li><a href="#!" class="item-tab js-tabs-head-item characteristic-tab  ">
 						Characteristic
 					</a></li>
-				<li><a href="#!" class="item-tab js-tabs-head-item feedback-tab ">
+				<li><a href="#!" class="item-tab js-tabs-head-item feedback-tab active ">
 						Feedback
 					</a></li>
 				<li><a href="#!" class="item-tab js-tabs-head-item delivery-tab ">
@@ -253,12 +251,91 @@ $product_description = $product->get_description();
 			</ul>
 			<div class="line"></div>
 			<div class="js-tabs-body">
-				<div data-tab="description" class="description js-tabs-body-item active">
+				<div data-tab="description-product" class="description-product js-tabs-body-item">
 					<p>
 						<?php
 						echo $product_short_desc;
 						?>
 					</p>
+				</div>
+				<div data-tab="characteristic" class="characteristic js-tabs-body-item ">
+					<?php
+					if (have_rows('product_characteristics')) :
+						while (have_rows('product_characteristics')) :
+							the_row();
+							$name = get_sub_field('name'); ?>
+							<div class="item">
+								<h3 class="sub-title"><?= $name; ?></h3>
+								<?php
+								if (have_rows('list_characteristic')) :
+									while (have_rows('list_characteristic')) :
+										the_row();
+										$name = get_sub_field('name');
+										$value = get_sub_field('value');
+								?>
+										<div class="container-lists">
+											<ul class="list-reset">
+												<li><?= $name; ?></li>
+											</ul>
+											<ul class="list-reset">
+												<li><?= $value; ?></li>
+											</ul>
+										</div>
+								<?php
+									endwhile;
+								endif; ?>
+							</div>
+					<?php
+						endwhile;
+					endif; ?>
+				</div>
+				<div data-tab="feedback" class="feedback js-tabs-body-item active ">
+					<!-- Not available -->
+					<!-- <p class="description">Current product not available
+                        <button class="btn write-review">Write review</button>
+                    </p> -->
+					<!-- Not available -->
+					<?php
+					echo comments_template();
+					?>
+
+					<!-- 
+					<div class="feedback-item">
+						<div class="feedback-item__head">
+							<img src="img/feedback-user-2.png" class="avatar" alt="feedback-user">
+							<div class="feedback-item__heading">
+								<div class="name-star">
+									<span class="name">
+										Second Title
+									</span>
+									<div class="stars">
+										<img src="img/star.svg" alt="icon star">
+										<img src="img/star.svg" alt="icon star">
+										<img src="img/star.svg" alt="icon star">
+										<img src="img/star.svg" alt="icon star">
+										<img src="img/star.svg" alt="icon star">
+									</div>
+								</div>
+							</div>
+							<div class="date">
+								5.12.2022
+							</div>
+						</div>
+						<div class="item-body">
+							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore maiores doloremque in
+							id, labore harum eligendi temporibus. Ipsum accusantium itaque facere eveniet. Aspernatur
+							magnam provident debitis eveniet nihil inventore, saepe nisi ea amet nostrum pariatur
+							impedit nobis quasi sed beatae harum asperiores possimus quaerat ut excepturi. Unde,
+							voluptatum eius vitae doloremque laudantium rem non quidem?
+							<div class="item-bottom">
+								<span class="reply">Reply</span>
+								<div class="favorites">
+									<img src="img/sprite.svg#favorites-yellow" alt="icon favorite">
+								</div>
+							</div>
+						</div>
+					</div> -->
+
 				</div>
 			</div>
 		</div>

@@ -686,3 +686,11 @@ function custom_loop_product_title()
         if (!empty($woocommerce_custom_product_bonus_points))
             update_post_meta($post_id, '_custom_product_bonus_points', esc_html($woocommerce_custom_product_bonus_points));
     }
+
+
+
+    // function WooCommerce_date_format()
+    // {
+    //     return 'd/m/Y';
+    // }
+    // add_filter('woocommerce_date_format', 'woocommerce_date_format');
