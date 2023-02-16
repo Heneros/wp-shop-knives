@@ -298,44 +298,54 @@ $product_description = $product->get_description();
 					<?php
 					echo comments_template();
 					?>
-
-					<!-- 
-					<div class="feedback-item">
-						<div class="feedback-item__head">
-							<img src="img/feedback-user-2.png" class="avatar" alt="feedback-user">
-							<div class="feedback-item__heading">
-								<div class="name-star">
-									<span class="name">
-										Second Title
-									</span>
-									<div class="stars">
-										<img src="img/star.svg" alt="icon star">
-										<img src="img/star.svg" alt="icon star">
-										<img src="img/star.svg" alt="icon star">
-										<img src="img/star.svg" alt="icon star">
-										<img src="img/star.svg" alt="icon star">
-									</div>
-								</div>
+				</div>
+				<div data-tab="delivery" class="delivery js-tabs-body-item ">
+					<?php
+					if (have_rows('your_country')) :
+					?>
+						<div class="delivery-location">
+							<div class="delivery-title">
+								Your country
 							</div>
-							<div class="date">
-								5.12.2022
-							</div>
-						</div>
-						<div class="item-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore maiores doloremque in
-							id, labore harum eligendi temporibus. Ipsum accusantium itaque facere eveniet. Aspernatur
-							magnam provident debitis eveniet nihil inventore, saepe nisi ea amet nostrum pariatur
-							impedit nobis quasi sed beatae harum asperiores possimus quaerat ut excepturi. Unde,
-							voluptatum eius vitae doloremque laudantium rem non quidem?
-							<div class="item-bottom">
-								<span class="reply">Reply</span>
-								<div class="favorites">
-									<img src="img/sprite.svg#favorites-yellow" alt="icon favorite">
-								</div>
+							<div class="info-dropdown">
+								<select class="filter-style select-item">
+									<?php
+									while (have_rows('your_country')) :
+										the_row();
+										$country = get_sub_field('country'); ?>
+										<option value="<?= $country; ?>"><?= $country; ?></option>
+									<?php
+									endwhile;
+									?>
+								</select>
 							</div>
 						</div>
-					</div> -->
+					<?php
+					endif;
+					if (have_rows('your_city')) :
+					?>
+						<div class="delivery-location">
+							<div class="delivery-title">
+								Your City
+							</div>
+							<div class="info-dropdown">
 
+								<select class="filter-style select-item">
+									<?php
+									while (have_rows('your_city')) :
+										the_row();
+										$city = get_sub_field('city'); ?>
+										<option value="<?= $city; ?>"><?= $city; ?></option>
+									<?php
+									endwhile;
+									?>
+
+								</select>
+							</div>
+						</div>
+					<?php
+					endif;
+					?>
 				</div>
 			</div>
 		</div>

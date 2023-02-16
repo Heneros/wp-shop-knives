@@ -533,18 +533,30 @@ width: 880% !important;
 }
 
 
+.feedback-item  .stars {
+    background-image: url('../img/rating-stars.png');
+    background-repeat: no-repeat;
+    width: 153px;
+    height: 23px;
+}
+
+.feedback-item .stars span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background-image: url('../img/stars-full.png');
+}
 
 
-.woocommerce .star-rating::before {
+
+/* .woocommerce .star-rating::before {
     content: unset !important;
     top: unset !important;
     position: unset !important;
     display: block;
     height: 5px;
     width: 0;
-    /* background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover; */
+
     background-image: url('../img/stars-full.png');
 }
 
@@ -564,4 +576,4 @@ width: 880% !important;
     left: 0;
     color: #e8aa31;
     background-image: url('../img/stars-full.png');
-}
+} */

@@ -20,8 +20,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $comment;
+global $product;
 $rating = intval( get_comment_meta( $comment->comment_ID, 'rating', true ) );
 
-if ( $rating && wc_review_ratings_enabled() ) {
-	echo wc_get_rating_html( $rating ); // WPCS: XSS ok.
-}
+// if ( $rating && wc_review_ratings_enabled() ) {
+// 	echo wc_get_rating_html( $rating ); // WPCS: XSS ok.
+// }
+$average_rating      = $product->get_average_rating();
+
+?>
+
+
+<div class="stars stars_sm">
+<span style="width: <?php echo (($rating / 5) * 100) ?>%"></span>
+</div>
