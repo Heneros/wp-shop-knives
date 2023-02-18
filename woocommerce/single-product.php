@@ -329,7 +329,6 @@ $product_description = $product->get_description();
 								Your City
 							</div>
 							<div class="info-dropdown">
-
 								<select class="filter-style select-item">
 									<?php
 									while (have_rows('your_city')) :
@@ -339,7 +338,6 @@ $product_description = $product->get_description();
 									<?php
 									endwhile;
 									?>
-
 								</select>
 							</div>
 						</div>
@@ -351,5 +349,33 @@ $product_description = $product->get_description();
 		</div>
 	</div>
 </section>
+<!-- Related Products -->
+<section class="similiar-products">
+	<div class="container">
+		<div class="text-above">
+			<h1 class="title">Similiar Products</h1>
+		</div>
+		<div class="bestsellers-products bestsellers-products-swiper swiper">
+			<div class="swiper-wrapper">
+				<?php
+				$args = array(
+					'posts_per_page' => 7,
+					'orderby' => 'rand'
+				);
+				woocommerce_related_products(apply_filters('woocommerce_output_related_products_args', $args));
+				?>
+
+			</div>
+		</div>
+		<div class="bestsellers-products__pagination swiper-pagination"></div>
+	</div>
+	<div class="text-above-adaptive">
+		<a href="<?php echo site_url('/shop'); ?>" class="catalog">
+			Go to catalog
+		</a>
+	</div>
+	</div>
+</section>
+
 <?php
 get_footer();
