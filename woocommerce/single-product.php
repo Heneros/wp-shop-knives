@@ -364,7 +364,6 @@ $product_description = $product->get_description();
 				);
 				woocommerce_related_products(apply_filters('woocommerce_output_related_products_args', $args));
 				?>
-
 			</div>
 		</div>
 		<div class="bestsellers-products__pagination swiper-pagination"></div>
@@ -376,6 +375,41 @@ $product_description = $product->get_description();
 	</div>
 	</div>
 </section>
-
+<section class="products-recommedation">
+	<div class="container">
+		<div class="text-above">
+			<h1 class="title">Recommedation </h1>
+		</div>
+		<?php
+		wp_reset_postdata();
+		$recommended_products = get_field('recommended_products');
+		$args = [
+			'post__in' => $recommended_products,
+			'post_type' => 'product'
+		];
+		$query = new WP_Query($args);
+		if ($query->have_posts()) :
+		?>
+			<div class="bestsellers-products bestsellers-products-swiper swiper">
+				<div class="swiper-wrapper">
+					<?php while ($query->have_posts()) :
+						$query->the_post();
+					?>
+						<div class="swiper-slide">
+							<?php wc_get_template_part('content', 'product'); ?>
+						</div>
+					<?php endwhile; ?>
+				</div>
+			</div>
+		<?php endif; ?>
+		<div class="bestsellers-products__pagination swiper-pagination"></div>
+	</div>
+	<div class="text-above-adaptive">
+		<a href="<?php echo site_url('/shop'); ?>" class="catalog">
+			Go to catalog
+		</a>
+	</div>
+	</div>
+</section>
 <?php
 get_footer();
