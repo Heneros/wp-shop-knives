@@ -521,9 +521,9 @@
                                 </div>
 
                                 <div class="card-quantity js-quantity">
-                                    <button class="icon icon-minus js-quantity-minus">-</button>
+                                    <button class="icon icon-minus quantity-minus">-</button>
                                     <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity; ?>">
-                                    <button class="icon icon-plus js-quantity-plus">+</button>
+                                    <button class="icon icon-plus quantity-plus">+</button>
                                 </div>
                                 <?php
                                 echo apply_filters('woocommerce_cart_item_remove_link', sprintf(

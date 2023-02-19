@@ -132,7 +132,7 @@ jQuery(document).ready(function ($) {
     });
 
 
-    $(document.body).on("click", ".card-quantity .js-quantity-plus", function (e) {
+    $(document.body).on("click", ".card-item .quantity-plus", function (e) {
         e.preventDefault();
 
         let quantity_inp_elem = this.parentElement.nextElementSibling;
@@ -155,7 +155,7 @@ jQuery(document).ready(function ($) {
         })
     });
 
-    $(document.body).on("click", ".card-quantity .js-quantity-minus", function (e) {
+    $(document.body).on("click", ".card-item .quantity-minus", function (e) {
         e.preventDefault();
         let quantity_inp_elem = this.parentElement.nextElementSibling;
         let quantity_inp = this.nextElementSibling;

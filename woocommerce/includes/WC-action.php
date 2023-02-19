@@ -157,9 +157,9 @@ function custom_loop_product_title()
                 . '
             </div>
             <div class="card-quantity js-quantity">
-                <button class="icon icon-minus js-quantity-minus">-</button>
+                <button class="icon icon-minus quantity-minus">-</button>
                 <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
-                <button class="icon icon-plus js-quantity-plus">+</button>
+                <button class="icon icon-plus quantity-plus">+</button>
             </div>
             '
                 . apply_filters(
