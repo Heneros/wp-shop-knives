@@ -1,4 +1,4 @@
 City header. hover
 Product dots.
 cart-products double products при нажатии на плюс
-
+Product page. quantity.

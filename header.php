@@ -477,96 +477,9 @@
             <div class="cart-products">
                 <div class="cart-content" id="mini-cart-all-items">
                     <?php
-                    global $woocommerce;
-                    $customSubTotal = 0;
-                    $is_on_sale = [];
-                    $items = $woocommerce->cart->get_cart();
-                    if (!empty($items)) {
-                        foreach ($items as $item => $values) {
-                            $_productMiniCart = wc_get_product($values['data']->get_id());
-                            $product_id = $values['product_id'];
-                            $image_url = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), '');
-                            $productImage = $image_url[0];
-                            $check_type =  $_productMiniCart->get_type();
-                            $prodPrice = 0;
-                            $quantity = $values['quantity'];
-                            $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_productMiniCart->get_image(), $values, $item);
-                            if (!empty($_productMiniCart->get_sale_price())) {
-                                $prodPrice = ceil($_productMiniCart->get_sale_price());
-                            } else {
-                                $prodPrice = ceil($_productMiniCart->get_regular_price());
-                            }
-                            $lineSubtotal = $prodPrice * $quantity;
-                            $customSubTotal += $lineSubtotal;
-
-                            if ($_productMiniCart->is_on_sale()) {
-                                array_push($is_on_sale, 1);
-                            }
-                    ?>
-                            <div class="card-item">
-                                <div class="card-img">
-                                    <?php echo $thumbnail; ?>
-                                </div>
-                                <div class="card-info">
-                                    <a class="card-info__title" href="<?php echo the_permalink($product_id); ?>">
-                                        <?php
-                                        echo $_productMiniCart->get_title();
-                                        ?>
-                                    </a>
-                                </div>
-                                <div class="card-price">
-                                    <?php
-                                    echo $_productMiniCart->get_price_html();
-                                    ?>
-                                </div>
-
-                                <div class="card-quantity js-quantity">
-                                    <button class="icon icon-minus quantity-minus">-</button>
-                                    <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity; ?>">
-                                    <button class="icon icon-plus quantity-plus">+</button>
-                                </div>
-                                <?php
-                                echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
-                                    '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
-                                    esc_url(wc_get_cart_remove_url($item)),
-                                    esc_attr__('Remove this item', 'woocommerce'),
-                                    esc_attr($product_id),
-                                    esc_attr($item),
-                                    esc_attr($_productMiniCart->get_sku()),
-                                ), $item);
-                                ?>
-                            </div>
-                        <?php
-                        }
-                        ?>
-
-                    <?php
-                    } else {
-                    ?>
-                        <h2 class="cart-title"> Empty Cart</h2>
-                        <p class="cart-message">
-                            You dont have any products
-                        </p>
-                    <?php
-                    }
-                    ?>
-                </div>
-                <?php
-                if (!empty($items)) {
-                ?>
-                    <div class="cart-price">
-                        <div class="total-price-description">
-                            Total Price
-                        </div>
-                        <span class="cart-subtotal" id="mini-cart-subtotal">
-                            <?php
-                            echo wc_price(WC()->cart->subtotal_ex_tax);
-                            ?>
-                        </span>
-                    </div>
-                <?php
-                }
-                ?>
+                       woocommerce_mini_cart(); 
+               
+          ?>
 
             </div>
         </header>
