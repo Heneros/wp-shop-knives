@@ -78,7 +78,7 @@
 
 
 .add_favorite {
-    z-index: 99999;
+    z-index: 99;
 }
 
 .bestsellers-products-item__favorites.in_list {
@@ -106,9 +106,8 @@
     /* padding: 38px 45px 39px 45px;
     width: max-content;
     max-height: max-content; */
-    margin: unset !important;
     padding: 38px 11px 39px 23px;
-    width: max-content;
+    /* width: max-content; */
     max-height: max-content;
 }
 

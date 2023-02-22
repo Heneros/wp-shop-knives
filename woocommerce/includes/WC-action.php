@@ -122,76 +122,158 @@ function custom_loop_product_title()
 
 
     // ///////Update Mini Cart.
+    function update_mini_cart_action()
+    {
+        global $woocommerce;
+        $miniCartItems = '';
+        $items = $woocommerce->cart->get_cart();
+        $customSubTotal = 0;
+        foreach ($items as $item => $values) {
+            $_product = wc_get_product($values['data']->get_id());
+            $product_id = $values['product_id'];
+            $prodPrice = 0;
+            $quantity = $values['quantity'];
+            if (!empty($_product->get_sale_price())) {
+                $prodPrice = $_product->get_sale_price();
+            } else {
+                $prodPrice = $_product->get_price();
+            }
+            $lineSubTotal = $prodPrice * $quantity;
+            $customSubTotal += $lineSubTotal;
+            $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $item);
+            $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $item);
+            $miniCartItems .= '
+            <div class="card-item">
+              <div class="card-img">
+            ' . $thumbnail . '
+            </div>
+            <div class="card-info">
+                <a class="card-info__title" href="' .  get_the_permalink($product_id) . '">
+                ' . $product_name . ' 
+                </a>
+            </div>
+            <div class="card-price">
+            ' .
+                $_product->get_price_html()
+                . '
+            </div>
+            <div class="card-quantity js-quantity">
+                <button class="icon icon-minus quantity-minus">-</button>
+                <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
+                <button class="icon icon-plus quantity-plus">+</button>
+            </div>
+            '
+                . apply_filters(
+                    'woocommerce_cart_item_remove_link',
+                    sprintf(
+                        '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+                        esc_url(wc_get_cart_remove_url($item)),
+                        esc_attr__("Remove this item", "woocommerce"),
+                        esc_attr($product_id),
+                        esc_attr($item),
+                        esc_attr($_product->get_sku())
+                    )
+                ) .
+                '
+        </div>
+            ';
+        }
+
+        if (WC()->cart->tax_display_cart == 'excl') {
+            $cart_subtotal = WC()->cart->subtotal_ex_tax;
+        } else {
+            $cart_subtotal = WC()->cart->subtotal;
+        }
+        $data = [
+            'cart_contents' => $miniCartItems,
+            'cart_total' => wc_price(WC()->cart->subtotal_ex_tax),
+            'cart_items_count' => $woocommerce->cart->cart_contents_count
+        ];
+        wp_send_json($data);
+        die;
+    }
+
+    add_action("wp_ajax_update_mini_cart_action", "update_mini_cart_action");
+    add_action("wp_ajax_nopriv_update_mini_cart_action", "update_mini_cart_action");
+
+
     // function update_mini_cart_action()
     // {
     //     global $woocommerce;
     //     $miniCartItems = '';
     //     $items = $woocommerce->cart->get_cart();
     //     $customSubTotal = 0;
-    //     foreach ($items as $item => $values) {
-    //         $_product = wc_get_product($values['data']->get_id());
-    //         $product_id = $values['product_id'];
+    //     // foreach ($items as $item => $values) {
+    //         global $woocommerce;
+    //         $customSubTotal = 0;
+    //         $is_on_sale = [];
+    //         $items = $woocommerce->cart->get_cart();
+       
+
+    //             foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+    //         $_product = wc_get_product($cart_item['data']->get_id());
     //         $prodPrice = 0;
-    //         $quantity = $values['quantity'];
+    //         $quantity = $cart_item['quantity'];
     //         if (!empty($_product->get_sale_price())) {
     //             $prodPrice = $_product->get_sale_price();
     //         } else {
     //             $prodPrice = $_product->get_price();
     //         }
     //         $lineSubTotal = $prodPrice * $quantity;
-    //         $customSubTotal += $lineSubTotal;
-    //         $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $item);
+    //         $customSubTotal +=  $lineSubTotal;
+
+    //         $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+    //         $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+
+
+    //         $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
+    //         $thumbnail         = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
+    //         $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
+    //         $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
+
     //         $miniCartItems .= '
-        //     <div class="card-item">
-        //       <div class="card-img">
-        //     ' . $thumbnail . '
-        //     </div>
-        //     <div class="card-info">
-        //         <a class="card-info__title" href="' .  get_the_permalink($product_id) . '">
-        //         ' . $_product->get_title() . ' 
-        //         </a>
-        //     </div>
-        //     <div class="card-price">
-        //     ' .
-        //         $_product->get_price_html()
-        //         . '
-        //     </div>
-        //     <div class="card-quantity js-quantity">
-        //         <button class="icon icon-minus quantity-minus">-</button>
-        //         <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
-        //         <button class="icon icon-plus quantity-plus">+</button>
-        //     </div>
-        //     '
-                // . apply_filters(
-                //     'woocommerce_cart_item_remove_link',
-                //     sprintf(
-                //         '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
-                //         esc_url(wc_get_cart_remove_url($item)),
-                //         esc_attr__("Remove this item", "woocommerce"),
-                //         esc_attr($product_id),
-                //         esc_attr($item),
-                //         esc_attr($_product->get_sku())
-                //     )
-                // ) .
-                // '
-        // </div>
+    //         <div class="card-item">
+    //                   <div class="card-img">
+    //                 ' . $thumbnail . '
+    //                 </div>
+    //         <div class="card-info">
+    //         <a class="card-info__title" href="' . $product_permalink . '">
+    //                 ' . $product_name . '
+    //                 </a>
+    //         </div>
+    //                 <div class="card-price">
+    //                 ' .
+    //             $product_price
+    //             . '
+    //                 </div>
+    //         <div class="card-quantity js-quantity">
+    //         <button class="icon icon-minus quantity-minus">-</button>
+    //         <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
+    //         <button class="icon icon-plus quantity-plus">+</button>
+    //     </div>
+    //     ' .  apply_filters(
+    //                 'woocommerce_cart_item_remove_link',
+    //                 sprintf(
+    //                     '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+    //                     esc_url(wc_get_cart_remove_url($cart_item_key)),
+    //                     esc_attr__("Remove this item", "woocommerce"),
+    //                     esc_attr($product_id),
+    //                     esc_attr($cart_item_key),
+    //                     esc_attr($_product->get_sku())
+    //                 ),
+    //                 $cart_item_key
+    //             )    . '
+
     //         ';
+    //         $data = [
+    //             'cart_contents' => $miniCartItems,
+    //             'cart_total' =>  wc_price(WC()->cart->subtotal_ex_tax),
+    //             'cart_items_count' => $woocommerce->cart->cart_contents_count,
+    //         ];
+    //         wp_send_json($data);
+    //         die;
     //     }
-
-    //     if (WC()->cart->tax_display_cart == 'excl') {
-    //         $cart_subtotal = WC()->cart->subtotal_ex_tax;
-    //     } else {
-    //         $cart_subtotal = WC()->cart->subtotal;
-    //     }
-    //     $data = [
-    //         'cart_contents' => $miniCartItems,
-    //         'cart_total' => wc_price(WC()->cart->subtotal_ex_tax),
-    //         'cart_items_count' => $woocommerce->cart->cart_contents_count
-    //     ];
-    //     wp_send_json($data);
-    //     die;
     // }
-
     // add_action("wp_ajax_update_mini_cart_action", "update_mini_cart_action");
     // add_action("wp_ajax_nopriv_update_mini_cart_action", "update_mini_cart_action");
 

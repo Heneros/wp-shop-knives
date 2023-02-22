@@ -1,5 +1,14 @@
 jQuery(document).ready(function ($) {
 
+
+
+
+
+
+
+
+
+
     /////////Add to favorites
     $(document.body).on("click", ".add_favorite", function (e) {
         e.preventDefault();
@@ -253,6 +262,7 @@ jQuery(document).ready(function ($) {
                 variation_id: variation_id,
                 productID: productID
             };
+            console.log(variable_product_obj);
             if (parseInt(quantity) == 0) {
                 alert('add-to-cart-with-quantity-variable dont added to cart');
             } else {
@@ -343,7 +353,7 @@ jQuery(document).ready(function ($) {
         }
     });
 
- 
+
 
 });
 

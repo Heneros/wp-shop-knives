@@ -28,9 +28,10 @@ if (!WC()->cart->is_empty()) :
 					<?php echo $product_price; ?>
 				</div>
 				<div class="card-quantity js-quantity">
-					<button class="icon icon-minus quantity-minus">-</button>
+					<!-- <button class="icon icon-minus quantity-minus">-</button>
 					<input class="card-input js-quantity-input" type="text" name="prod_quantity" value="">
-					<button class="icon icon-plus quantity-plus">+</button>
+					<button class="icon icon-plus quantity-plus">+</button> -->
+					<?php echo apply_filters('woocommerce_widget_cart_item_quantity', '<span class="quantity">' . sprintf('%s &times; %s', $cart_item['quantity'], '') . '</span>', $cart_item, $cart_item_key); ?>
 				</div>
 				<?php
 				echo apply_filters(
@@ -47,10 +48,14 @@ if (!WC()->cart->is_empty()) :
 				)
 				?>
 			</div>
-
-<?php
-			do_action('woocommerce_mini_cart_contents');
+	<?php
 		}
+		do_action('woocommerce_mini_cart_contents');
 	}
+else : ?>
+	<a href="<?= site_url('/shop'); ?>">
+		Empty cart
+	</a>
+<?php
 
 endif;
