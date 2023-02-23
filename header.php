@@ -477,7 +477,7 @@
             <div class="cart-products">
                 <div class="cart-content" id="mini-cart-all-items">
                     <?php
-                    woocommerce_mini_cart();
+                    // woocommerce_mini_cart();
                     global $woocommerce;
                     $customSubTotal = 0;
                     $is_on_sale = [];
