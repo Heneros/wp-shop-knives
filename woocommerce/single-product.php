@@ -30,7 +30,43 @@ $average_rating      = $product->get_average_rating();
 
 $product_short_desc = $product->get_short_description();
 $product_description = $product->get_description();
+
+
+
 ?>
+
+
+<script>
+	var productId = <?php echo json_encode(get_the_ID()); ?>;
+
+	var watchedProducts = getCookie('watched_products');
+	watchedProducts = watchedProducts ? JSON.parse(watchedProducts) : {};
+
+
+	watchedProducts[productId] = true;
+	setCookie('watched_products', JSON.stringify(watchedProducts), 30);
+
+	function getCookie(name) {
+		var value = "; " + document.cookie;
+		var parts = value.split("; " + name + "=");
+		if (parts.length == 2) {
+			return parts.pop().split(";").shift();
+		}
+	}
+
+	function setCookie(name, value, days) {
+		var expires = "";
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+			expires = "; expires=" + date.toUTCString();
+		}
+		document.cookie = name + "=" + value + expires + "; path=/";
+	}
+
+	
+</script>
+
 <section class="product-information">
 	<div class="container">
 		<div class="product-information__container">

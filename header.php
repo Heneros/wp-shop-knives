@@ -13,6 +13,7 @@
 </head>
 
 <body <?php body_class(); ?>>
+
     <div class="site-container">
         <!-- <div class="loader-screen">
             <div class="ball-rotate">
@@ -231,9 +232,20 @@
                                 <div class="header__cart-svg">
                                     <div class="cart-num" id="mini-cart-count">
                                         <?php
-                                        global $woocommerce;
-                                        $cart = WC()->cart;
-                                        echo $woocommerce->cart->cart_contents_count; ?>
+
+                                        $cart_items = WC()->cart->get_cart();
+                                        $product_count = 0;
+                                        $added_items = array();
+                                        foreach ($cart_items as $cart_item_key => $cart_item) {
+                                            $product_id = $cart_item['product_id'];
+                                            if (in_array($product_id, $added_items)) {
+                                                continue;
+                                            }
+                                            $product_count += $cart_item['quantity'];
+                                            $added_items[] = $product_id;
+                                        }
+                                        echo esc_html($product_count);
+                                        ?>
                                     </div>
                                 </div>
                             </a>
@@ -478,37 +490,55 @@
                 <div class="cart-content" id="mini-cart-all-items">
                     <?php
                     // woocommerce_mini_cart();
-                    global $woocommerce;
-                    $customSubTotal = 0;
-                    $is_on_sale = [];
-                    $items = $woocommerce->cart->get_cart();
+                    $added_items = array(); // хранит уже добавленные в корзину товары
+
+                    $items = WC()->cart->get_cart();
                     if (!empty($items)) {
+                        foreach (WC()->cart->get_cart() as $cart_item_key => $values) {
+                            $_product = wc_get_product($values['data']->get_id());
+                            $product_id = $values['product_id'];
+                            $prodPrice = 0;
+                            $quantity = $values['quantity'];
 
-                        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-                            $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
-                            $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+                            $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
 
-                            $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
-                            $thumbnail         = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
-                            $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
-                            $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
-                    ?>
+                            $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
+
+                            $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
+
+                            $quantity = $values['quantity'];
+
+                            $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($values) : '', $values, $cart_item_key);
+
+                            $variation_data = '';
+                            if ($values['variation']) {
+                                $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
+                            }
+                            if (in_array($product_id, $added_items)) {
+                                continue;
+                            } ?>
+
                             <div class="card-item">
                                 <div class="card-img">
-                                    <?php echo $thumbnail; ?>
+                                    <?php echo $thumbnail  ?>
                                 </div>
                                 <div class="card-info">
-                                    <a class="card-info__title" href="	<?php echo $product_permalink; ?>">
-                                        <?php echo $product_name; ?>
+                                    <a class="card-info__title" href="<?php echo  $product_permalink;  ?>">
+                                        <?php
+                                        echo  $product_name . $variation_data;
+                                        ?>
                                     </a>
                                 </div>
                                 <div class="card-price">
-                                    <?php echo $product_price; ?>
+                                    <?php
+                                    echo  $product_price
+                                    ?>
                                 </div>
+
                                 <div class="card-quantity js-quantity">
-                                    <button class="icon icon-minus quantity-minus">-</button>
-                                    <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="<?= $cart_item['quantity'] ?>">
-                                    <button class="icon icon-plus quantity-plus">+</button>
+                                    <!-- <button class="icon icon-minus quantity-minus">-</button> -->
+                                    <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity;  ?>">
+                                    <!-- <button class="icon icon-plus quantity-plus">+</button> -->
                                 </div>
                                 <?php
                                 echo apply_filters(
@@ -524,17 +554,19 @@
                                     $cart_item_key
                                 )
                                 ?>
-                            </div>
-                        <?php
-                        }
-                    } else {
-                        ?>
+                                <?php
+                                $added_items[] = $product_id;
+                                ?>
+                            </div><?php
+                                }
+                            } else {
+                                    ?>
                         <h2 class="cart-title"> Empty Cart</h2>
                         <p class="cart-message">
                             You dont have any products
                         </p>
                     <?php
-                    }
+                            }
                     ?>
                 </div>
                 <?php

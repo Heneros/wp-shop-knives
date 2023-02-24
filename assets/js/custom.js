@@ -355,6 +355,39 @@ jQuery(document).ready(function ($) {
 
 
 
+    const removeBtns = document.querySelectorAll('.remove-product');
+
+    removeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const productId = btn.getAttribute('data-product-id');
+            let watchedProducts = JSON.parse(getCookie('watched_products'));
+
+            if (watchedProducts) {
+
+                delete watchedProducts[productId];
+                setCookie('watched_products', JSON.stringify(watchedProducts));
+            }
+
+            btn.parentNode.parentNode.remove();
+        });
+    });
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function setCookie(name, value, days) {
+        let expires = '';
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = `; expires=${date.toUTCString()}`;
+        }
+        document.cookie = `${name}=${value}${expires}; path=/`;
+    }
+
 });
 
 

@@ -76,8 +76,11 @@ if (empty($product) || !$product->is_visible()) {
 			 */
 
 			do_action('woocommerce_after_shop_loop_item_title');
-			echo print_wish_icon($product->get_id());
+			echo print_wish_icon($product->get_id()); ?>
+		
+			<?php
 			/**
+			 * 
 			 * Hook: woocommerce_after_shop_loop_item.
 			 *
 			 * @hooked woocommerce_template_loop_product_link_close - 5
@@ -90,5 +93,5 @@ if (empty($product) || !$product->is_visible()) {
 
 		?>
 	</div>
-
+	<button class="remove-product" data-product-id="<?php echo get_the_ID(); ?>">Remove product</button>
 </div>

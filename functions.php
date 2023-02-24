@@ -2,6 +2,24 @@
 
 require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
+require get_template_directory() . '/inc/viewed_products.php';
+
+
+add_action('wp_ajax_remove_product_from_cookie', 'remove_product_from_cookie');
+add_action('wp_ajax_nopriv_remove_product_from_cookie', 'remove_product_from_cookie');
+function remove_product_from_cookie() {
+  $productId = intval($_POST['product_id']);
+  $prods = isset($_COOKIE['watched_products']) ? unserialize($_COOKIE['watched_products']) : array();
+  if (($key = array_search($productId, $prods)) !== false) {
+    unset($prods[$key]);
+    setcookie('watched_products', serialize($prods), time() + 86400 * 30, '/');
+    wp_send_json_success();
+  } else {
+    wp_send_json_error();
+  }
+  wp_die();
+}
+
 
 
 
