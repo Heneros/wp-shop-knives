@@ -354,39 +354,37 @@ jQuery(document).ready(function ($) {
     });
 
 
+    // const removeBtns = document.querySelectorAll('.remove-product');
 
-    const removeBtns = document.querySelectorAll('.remove-product');
+    // removeBtns.forEach(btn => {
+    //     btn.addEventListener('click', () => {
+    //         const productId = btn.getAttribute('data-product-id');
+    //         const xhr = new XMLHttpRequest();
+    //         xhr.open('POST', '/wp-admin/admin-ajax.php?action=remove_product_from_cookie', true);
+    //         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    //         xhr.onreadystatechange = function () {
+    //             if (xhr.readyState === 4 && xhr.status === 200) {
+    //                 // обновляем список продуктов на стороне клиента
+    //                 const watchedProducts = JSON.parse(xhr.responseText);
+    //                 setCookie('watched_products', JSON.stringify(watchedProducts), 30);
+    //                 btn.parentNode.parentNode.remove();
+    //             }
+    //         };
+    //         xhr.send(`productId=${productId}`);
+    //     });
+    // });
 
-    removeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const productId = btn.getAttribute('data-product-id');
-            let watchedProducts = JSON.parse(getCookie('watched_products'));
+    // function setCookie(name, value, days) {
+    //     let expires = '';
+    //     if (days) {
+    //         const date = new Date();
+    //         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    //         expires = `; expires=${date.toUTCString()}`;
+    //     }
+    //     document.cookie = `${name}=${value}${expires}; path=/`;
+    // }
 
-            if (watchedProducts) {
 
-                delete watchedProducts[productId];
-                setCookie('watched_products', JSON.stringify(watchedProducts));
-            }
-
-            btn.parentNode.parentNode.remove();
-        });
-    });
-
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    function setCookie(name, value, days) {
-        let expires = '';
-        if (days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = `; expires=${date.toUTCString()}`;
-        }
-        document.cookie = `${name}=${value}${expires}; path=/`;
-    }
 
 });
 
