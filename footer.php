@@ -117,17 +117,6 @@ wp_footer();
                 <?php
                 echo do_shortcode('[contact-form-7 id="159" title="Subscribe email form"]');
                 ?>
-                <!-- <form class="footer-item__form">
-                    <div class="footer-item-email">
-                        <input type="email" class="input-email" placeholder="Enter Email">
-                        <button type="submit" class="btn-footer"></button>
-                    </div>
-                    <div class="footer-item__custom-checkbox">
-                        <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1">
-                        <label for="styled-checkbox-1"> I have read the Terms and Conditions and
-                            agree with the terms</label>
-                    </div>
-                </form> -->
             </div>
         </div>
         <div class="author-code">
