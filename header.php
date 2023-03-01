@@ -177,7 +177,6 @@
                                         <li>
                                             <a class="header-mobile-list-link" href="shop.html">Shop Page</a>
                                         </li>
-
                                     </ul>
                                 </div>
                                 <div class="list-wrapper">
@@ -536,9 +535,9 @@
                                 </div>
 
                                 <div class="card-quantity js-quantity">
-                                    <!-- <button class="icon icon-minus quantity-minus">-</button> -->
+                                    <button class="icon icon-minus quantity-minus">-</button>
                                     <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity;  ?>">
-                                    <!-- <button class="icon icon-plus quantity-plus">+</button> -->
+                                    <button class="icon icon-plus quantity-plus">+</button>
                                 </div>
                                 <?php
                                 echo apply_filters(

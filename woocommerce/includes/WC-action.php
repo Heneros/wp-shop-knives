@@ -141,22 +141,22 @@ function custom_loop_product_title()
             }
             $lineSubTotal = $prodPrice * $quantity;
             $customSubTotal += $lineSubTotal;
-    
+
             $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
             $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
             $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
             $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($values) : '', $values, $cart_item_key);
-    
+
             $variation_data = '';
             if ($values['variation']) {
                 $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
             }
-    
-     
+
+
             if (in_array($product_id, $added_items)) {
                 continue; // продолжаем цикл, если товар уже добавлен
             }
-    
+
             $miniCartItems .= '
             <div class="card-item">
                 <div class="card-img">' . $thumbnail . '</div>
@@ -170,17 +170,17 @@ function custom_loop_product_title()
                     <button class="icon icon-plus quantity-plus">+</button>
                 </div>
                 ' . apply_filters(
-                    'woocommerce_cart_item_remove_link',
-                    sprintf(
-                        '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
-                        esc_url(wc_get_cart_remove_url($cart_item_key)),
-                        esc_attr__("Remove this item", "woocommerce"),
-                        esc_attr($product_id),
-                        esc_attr($cart_item_key),
-                        esc_attr($_product->get_sku())
-                    ),
-                    $cart_item_key
-                ) . '
+                'woocommerce_cart_item_remove_link',
+                sprintf(
+                    '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+                    esc_url(wc_get_cart_remove_url($cart_item_key)),
+                    esc_attr__("Remove this item", "woocommerce"),
+                    esc_attr($product_id),
+                    esc_attr($cart_item_key),
+                    esc_attr($_product->get_sku())
+                ),
+                $cart_item_key
+            ) . '
             </div>
             ';
             $added_items[] = $product_id;
@@ -215,7 +215,7 @@ function custom_loop_product_title()
     //         $customSubTotal = 0;
     //         $is_on_sale = [];
     //         $items = $woocommerce->cart->get_cart();
-       
+
 
     //             foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
     //         $_product = wc_get_product($cart_item['data']->get_id());
@@ -370,11 +370,21 @@ function custom_loop_product_title()
             unset($woocommerce->cart->cart_contents[$prod_unique_id]);
             $woocommerce->cart->add_to_cart($product_id, $quantity);
         }
+
+        // Get cart total and items count
+        $cart_total = WC()->cart->get_cart_total();
+        $cart_items_count = WC()->cart->get_cart_contents_count();
+
+        // Return updated cart data in AJAX response
+        $response = array(
+            'cart_total' => $cart_total,
+            'cart_items_count' => $cart_items_count,
+        );
+        wp_send_json_success($response);
     }
 
     add_action("wp_ajax_update_product_quantity", "update_product_quantity");
     add_action("wp_ajax_nopriv_update_product_quantity", "update_product_quantity");
-
 
 
 
@@ -777,9 +787,59 @@ function custom_loop_product_title()
     }
 
 
+    function woocommerce_add_to_cart_messsage($added_to_cart, $url = '')
+    {
+        if (!is_array($added_to_cart)) {
+            return;
+        }
+        $messages = array();
 
-    // function WooCommerce_date_format()
-    // {
-    //     return 'd/m/Y';
-    // }
-    // add_filter('woocommerce_date_format', 'woocommerce_date_format');
+        foreach ($added_to_cart as $product_id => $quantity) {
+            $product = wc_get_product($product_id);
+
+            if (!$product) {
+                continue;
+            }
+
+            $name = $product->get_name();
+            $quantity = (int) $quantity;
+
+            if ($quantity <= 0) {
+                $messages[] = sprintf('<a href="%s" class="button wc-forward">%s</a> %s', esc_url($product->get_permalink()), __('View product', 'woocommerce'), esc_html($name));
+            } else {
+                $messages[] = sprintf('<a href="%s" class="button wc-forward">%s</a> %s &times; %s', esc_url(wc_get_cart_url()), __('View cart', 'woocommerce'), esc_html($name), $quantity);
+            }
+        }
+
+        if ($messages) {
+            wc_add_notice(implode('<br>', $messages), 'success');
+        }
+    }
+
+    
+
+    function woocommerce_ajax_add_to_cart()
+    {
+        global $woocommerce;
+        $product_id = apply_filters('woocommerce_add_to_cart_product_id', absint($_POST['product_id']));
+        $quantity = empty($_POST['quantity']) ? 1 : apply_filters('woocommerce_stock_amount', $_POST['quantity']);
+        $variation_id = absint($_POST['variation_id']);
+        $passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $quantity, $variation_id);
+        if ($passed_validation && $woocommerce->cart->add_to_cart($product_id, $quantity, $variation_id)) {
+            do_action('woocommerce_ajax_added_to_cart', $product_id);
+            if (get_option('woocommerce_cart_redirect_after_add') == 'yes') {
+                woocommerce_add_to_cart_messsage(array($product_id => $quantity), true);
+            }
+            WC_AJAX::get_refreshed_fragments();
+        } else {
+            header('Content-Type: application/json; charset=utf-8');
+            $data = array(
+                'error' => true,
+                'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id)
+            );
+            echo json_encode($data);
+        }
+        wp_die();
+    }
+    add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
+    add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');

@@ -96,10 +96,11 @@ if (empty($product) || !$product->is_visible()) {
 	<button class="remove-product" data-product-id="<?php echo get_the_ID(); ?>">Remove product</button>
 	<script>
 		(function() {
-			const removeBtns = document.querySelectorAll('.remove-product');
+			const removeBtns = document.querySelectorAll(".remove-product");
+
 			removeBtns.forEach(btn => {
 				btn.addEventListener('click', () => {
-					const productId = btn.getAttribute('data-product-id');
+					const productId = btn.getAttribute("data-product-id");
 					let watchedProducts = JSON.parse(getCookie('watched_products'));
 					if (watchedProducts) {
 						delete watchedProducts[productId];
@@ -111,8 +112,8 @@ if (empty($product) || !$product->is_visible()) {
 
 			function getCookie(name) {
 				const value = `; ${document.cookie}`;
-				const parts = value.split(`; ${name}=`);
-				if (parts.length === 2) return parts.pop().split(';').shift();
+				const parts = value.split(`; ${name}=`); ///интерполяция
+				if (parts.length === 2) return parts.pop().split().shift();
 			}
 
 			function setCookie(name, value, days) {

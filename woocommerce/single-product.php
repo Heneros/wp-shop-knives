@@ -38,19 +38,17 @@ $product_description = $product->get_description();
 
 <script>
 	var productId = <?php echo json_encode(get_the_ID()); ?>;
-
-	var watchedProducts = getCookie('watched_products');
+	var watchedProducts = getCookie("watched_products");
 	watchedProducts = watchedProducts ? JSON.parse(watchedProducts) : {};
 
-
-	watchedProducts[productId] = true;
+	watchedProducts[productId] = true; // создает ассоциативный массив.
 	setCookie('watched_products', JSON.stringify(watchedProducts), 30);
 
 	function getCookie(name) {
 		var value = "; " + document.cookie;
 		var parts = value.split("; " + name + "=");
 		if (parts.length == 2) {
-			return parts.pop().split(";").shift();
+			return parts.pop().split(";").shift();;
 		}
 	}
 
@@ -63,8 +61,6 @@ $product_description = $product->get_description();
 		}
 		document.cookie = name + "=" + value + expires + "; path=/";
 	}
-
-	
 </script>
 
 <section class="product-information">
@@ -238,27 +234,31 @@ $product_description = $product->get_description();
 
 
 							<div class="group-btns">
-								<?php
-								do_action('woocommerce_after_add_to_cart_quantity');
-								if ($product->is_type('variable')) { ?>
-									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow  add-to-cart-with-quantity-variable_product-btn  ">
-										Add to cart
-									</a>
-									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
-										Buy in 1 click
-									</a>
-									<!-- Simple product -->
-								<?php } else { ?>
-									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow add-to-cart-with-quantity-btn ">
-										Add to cart
-									</a>
-									<a href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>" class="btn btn-bottom btn-yellow">
-										Buy in 1 click
-									</a>
-								<?php	}
-
-
-								?>
+								<form class="add-to-cart-form">
+									<input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
+									<div class="variation-attributes">
+										<?php
+										$product_variable = new WC_Product_Variable($product->get_id());
+										foreach ($product_variable->get_variation_attributes() as $attribute_name => $attribute_values) :
+											$attribute_label = wc_attribute_label($attribute_name);
+										?>
+											<div class="variation-attribute">
+												<label for="variation-<?php echo sanitize_title($attribute_name); ?>"><?php echo $attribute_label; ?>:</label>
+												<select id="variation-<?php echo sanitize_title($attribute_name); ?>" name="variation[<?php echo $attribute_name; ?>]">
+													<option value=""><?php echo esc_html__('Choose an option', 'woocommerce'); ?>&hellip;</option>
+													<?php
+													foreach ($attribute_values as $attribute_value) :
+														$variation_id = $product_variable->get_matching_variation(array($attribute_name => $attribute_value));
+														$variation = new WC_Product_Variation($variation_id);
+													?>
+														<option value="<?php echo $attribute_value; ?>" data-price="<?php echo $variation->get_price(); ?>"><?php echo $attribute_value; ?></option>
+													<?php endforeach; ?>
+												</select>
+											</div>
+										<?php endforeach; ?>
+									</div>
+									<button type="submit" class="add-to-cart-btn">Add to Cart</button>
+								</form>
 							</div>
 						</div>
 					</div>

@@ -76,75 +76,140 @@ jQuery(document).ready(function ($) {
 
                 $("#mini-cart-subtotal").append(response.cart_total);
                 $("#mini-cart-all-items").append(response.cart_contents);
+                $("#mini-cart-count").text(response.cart_items_count);
 
 
 
-                miniCartCount.innerText = response.cart_items_count;
+                // miniCartCount.innerText = response.cart_items_count;
             }
         })
     }
     ////////////Add To cart
-    function addToCart(url) {
+    // function addToCart(url) {
 
+    //     $.ajax({
+    //         url: url,
+    //         method: "POST",
+    //         error: function (response) {
+    //             console.log(response);
+    //         },
+    //         success: function (response) {
+    //             miniCartAjaxUpdate();
+    //             let miniCartCount = document.getElementById("mini-cart-count");
+    //             let currentCount = parseInt(miniCartCount.innerText) + 1;
+    //             miniCartCount.innerText = currentCount;
+    //         }
+    //     });
+
+    // }
+
+
+
+
+
+
+
+
+    $('.add-to-cart-btn').on('click', function (e) {
+        e.preventDefault();
+    
+        var form = $(this).closest('form');
+        var product_id = form.find('input[name="product_id"]').val();
+        var variation_id = 0;
+    
+ 
+        if (form.find('.variation-attributes').length > 0) {
+            var attributes = {};
+            form.find('.variation-attributes select').each(function () {
+                var attribute_name = $(this).attr('name').replace('attribute_', '');
+                attributes[attribute_name] = $(this).val();
+            });
+            variation_id = getVariationId(attributes);
+        }
+    
+        var data = {
+            action: 'woocommerce_ajax_add_to_cart',
+            product_id: product_id,
+            variation_id: variation_id,
+            quantity: form.find('input[name="quantity"]').val(),
+        };
+    
         $.ajax({
-            url: url,
-            method: "POST",
-            error: function (response) {
-                console.log(response);
-            },
+            type: 'POST',
+            url: woocommerce_params.ajax_url,
+            data: data,
+            dataType: 'json',
             success: function (response) {
+                if (!response) {
+                    return;
+                }
+    
+                if (response.error && response.product_url) {
+                    window.location.href = response.product_url;
+                    return;
+                }
                 miniCartAjaxUpdate();
-                let miniCartCount = document.getElementById("mini-cart-count");
-                let currentCount = parseInt(miniCartCount.innerText) + 1;
-                miniCartCount.innerText = currentCount;
+    
+                var fragments = response.fragments;
+                var cart_hash = response.cart_hash;
+    
+                if (fragments) {
+                    $.each(fragments, function (key, value) {
+                        $(key).replaceWith(value);
+                    });
+    
+                    $('body').trigger('wc_fragments_loaded');
+                }
+    
+                if (response && response.error && response.error.message) {
+                    alert(response.error.message);
+                } else {
+                    $('body').trigger('added_to_cart', [fragments, cart_hash]);
+                }
+            },
+            error: function (errorThrown) {
+                console.log(errorThrown);
             }
         });
+    });
+    
 
+
+
+    function getVariationId(attributes) {
+        var variations_data = window.variationsData;
+        if (!variations_data) {
+            return 0;
+        }
+        var variations = variations_data.variations;
+
+        for (var i = 0; i < variations.length; i++) {
+            var variation = variations[i];
+            var matching_attributes = 0;
+
+            for (var attribute_name in attributes) {
+                if (variation.attributes.hasOwnProperty(attribute_name) && variation.attributes[attribute_name] == attributes[attribute_name]) {
+                    matching_attributes++;
+                }
+            }
+
+            if (matching_attributes == Object.keys(attributes).length) {
+                return variation.variation_id;
+            }
+        }
+
+        return 0;
     }
 
-
-    $(".add-to-cart-btn").on('click', function (e) {
-        e.preventDefault();
-
-        var $this = $(this);
-        let thisBtn = this;
-        let addToCartUrl = this.href;
-        let getIdFromUrl = addToCartUrl.split("=");
-        let productID = parseInt(getIdFromUrl[1]);
-        $.ajax({
-            method: 'POST',
-            url: woocommerce_params.ajax_url,
-            cache: false,
-            data: {
-                product_id: productID,
-                action: "check_if_product_exist_in_cart"
-            },
-            success: function (response) {
-                $.ajax({
-                    method: 'POST',
-                    url: woocommerce_params.ajax_url,
-                    cache: false,
-                    data: {
-                        product_id: productID,
-                        action: "check_if_product_in_stock"
-                    },
-                    success: function (response_s) {
-                        if (response_s.stock_status == true) {
-                            addToCart(addToCartUrl);
-                        } else {
-                            alert("Error addtocart");
-                        }
-                    }
-                })
-            }
-        })
-    });
+ 
 
 
+    
     $(document.body).on("click", ".card-item .quantity-plus", function (e) {
         e.preventDefault();
 
         let quantity_inp_elem = this.parentElement.nextElementSibling;
+        console.log(quantity_inp_elem);
         let quantity_inp = this.previousElementSibling;
         let prod_id = quantity_inp_elem.getAttribute("data-product_id");
         quantity_inp.value = parseInt(quantity_inp.value) + 1;
@@ -352,37 +417,6 @@ jQuery(document).ready(function ($) {
             })
         }
     });
-
-
-    // const removeBtns = document.querySelectorAll('.remove-product');
-
-    // removeBtns.forEach(btn => {
-    //     btn.addEventListener('click', () => {
-    //         const productId = btn.getAttribute('data-product-id');
-    //         const xhr = new XMLHttpRequest();
-    //         xhr.open('POST', '/wp-admin/admin-ajax.php?action=remove_product_from_cookie', true);
-    //         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    //         xhr.onreadystatechange = function () {
-    //             if (xhr.readyState === 4 && xhr.status === 200) {
-    //                 // обновляем список продуктов на стороне клиента
-    //                 const watchedProducts = JSON.parse(xhr.responseText);
-    //                 setCookie('watched_products', JSON.stringify(watchedProducts), 30);
-    //                 btn.parentNode.parentNode.remove();
-    //             }
-    //         };
-    //         xhr.send(`productId=${productId}`);
-    //     });
-    // });
-
-    // function setCookie(name, value, days) {
-    //     let expires = '';
-    //     if (days) {
-    //         const date = new Date();
-    //         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    //         expires = `; expires=${date.toUTCString()}`;
-    //     }
-    //     document.cookie = `${name}=${value}${expires}; path=/`;
-    // }
 
 
 
