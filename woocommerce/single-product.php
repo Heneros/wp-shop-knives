@@ -223,18 +223,18 @@ $product_description = $product->get_description();
 							</div>
 						</div>
 						<div class="product-information__btns">
-							<?php
-							do_action('woocommerce_before_add_to_cart_quantity');
-							?>
-							<div class="product-information__quantity js-quantity">
-								<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
-								<input class="product-information__input h5 js-quantity-input" type="number" name="prod_quantity" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>">
-								<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
-							</div>
-
+						
 
 							<div class="group-btns">
 								<form class="add-to-cart-form">
+								<div class="product-information__quantity js-quantity">
+								<?php do_action('woocommerce_before_add_to_cart_quantity'); ?>
+								<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
+								<input class="product-information__input h5 js-quantity-input" type="number" name="quantity" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>">
+								<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
+								<?php do_action('woocommerce_after_add_to_cart_quantity'); ?>
+							</div>
+						
 									<input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
 									<div class="variation-attributes">
 										<?php

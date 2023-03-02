@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
 
 
 
-                // miniCartCount.innerText = response.cart_items_count;
+                miniCartCount.innerText = response.cart_items_count;
             }
         })
     }
@@ -110,101 +110,8 @@ jQuery(document).ready(function ($) {
 
 
 
-    $('.add-to-cart-btn').on('click', function (e) {
-        e.preventDefault();
-    
-        var form = $(this).closest('form');
-        var product_id = form.find('input[name="product_id"]').val();
-        var variation_id = 0;
-    
- 
-        if (form.find('.variation-attributes').length > 0) {
-            var attributes = {};
-            form.find('.variation-attributes select').each(function () {
-                var attribute_name = $(this).attr('name').replace('attribute_', '');
-                attributes[attribute_name] = $(this).val();
-            });
-            variation_id = getVariationId(attributes);
-        }
-    
-        var data = {
-            action: 'woocommerce_ajax_add_to_cart',
-            product_id: product_id,
-            variation_id: variation_id,
-            quantity: form.find('input[name="quantity"]').val(),
-        };
-    
-        $.ajax({
-            type: 'POST',
-            url: woocommerce_params.ajax_url,
-            data: data,
-            dataType: 'json',
-            success: function (response) {
-                if (!response) {
-                    return;
-                }
-    
-                if (response.error && response.product_url) {
-                    window.location.href = response.product_url;
-                    return;
-                }
-                miniCartAjaxUpdate();
-    
-                var fragments = response.fragments;
-                var cart_hash = response.cart_hash;
-    
-                if (fragments) {
-                    $.each(fragments, function (key, value) {
-                        $(key).replaceWith(value);
-                    });
-    
-                    $('body').trigger('wc_fragments_loaded');
-                }
-    
-                if (response && response.error && response.error.message) {
-                    alert(response.error.message);
-                } else {
-                    $('body').trigger('added_to_cart', [fragments, cart_hash]);
-                }
-            },
-            error: function (errorThrown) {
-                console.log(errorThrown);
-            }
-        });
-    });
-    
 
 
-
-    function getVariationId(attributes) {
-        var variations_data = window.variationsData;
-        if (!variations_data) {
-            return 0;
-        }
-        var variations = variations_data.variations;
-
-        for (var i = 0; i < variations.length; i++) {
-            var variation = variations[i];
-            var matching_attributes = 0;
-
-            for (var attribute_name in attributes) {
-                if (variation.attributes.hasOwnProperty(attribute_name) && variation.attributes[attribute_name] == attributes[attribute_name]) {
-                    matching_attributes++;
-                }
-            }
-
-            if (matching_attributes == Object.keys(attributes).length) {
-                return variation.variation_id;
-            }
-        }
-
-        return 0;
-    }
-
- 
-
-
-    
     $(document.body).on("click", ".card-item .quantity-plus", function (e) {
         e.preventDefault();
 
@@ -418,6 +325,99 @@ jQuery(document).ready(function ($) {
         }
     });
 
+
+    $('.add-to-cart-btn').on('click', function (e) {
+        e.preventDefault();
+    
+        var form = $(this).closest('form');
+        var product_id = form.find('input[name="product_id"]').val();
+        var variation_id = 0;
+    
+        if (form.find('.variation-attributes').length > 0) {
+            var attributes = {};
+            form.find('.variation-attributes select').each(function () {
+                var attribute_name = $(this).attr('name').replace('attribute_', '');
+                attributes[attribute_name] = $(this).val();
+            });
+            variation_id = getVariationId(attributes);
+        }
+    
+        var quantity = form.find('.js-quantity-input').val();
+    
+        var data = {
+            action: 'woocommerce_ajax_add_to_cart',
+            product_id: product_id,
+            variation_id: variation_id,
+            quantity: quantity
+        };
+    
+        $.ajax({
+            type: 'POST',
+            url: woocommerce_params.ajax_url,
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if (!response) {
+                    return;
+                }
+    
+                if (response.error && response.product_url) {
+                    window.location.href = response.product_url;
+                    return;
+                }
+                miniCartAjaxUpdate();
+    
+                var fragments = response.fragments;
+                var cart_hash = response.cart_hash;
+    
+                if (fragments) {
+                    $.each(fragments, function (key, value) {
+                        $(key).replaceWith(value);
+                    });
+    
+                    $('body').trigger('wc_fragments_loaded');
+                }
+    
+                if (response && response.error && response.error.message) {
+                    alert(response.error.message);
+                } else {
+                    $('body').trigger('added_to_cart', [fragments, cart_hash]);
+                }
+            },
+            error: function (errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    });
+
+
+
+
+
+    function getVariationId(attributes) {
+        var variations_data = window.variationsData;
+        if (!variations_data) {
+            return 0;
+        }
+        var variations = variations_data.variations;
+
+        for (var i = 0; i < variations.length; i++) {
+            var variation = variations[i];
+            var matching_attributes = 0;
+
+            for (var attribute_name in attributes) {
+                if (variation.attributes.hasOwnProperty(attribute_name) && variation.attributes[attribute_name] == attributes[attribute_name]) {
+                    matching_attributes++;
+                }
+            }
+
+            if (matching_attributes == Object.keys(attributes).length) {
+                return variation.variation_id;
+            }
+        }
+
+        return 0;
+    }
 
 
 });
