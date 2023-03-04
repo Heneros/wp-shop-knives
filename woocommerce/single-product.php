@@ -223,37 +223,55 @@ $product_description = $product->get_description();
 							</div>
 						</div>
 						<div class="product-information__btns">
-						
+
 
 							<div class="group-btns">
 								<form class="add-to-cart-form">
-								<div class="product-information__quantity js-quantity">
-								<?php do_action('woocommerce_before_add_to_cart_quantity'); ?>
-								<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
-								<input class="product-information__input h5 js-quantity-input" type="number" name="quantity" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>">
-								<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
-								<?php do_action('woocommerce_after_add_to_cart_quantity'); ?>
-							</div>
-						
+
+									<div class="product-information__quantity js-quantity">
+										<?php do_action('woocommerce_before_add_to_cart_quantity'); ?>
+										<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
+										<input class="product-information__input h5 js-quantity-input" type="number" name="quantity" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>">
+										<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
+										<?php do_action('woocommerce_after_add_to_cart_quantity'); ?>
+									</div>
+
 									<input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
 									<div class="variation-attributes">
 										<?php
 										$product_variable = new WC_Product_Variable($product->get_id());
 										foreach ($product_variable->get_variation_attributes() as $attribute_name => $attribute_values) :
 											$attribute_label = wc_attribute_label($attribute_name);
-										?>
+
+									
+											$variation_id = absint($_POST['variation_id']);
+											// Получить объект WC_Product_Variation
+											$variation = new WC_Product_Variation($variation_id);
+											$vendor_code = $variation->get_meta('vendor_code');
+											$trademark = $variation->get_meta('trademark');
+											$seria = $variation->get_meta('seria');
+											$bonus_points = $variation->get_meta('bonus_points');
+											echo 'test';
+											?>
+
+											<ul class="list-reset product-information__right-list">
+												<li class="product-information__right-item-right"><?php echo $vendor_code; ?></li>
+												<li class="product-information__right-item-right"><?php echo $trademark; ?></li>
+											</ul>
 											<div class="variation-attribute">
 												<label for="variation-<?php echo sanitize_title($attribute_name); ?>"><?php echo $attribute_label; ?>:</label>
-												<select id="variation-<?php echo sanitize_title($attribute_name); ?>" name="variation[<?php echo $attribute_name; ?>]">
-													<option value=""><?php echo esc_html__('Choose an option', 'woocommerce'); ?>&hellip;</option>
-													<?php
-													foreach ($attribute_values as $attribute_value) :
-														$variation_id = $product_variable->get_matching_variation(array($attribute_name => $attribute_value));
-														$variation = new WC_Product_Variation($variation_id);
-													?>
-														<option value="<?php echo $attribute_value; ?>" data-price="<?php echo $variation->get_price(); ?>"><?php echo $attribute_value; ?></option>
-													<?php endforeach; ?>
-												</select>
+												<div class="info-dropdown">
+													<select class="filter-style select-item" id="variation-<?php echo sanitize_title($attribute_name); ?>" name="variation[<?php echo $attribute_name; ?>]">
+														<option value=""><?php echo esc_html__('Choose an option', 'woocommerce'); ?>&hellip;</option>
+														<?php
+														foreach ($attribute_values as $attribute_value) :
+															$variation_id = $product_variable->get_matching_variation(array($attribute_name => $attribute_value));
+															$variation = new WC_Product_Variation($variation_id);
+														?>
+															<option value="<?php echo $attribute_value; ?>" data-price="<?php echo $variation->get_price(); ?>"><?php echo $attribute_value; ?></option>
+														<?php endforeach; ?>
+													</select>
+												</div>
 											</div>
 										<?php endforeach; ?>
 									</div>

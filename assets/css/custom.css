@@ -532,7 +532,7 @@ width: 880% !important;
 }
 
 
-.feedback-item  .stars {
+.feedback-item .stars {
     background-image: url('../img/rating-stars.png');
     background-repeat: no-repeat;
     width: 153px;
@@ -576,3 +576,9 @@ width: 880% !important;
     color: #e8aa31;
     background-image: url('../img/stars-full.png');
 } */
+
+.product-information .group-btns {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
