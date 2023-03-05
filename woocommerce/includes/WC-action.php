@@ -870,7 +870,7 @@ function custom_loop_product_title()
 
 
 
-    // // добавляем хук для добавления выбранной вариации в корзину
+
     // add_action('woocommerce_add_to_cart', 'add_variation_to_cart');
     // function add_variation_to_cart($cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data)
     // {
