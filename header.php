@@ -499,11 +499,11 @@
                             $prodPrice = 0;
                             $quantity = $values['quantity'];
 
-                            $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
+                            $product_name = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
 
                             $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
 
-                            $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
+                            $product_price = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
 
                             $quantity = $values['quantity'];
 
@@ -515,28 +515,30 @@
                             }
                             if (in_array($product_id, $added_items)) {
                                 continue;
-                            } ?>
+                            }
+                    ?>
 
                             <div class="card-item">
                                 <div class="card-img">
-                                    <?php echo $thumbnail  ?>
+                                    <?php echo $thumbnail ?>
                                 </div>
                                 <div class="card-info">
-                                    <a class="card-info__title" href="<?php echo  $product_permalink;  ?>">
+                                    <a class="card-info__title 123" href="<?php echo  $product_permalink; ?>">
                                         <?php
-                                        echo  $product_name . $variation_data;
+                                        echo $product_name;
+                                        if ($variation_data) {
+                                            echo ' - ' . $variation_data;
+                                        }
                                         ?>
                                     </a>
                                 </div>
                                 <div class="card-price">
-                                    <?php
-                                    echo  $product_price
-                                    ?>
+                                    <?php echo $product_price ?>
                                 </div>
 
                                 <div class="card-quantity js-quantity">
                                     <button class="icon icon-minus quantity-minus">-</button>
-                                    <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity;  ?>">
+                                    <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity; ?>">
                                     <button class="icon icon-plus quantity-plus">+</button>
                                 </div>
                                 <?php
@@ -556,16 +558,17 @@
                                 <?php
                                 $added_items[] = $product_id;
                                 ?>
-                            </div><?php
-                                }
-                            } else {
-                                    ?>
+                            </div>
+                        <?php
+                        }
+                    } else {
+                        ?>
                         <h2 class="cart-title"> Empty Cart</h2>
                         <p class="cart-message">
-                            You dont have any products
+                            You don't have any products
                         </p>
                     <?php
-                            }
+                    }
                     ?>
                 </div>
                 <?php

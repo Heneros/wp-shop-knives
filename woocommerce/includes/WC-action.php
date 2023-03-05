@@ -816,20 +816,34 @@ function custom_loop_product_title()
         }
     }
 
-    
+
 
     function woocommerce_ajax_add_to_cart()
     {
+        // Make sure that WooCommerce is loaded
+        if (!function_exists('WC')) {
+            return;
+        }
+
         global $woocommerce;
+
         $product_id = apply_filters('woocommerce_add_to_cart_product_id', absint($_POST['product_id']));
         $quantity = empty($_POST['quantity']) ? 1 : apply_filters('woocommerce_stock_amount', $_POST['quantity']);
         $variation_id = absint($_POST['variation_id']);
+
         $passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $quantity, $variation_id);
+
         if ($passed_validation && $woocommerce->cart->add_to_cart($product_id, $quantity, $variation_id)) {
             do_action('woocommerce_ajax_added_to_cart', $product_id);
+
             if (get_option('woocommerce_cart_redirect_after_add') == 'yes') {
-                woocommerce_add_to_cart_messsage(array($product_id => $quantity), true);
+                // Get the product name and quantity for the cart message
+                $product_name = get_the_title($product_id);
+                $cart_item_quantity = $woocommerce->cart->get_cart_item_quantity($product_id);
+                $cart_message = sprintf('%s %s %s', __('Added', 'woocommerce'), $cart_item_quantity, __('to your cart', 'woocommerce'));
+                wc_add_notice($cart_message, 'success');
             }
+
             WC_AJAX::get_refreshed_fragments();
         } else {
             header('Content-Type: application/json; charset=utf-8');
@@ -843,3 +857,48 @@ function custom_loop_product_title()
     }
     add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
     add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // // добавляем хук для добавления выбранной вариации в корзину
+    // add_action('woocommerce_add_to_cart', 'add_variation_to_cart');
+    // function add_variation_to_cart($cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data)
+    // {
+    //     if ($variation_id > 0) {
+    //         WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $variation);
+    //     }
+    // }
+
+
+
+    // function add_hidden_variation_field()
+    // {
+    //     if (is_product()) {
+    //         global $product;
+
+    //         if ($product->is_type('variable')) {
+    //             $variation_data = array();
+    //             $variation_id = $product->get_default_variation_id();
+
+    //             if ($variation_id > 0) {
+    //                 $variation_data = $product->get_variation_attributes($variation_id);
+    //             }
+
+    //             echo '<input type="hidden" name="variation_id" value="' . esc_attr($variation_id) . '">';
+
+    //             foreach ($variation_data as $attribute_name => $attribute_value) {
+    //                 echo '<input type="hidden" name="' . esc_attr('attribute_' . sanitize_title($attribute_name)) . '" value="' . esc_attr($attribute_value) . '">';
+    //             }
+    //         }
+    //     }
+    // }

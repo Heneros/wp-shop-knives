@@ -72,7 +72,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
                                         'options'   => $options,
                                         'attribute' => $attribute_name,
                                         'product'   => $product,
-                                        'class'               => 'filter-style select-item',
+                                        'class'               => '',
                                     )
                                 );
                                 ?>

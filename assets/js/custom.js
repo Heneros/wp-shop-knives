@@ -328,11 +328,11 @@ jQuery(document).ready(function ($) {
 
     $('.add-to-cart-btn').on('click', function (e) {
         e.preventDefault();
-    
+
         var form = $(this).closest('form');
         var product_id = form.find('input[name="product_id"]').val();
         var variation_id = 0;
-    
+
         if (form.find('.variation-attributes').length > 0) {
             var attributes = {};
             form.find('.variation-attributes select').each(function () {
@@ -341,16 +341,16 @@ jQuery(document).ready(function ($) {
             });
             variation_id = getVariationId(attributes);
         }
-    
+
         var quantity = form.find('.js-quantity-input').val();
-    
+
         var data = {
             action: 'woocommerce_ajax_add_to_cart',
             product_id: product_id,
             variation_id: variation_id,
             quantity: quantity
         };
-    
+
         $.ajax({
             type: 'POST',
             url: woocommerce_params.ajax_url,
@@ -360,24 +360,24 @@ jQuery(document).ready(function ($) {
                 if (!response) {
                     return;
                 }
-    
+
                 if (response.error && response.product_url) {
                     window.location.href = response.product_url;
                     return;
                 }
                 miniCartAjaxUpdate();
-    
+
                 var fragments = response.fragments;
                 var cart_hash = response.cart_hash;
-    
+
                 if (fragments) {
                     $.each(fragments, function (key, value) {
                         $(key).replaceWith(value);
                     });
-    
+
                     $('body').trigger('wc_fragments_loaded');
                 }
-    
+
                 if (response && response.error && response.error.message) {
                     alert(response.error.message);
                 } else {
@@ -418,6 +418,12 @@ jQuery(document).ready(function ($) {
 
         return 0;
     }
+
+
+
+
+
+
 
 
 });
