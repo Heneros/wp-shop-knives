@@ -142,7 +142,7 @@ $product_description = $product->get_description();
 								do_action('woocommerce_single_product_summary');
 							?>
 								<style>
-									.product_meta {
+									/* .product_meta {
 										display: none !important;
 									}
 
@@ -168,7 +168,7 @@ $product_description = $product->get_description();
 
 									.hidden-btn {
 										display: none !important;
-									}
+									} */
 								</style>
 
 

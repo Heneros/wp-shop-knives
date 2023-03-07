@@ -16,9 +16,9 @@ defined('ABSPATH') || exit;
 ?>
 <script type="text/template" id="tmpl-variation-template">
 
-    <div class="woocommerce-variation-price">{{{ data.variation.price_html }}}</div>
+    <!-- <div class="woocommerce-variation-price">{{{ data.variation.price_html }}}</div> -->
 
-	<div class="product-information__right-middle" bis_skin_checked="1">
+	<div class="product-information__right-middle" >
                             <ul class="list-reset product-information__right-list">
                                 <li class="product-information__right-item-left"> Vendor Code:</li>
                                 <li class="product-information__right-item-left"> Trademark:</li>

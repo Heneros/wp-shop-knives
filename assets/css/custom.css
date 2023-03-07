@@ -582,3 +582,22 @@ width: 880% !important;
     justify-content: center;
     flex-direction: row;
 }
+
+.single_variation_wrap{
+    display: flex;
+    flex-direction: column;
+}
+.woocommerce-variation .single_variation{
+    display: flex;
+    order: 1;
+}
+
+.variations {
+    display: flex;
+    order: 2;
+}
+
+.product-information__right-bottom{
+    display: flex;
+    order: 3;
+}

@@ -231,19 +231,20 @@
                                 <div class="header__cart-svg">
                                     <div class="cart-num" id="mini-cart-count">
                                         <?php
-
-                                        $cart_items = WC()->cart->get_cart();
-                                        $product_count = 0;
-                                        $added_items = array();
-                                        foreach ($cart_items as $cart_item_key => $cart_item) {
-                                            $product_id = $cart_item['product_id'];
-                                            if (in_array($product_id, $added_items)) {
-                                                continue;
-                                            }
-                                            $product_count += $cart_item['quantity'];
-                                            $added_items[] = $product_id;
-                                        }
-                                        echo esc_html($product_count);
+                                        echo WC()->cart->get_cart_contents_count();
+                                        // $cart_items = WC()->cart->get_cart();
+                                        // $product_count = 0;
+                                        // $added_items = array();
+                                        // foreach ($cart_items as $cart_item_key => $cart_item) {
+                                        //     $product_id = $cart_item['product_id'];
+                                        //     if (in_array($product_id, $added_items)) {
+                                        //         continue;
+                                        //     }
+                                        //     $product_count += $cart_item['quantity'];
+                                        //     $added_items[] = $product_id;
+                                        // }
+                                        // echo esc_html($product_count);
+                                        // echo count(WC()->cart->get_cart());
                                         ?>
                                     </div>
                                 </div>
@@ -488,88 +489,93 @@
             <div class="cart-products">
                 <div class="cart-content" id="mini-cart-all-items">
                     <?php
-                    // woocommerce_mini_cart();
-                    $added_items = array(); // хранит уже добавленные в корзину товары
+                    woocommerce_mini_cart();
+                    // $added_items = array(); 
 
-                    $items = WC()->cart->get_cart();
-                    if (!empty($items)) {
-                        foreach (WC()->cart->get_cart() as $cart_item_key => $values) {
-                            $_product = wc_get_product($values['data']->get_id());
-                            $product_id = $values['product_id'];
-                            $prodPrice = 0;
-                            $quantity = $values['quantity'];
+                    // $items = WC()->cart->get_cart();
+                    // if (!empty($items)) {
+                    //     foreach (WC()->cart->get_cart() as $cart_item_key => $values) {
+                    //         $_product = wc_get_product($values['data']->get_id());
+                    //         $product_id = $values['product_id'];
+                    //         $prodPrice = 0;
+                    //         $quantity = $values['quantity'];
 
-                            $product_name = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
+                    //         $product_name = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
 
-                            $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
+                    //         $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
 
-                            $product_price = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
+                    //         $product_price = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
 
-                            $quantity = $values['quantity'];
+                    //         $quantity = $values['quantity'];
 
-                            $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($values) : '', $values, $cart_item_key);
+                    //         $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($values) : '', $values, $cart_item_key);
 
-                            $variation_data = '';
-                            if ($values['variation']) {
-                                $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
-                            }
-                            if (in_array($product_id, $added_items)) {
-                                continue;
-                            }
+                    //         $variation_data = '';
+                    //         if ($values['variation']) {
+                    //             $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
+                    //         }
+                    //         if (in_array($product_id, $added_items)) {
+                    //             continue;
+                    //         }
+                    // 
                     ?>
 
-                            <div class="card-item">
-                                <div class="card-img">
-                                    <?php echo $thumbnail ?>
-                                </div>
-                                <div class="card-info">
-                                    <a class="card-info__title 123" href="<?php echo  $product_permalink; ?>">
-                                        <?php
-                                        echo $product_name;
-                                        if ($variation_data) {
-                                            echo ' - ' . $variation_data;
-                                        }
-                                        ?>
-                                    </a>
-                                </div>
-                                <div class="card-price">
-                                    <?php echo $product_price ?>
-                                </div>
+                    <!-- //         <div class="card-item">
+                    //             <div class="card-img">
+                    //                 <?php echo $thumbnail ?>
+                    //             </div>
+                    //             <div class="card-info">
+                    //                 <a class="card-info__title 123" href="<?php echo  $product_permalink; ?>">
+                    //                     <?php
+                                            //                     echo $product_name;
+                                            //                     if ($variation_data) {
+                                            //                         echo ' - ' . $variation_data;
+                                            //                     }
+                                            //                     
+                                            ?>
+                    //                 </a>
+                    //             </div>
+                    //             <div class="card-price">
+                    //                 <?php echo $product_price ?>
+                    //             </div>
 
-                                <div class="card-quantity js-quantity">
-                                    <button class="icon icon-minus quantity-minus">-</button>
-                                    <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity; ?>">
-                                    <button class="icon icon-plus quantity-plus">+</button>
-                                </div>
-                                <?php
-                                echo apply_filters(
-                                    'woocommerce_cart_item_remove_link',
-                                    sprintf(
-                                        '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
-                                        esc_url(wc_get_cart_remove_url($cart_item_key)),
-                                        esc_attr__("Remove this item", "woocommerce"),
-                                        esc_attr($product_id),
-                                        esc_attr($cart_item_key),
-                                        esc_attr($_product->get_sku())
-                                    ),
-                                    $cart_item_key
-                                )
-                                ?>
-                                <?php
-                                $added_items[] = $product_id;
-                                ?>
-                            </div>
-                        <?php
-                        }
-                    } else {
+                    //             <div class="card-quantity js-quantity">
+                    //                 <button class="icon icon-minus quantity-minus">-</button>
+                    //                 <input class="card-input js-quantity-input" type="text" value="<?php echo $quantity; ?>">
+                    //                 <button class="icon icon-plus quantity-plus">+</button>
+                    //             </div>
+                    //             <?php
+                                    //             echo apply_filters(
+                                    //                 'woocommerce_cart_item_remove_link',
+                                    //                 sprintf(
+                                    //                     '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+                                    //                     esc_url(wc_get_cart_remove_url($cart_item_key)),
+                                    //                     esc_attr__("Remove this item", "woocommerce"),
+                                    //                     esc_attr($product_id),
+                                    //                     esc_attr($cart_item_key),
+                                    //                     esc_attr($_product->get_sku())
+                                    //                 ),
+                                    //                 $cart_item_key
+                                    //             )
+                                    //             
+                                    ?>
+                    //             <?php
+                                    //             $added_items[] = $product_id;
+                                    //             
+                                    ?>
+                    //         </div> -->
+                    // <?php
+                        //     }
+                        // } else {
+                        //     
                         ?>
-                        <h2 class="cart-title"> Empty Cart</h2>
-                        <p class="cart-message">
-                            You don't have any products
-                        </p>
-                    <?php
-                    }
-                    ?>
+                    <!-- //     <h2 class="cart-title"> Empty Cart</h2>
+                    //     <p class="cart-message">
+                    //         You don't have any products
+                    //     </p> -->
+                    // <?php
+                        // }
+                        ?>
                 </div>
                 <?php
                 if (!empty($items)) {
