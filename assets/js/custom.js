@@ -49,6 +49,30 @@ jQuery(document).ready(function ($) {
 
 
 
+    ////////////Add To cart
+    // function addToCart(url) {
+
+    //     $.ajax({
+    //         url: url,
+    //         method: "POST",
+    //         error: function (response) {
+    //             console.log(response);
+    //         },
+    //         success: function (response) {
+    //             miniCartAjaxUpdate();
+    //             let miniCartCount = document.getElementById("mini-cart-count");
+    //             let currentCount = parseInt(miniCartCount.innerText) + 1;
+    //             miniCartCount.innerText = currentCount;
+    //         }
+    //     });
+
+    // }
+
+
+
+
+
+
     ////////Mini Cart Update
     function miniCartAjaxUpdate() {
 
@@ -84,30 +108,6 @@ jQuery(document).ready(function ($) {
             }
         })
     }
-    ////////////Add To cart
-    // function addToCart(url) {
-
-    //     $.ajax({
-    //         url: url,
-    //         method: "POST",
-    //         error: function (response) {
-    //             console.log(response);
-    //         },
-    //         success: function (response) {
-    //             miniCartAjaxUpdate();
-    //             let miniCartCount = document.getElementById("mini-cart-count");
-    //             let currentCount = parseInt(miniCartCount.innerText) + 1;
-    //             miniCartCount.innerText = currentCount;
-    //         }
-    //     });
-
-    // }
-
-
-
-
-
-
 
 
 
@@ -159,6 +159,53 @@ jQuery(document).ready(function ($) {
             });
         }
     });
+
+
+    // $(document.body).on('click', '.quantity-minus, .quantity-plus', function () {
+    //     var product_id = $(this).data('product_id');
+    //     var cart_item_key = $(this).data('cart_item_key');
+    //     var quantity = $(this).siblings('.js-quantity-input').val();
+
+    //     if ($(this).hasClass('quantity-minus')) {
+    //         quantity--;
+    //     } else {
+    //         quantity++;
+    //     }
+
+    //     if (quantity < 1) {
+    //         quantity = 1;
+    //     }
+
+    //     $(this).siblings('.js-quantity-input').val(quantity);
+
+    //     var data = {
+    //         action: 'update_cart_item_quantity',
+    //         product_id: product_id,
+    //         cart_item_key: cart_item_key,
+    //         quantity: quantity,
+    //         _wpnonce: my_ajax_object.nonce
+    //     };
+
+    //     $(document.body).trigger('update_checkout');
+
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: my_ajax_object.ajax_url,
+
+    //         data: data,
+    //         success: function (response) {
+    //             if (response && response.fragments) {
+    //                 $.each(response.fragments, function (key, value) {
+    //                     $(key).replaceWith(value);
+    //                 });
+
+    //                 if (response.cart_hash) {
+    //                     $(document.body).trigger('wc_fragment_refresh');
+    //                 }
+    //             }
+    //         }
+    //     });
+    // });
 
 
     // $(".btn-footer").html('');

@@ -3,7 +3,7 @@
 require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
 require get_template_directory() . '/inc/viewed_products.php';
-
+require get_template_directory() . '/inc/filter.php';
 
 add_action('wp_ajax_nopriv_remove_product_from_cookie', 'remove_product_from_cookie');
 add_action('wp_ajax_remove_product_from_cookie', 'remove_product_from_cookie');
@@ -95,9 +95,14 @@ function theme_enqueue_styles()
 
 function shop_scripts()
 {
+    // wp_enqueue_script("ajax-script", get_template_directory_uri() . '/assets/js/custom.js', array("jquery"));
+
+    // wp_localize_script("ajax-script", 'my_ajax_object', array('ajax_url' =>  admin_url('admin-ajax.php')));
     wp_enqueue_script("ajax-script", get_template_directory_uri() . '/assets/js/custom.js', array("jquery"));
 
-    wp_localize_script("ajax-script", 'my_ajax_object', array('ajax_url' =>  site_url() . '/wp-admin/admin-ajax.php'));
+    wp_localize_script("ajax-script", 'my_ajax_object', array(
+        'ajax_url' =>  admin_url('admin-ajax.php')
+    ));
 
     wp_enqueue_script('js-vendor-swiper', _assets_paths('/js/vendor/swiper.min.js'), ['jquery'], true);
     wp_enqueue_script('js-vendor-aos', _assets_paths('/js/vendor/aos.js'),  ['jquery'], true);
