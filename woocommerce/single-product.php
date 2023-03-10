@@ -142,6 +142,10 @@ $product_description = $product->get_description();
 								do_action('woocommerce_single_product_summary');
 							?>
 								<style>
+									.bestsellers-products-item__size {
+										display: none !important;
+									}
+									
 									/* .product_meta {
 										display: none !important;
 									}
@@ -154,9 +158,7 @@ $product_description = $product->get_description();
 										display: none !important;
 									}
 
-									.bestsellers-products-item__size {
-										display: none !important;
-									}
+							
 
 									.product-information__right-dropdowns .product_title .entry-title {
 										display: none !important;
