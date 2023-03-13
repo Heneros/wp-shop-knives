@@ -16,9 +16,9 @@ defined('ABSPATH') || exit;
 ?>
 <script type="text/template" id="tmpl-variation-template">
 
-    <!-- <div class="woocommerce-variation-price">{{{ data.variation.price_html }}}</div> -->
 
-	<div class="product-information__right-middle" >
+
+    <div class="product-information__right-middle" >
                             <ul class="list-reset product-information__right-list">
                                 <li class="product-information__right-item-left"> Vendor Code:</li>
                                 <li class="product-information__right-item-left"> Trademark:</li>
@@ -33,6 +33,7 @@ defined('ABSPATH') || exit;
                             </ul>
                         </div>
                         <div class="line"></div>
+                        <!-- <div class="woocommerce-variation-price">{{{ data.variation.price_html }}}</div> -->
 </script>
 <script type="text/template" id="tmpl-unavailable-variation-template">
     <p><?php esc_html_e('Sorry, this product is unavailable. Please choose a different combination.', 'woocommerce'); ?></p>

@@ -15,24 +15,24 @@ global $product;
 
 <div class="woocommerce-variation-add-to-cart variations_button product-information__right-bottom">
 	<div class="line"></div>
+	<?php wc_get_template('single-product/price.php'); ?>
 	<div class="product-information__btns">
 		<?php do_action('woocommerce_before_add_to_cart_button'); ?>
-		<div class="product-information__quantity js-quantity">
-			<button class="product-information__minus icon icon-minus js-quantity-minus">-</button>
+		<div class="product-information__quantity parent-quantity ">
+			<button class="product-information__minus  icon-minus  quantity-minus" type="button">-</button>
 			<?php
 			do_action('woocommerce_before_add_to_cart_quantity');
 			woocommerce_quantity_input(
 				array(
-					'min_value'   => apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product),
-					'max_value'   => apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product),
+					'min_value' => apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product),
+					'max_value' => apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product),
 					'input_value' => isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
 				)
 			);
 			do_action('woocommerce_after_add_to_cart_quantity');
 			?>
-			<button class="product-information__plus icon icon-plus js-quantity-plus">+</button>
+			<button class="product-information__plus icon-plus   quantity-plus" type="button">+</button>
 		</div>
-
 
 		<div class="group-btns">
 			<button type="submit" class="btn btn-bottom btn-yellow  single_add_to_cart_button button hidden-btn alt<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>

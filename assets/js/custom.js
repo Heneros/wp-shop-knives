@@ -108,57 +108,82 @@ jQuery(document).ready(function ($) {
             }
         })
     }
+    $("#alg-product-input-fields-table").remove();
 
 
-
-
-    $(document.body).on("click", ".card-item .quantity-plus", function (e) {
+    $(document.body).on('click', '.quantity-plus', function (e) {
         e.preventDefault();
-
-        let quantity_inp_elem = this.parentElement.nextElementSibling;
-        console.log(quantity_inp_elem);
-        let quantity_inp = this.previousElementSibling;
-        let prod_id = quantity_inp_elem.getAttribute("data-product_id");
-        quantity_inp.value = parseInt(quantity_inp.value) + 1;
-
-        $.ajax({
-            method: "POST",
-            url: my_ajax_object.ajax_url,
-            cache: false,
-            data: {
-                prod_id: prod_id,
-                quantity: quantity_inp.value,
-                action: "update_product_quantity"
-            },
-            success: function (response) {
-                miniCartAjaxUpdate();
-            }
-        })
+        var val = parseInt($(this).parent('.parent-quantity').find('.input_qty').val());
+        var new_val = val + 1;
+        if (new_val < 1) new_val = 1;
+        $(this).parents('.parent-quantity').find('.input_qty').val(new_val);
+        $(this).parents('.parent-quantity').find('.quantity-minus').removeClass('disabled');
+        return false;
     });
 
-    $(document.body).on("click", ".card-item .quantity-minus", function (e) {
-        e.preventDefault();
-        let quantity_inp_elem = this.parentElement.nextElementSibling;
-        let quantity_inp = this.nextElementSibling;
-        let prod_id = quantity_inp_elem.getAttribute("data-product_id");
+    
 
-        if (parseInt(quantity_inp.value) != 1) {
-            quantity_inp.value = parseInt(quantity_inp.value) - 1;
-            $.ajax({
-                method: "POST",
-                url: my_ajax_object.ajax_url,
-                cache: false,
-                data: {
-                    prod_id: prod_id,
-                    quantity: quantity_inp.value,
-                    action: 'update_product_quantity'
-                },
-                success: function (response) {
-                    miniCartAjaxUpdate();
-                }
-            });
+    $(document.body).on('click', '.quantity-minus', function (e) {
+        e.preventDefault();
+        var val = parseInt($(this).parent('.parent-quantity').find('.input_qty').val());
+        var new_val = val - 1;
+        if (new_val < 1) {
+            new_val = 1;
+            $(this).addClass('disabled')
         }
+
+        $(this).parents('.parent-quantity').find('.input_qty').val(new_val);
+        return false;
     });
+
+
+    // $(document.body).on("click", ".card-item .quantity-plus", function (e) {
+    //     e.preventDefault();
+
+    //     let quantity_inp_elem = this.parentElement.nextElementSibling;
+    //     console.log(quantity_inp_elem);
+    //     let quantity_inp = this.previousElementSibling;
+    //     let prod_id = quantity_inp_elem.getAttribute("data-product_id");
+    //     quantity_inp.value = parseInt(quantity_inp.value) + 1;
+
+    //     $.ajax({
+    //         method: "POST",
+    //         url: my_ajax_object.ajax_url,
+    //         cache: false,
+    //         data: {
+    //             prod_id: prod_id,
+    //             quantity: quantity_inp.value,
+    //             action: "update_product_quantity"
+    //         },
+    //         success: function (response) {
+    //             miniCartAjaxUpdate();
+    //         }
+    //     })
+    // });
+
+    // $(document.body).on("click", ".card-item .quantity-minus", function (e) {
+    //     e.preventDefault();
+    //     let quantity_inp_elem = this.parentElement.nextElementSibling;
+    //     let quantity_inp = this.nextElementSibling;
+    //     let prod_id = quantity_inp_elem.getAttribute("data-product_id");
+
+    //     if (parseInt(quantity_inp.value) != 1) {
+    //         quantity_inp.value = parseInt(quantity_inp.value) - 1;
+    //         $.ajax({
+    //             method: "POST",
+    //             url: my_ajax_object.ajax_url,
+    //             cache: false,
+    //             data: {
+    //                 prod_id: prod_id,
+    //                 quantity: quantity_inp.value,
+    //                 action: 'update_product_quantity'
+    //             },
+    //             success: function (response) {
+    //                 miniCartAjaxUpdate();
+    //             }
+    //         });
+    //     }
+    // });
 
 
     // $(document.body).on('click', '.quantity-minus, .quantity-plus', function () {
@@ -208,7 +233,6 @@ jQuery(document).ready(function ($) {
     // });
 
 
-    // $(".btn-footer").html('');
 
 
     $(".btn-footer").prop("value", "");

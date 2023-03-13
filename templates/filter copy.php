@@ -13,22 +13,21 @@ get_header();
 <?php
 
 
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-$postsPerPage = 6;
-$postOffset = ($paged - 1) * $postsPerPage;
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 0;
+$postsPerPage = 5;
+$postOffset = $paged * $postsPerPage;
 $args = array(
     'post_type' => 'projects',
     'offset'            => $postOffset,
     'posts_per_page'    => $postsPerPage,
+    // 'paged' => 
 );
 ?>
 <div class="container">
-    <div class="filters-project">
-        <?php
-        do_action('filters_tax_projects');
-        ?>
-    </div>
     <?php
+
+
+    do_action('filters_tax_projects');
     if (!empty($_GET['project_areas']) || !empty($_GET['field_activities'])) {
         $tax_query = array('relation' => 'AND');
 
@@ -51,7 +50,9 @@ $args = array(
         }
         $args['tax_query'] = $tax_query;
     }
+
     ?>
+
     <div class="items-project">
         <?php
         $query = new WP_Query($args);
@@ -71,6 +72,7 @@ $args = array(
                         $area = '<span class="tax">' . trim(strip_tags($area)) . '</span>';
                     }
                 }
+
                 $project_areas_tax = get_the_term_list($post->ID, 'project_areas', '', ', ');
                 $project_areas =   strip_tags($project_areas_tax);
                 $project_areas = '<span>' . $project_areas . '</span>';
@@ -101,71 +103,29 @@ $args = array(
                         ?>
                     </div>
                 </div>
-        <?php
+            <?php
             endwhile;
+            ?>
+            <?php
+            $next_page = $query->query_vars['paged'] + 1;
+            $max_pages = $wp_query->max_num_pages;
+            if ($next_page <= $max_pages) :
+            ?>
+                <div style="text-align: center;" class="best-works__botton-wrapper">
+                    <button id="loadmore-btn" data-nextpage="<?php echo $next_page; ?>" data-maxpages="<?php echo $max_pages; ?>">
+                        Load More
+                    </button>
+                </div>
+        <?php endif;
         endif;
-        wp_reset_postdata();
-        ?>
+        wp_reset_postdata(); ?>
     </div>
     <?php
-    $next_page = $paged + 1;
-    $max_pages = $query->max_num_pages;
+    ?>
 
 
-    $count_posts = wp_count_posts('projects');
-    $total_posts = $count_posts->publish;
-
-
-    if ($next_page <= $max_pages) { ?>
-        <div class="loadmore">
-            <a id="loadmore-btn" class="load_more" data-nextpage="<?php echo $next_page; ?>" data-maxpages="<?php echo $max_pages; ?>">
-                הצג עוד 6 מתוך <?= $total_posts ?>
-            </a>
-        </div>
-    <?php  } else { ?>
-        <style>
-            .loadmore {
-                display: none !important;
-            }
-        </style>
-    <?php  }   ?>
-    <script>
-        var offset = 0;
-        var posts_per_page = 6;
-        var next_page = 2;
-        var post_type = 'projects';
-        jQuery(function($) {
-            $('#loadmore-btn').click(function() {
-                var button = $(this);
-                var next_page = button.data('nextpage');
-                var max_pages = button.data('maxpages');
-                $.ajax({
-                    url: my_ajax_object.ajax_url,
-                    type: 'POST',
-                    data: {
-                        action: 'loadmore',
-                        offset: offset + posts_per_page,
-                        posts_per_page: posts_per_page,
-                        next_page: next_page,
-                        post_type: post_type
-                    },
-                    beforeSend: function() {
-                        $('#loadmore-btn').text('Loading...');
-                    },
-                    success: function(data) {
-                        $('#loadmore-btn').text('Load More');
-                        $('.items-project').append(data);
-                        offset += posts_per_page;
-                        next_page++;
-                        if (next_page + 1 > max_pages) {
-                            button.hide();
-                        }
-                    }
-                });
-            });
-        });
-    </script>
 </div>
+
 <?php
 get_footer();
 ?>

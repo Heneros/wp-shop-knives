@@ -656,11 +656,28 @@ width: 880% !important;
 
 
 
+.items-project {
+    margin-top: 90px;
+}
+
+.items-project .taxs {
+    padding-top: 20px;
+    padding-left: 10px;
+}
 
 @media(min-width: 991px) {
     .items-project {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(50%, 2fr));
+        grid-template-columns: repeat(auto-fit, minmax(45%, 2fr));
+        grid-gap: 90px;
+    }
+
+    .cardd-item:nth-child(even) {
+        margin-bottom: 8%;
+    }
+
+    .cardd-item:nth-child(odd) {
+        margin-top: 8%;
     }
 }
 
@@ -668,12 +685,19 @@ width: 880% !important;
     .items-project {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(100, 1fr));
+        grid-gap: 20px;
     }
 }
 
 .cardd-item {
     display: flex;
     flex-direction: column;
+    background: #EFEFEF;
+    transition: .3s ease-in;
+}
+
+.cardd-item:hover {
+    background-color: yellow;
 }
 
 
@@ -683,6 +707,100 @@ width: 880% !important;
     background-position: center center;
     background-repeat: no-repeat;
     width: 100%;
-    max-width: 700px;
     height: 350px;
+}
+
+.cardd-item .card-content {
+    padding: 40px;
+    text-align: right;
+}
+
+
+.cardd-item .card-content h1 {
+    font-family: 'Inter' 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000;
+    text-transform: capitalize;
+}
+
+.cardd-item .tax {
+    padding: 16px 10px;
+    font-family: 'Inter', 'Arial Narrow', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    background: #FFED49;
+    border-radius: 23px;
+
+}
+
+.cardd-item .card-content h1 a {
+    font-family: 'Inter', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000;
+    text-transform: capitalize;
+}
+
+.cardd-item .card-location {
+    font-family: 'Inter', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #000;
+    position: relative;
+    display: flex;
+    justify-content: right;
+    padding-right: 25px;
+
+}
+
+.cardd-item .card-location::after {
+    content: "";
+    width: 12px;
+    height: 14px;
+    position: absolute;
+    right: 0;
+    background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/location.svg');
+}
+
+.loadmore {
+    margin-top: 130px;
+    margin-bottom: 150px;
+    display: flex;
+    width: 100%;
+}
+
+.load_more {
+    padding: 14px 0px;
+    text-align: center;
+    cursor: pointer;
+    background: #fff;
+    width: 100%;
+    border: 1px solid #000000;
+    position: relative;
+}
+
+.loadmore .load_more::before {
+    content: "";
+    width: 21px;
+    height: 33px;
+    position: absolute;
+    margin-left: -28px;
+    background-repeat: no-repeat;
+    background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/plus-button.svg');
+}
+
+.filters-project {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filters-project .project-filter {
+    position: relative;
 }
