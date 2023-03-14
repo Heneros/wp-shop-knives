@@ -98,6 +98,7 @@ function get_projects_filter_form($taxonomies = array())
     $form = '<form method="get" action="' . esc_url(get_permalink()) . '">';
 
     foreach ($taxonomies as $taxonomy) {
+        $option_is_set = false;
         $current_terms = isset($_GET[$taxonomy]) ? (array) $_GET[$taxonomy] : array();
         $args = array(
             'taxonomy' => $taxonomy,
@@ -106,19 +107,26 @@ function get_projects_filter_form($taxonomies = array())
         $terms = get_terms($args);
         if (!empty($terms) && !is_wp_error($terms)) {
             $form .= '<div class="js-select">';
+            $form .= '<div class="js-select-head">';
+            //     <div class="page-business__dropdown-head js-select-head">
+            //     Cities            <span class="icon icon-triangle-down"></span>
+            // </div>
             $form .= '<span>' . esc_html(get_taxonomy($taxonomy)->labels->singular_name) . '</span>';
+            $form .= '</div>';
+            $form .= '<div class="js-select-body">';
             foreach ($terms as $term) {
                 $checked = '';
                 if (in_array($term->slug, $current_terms)) {
                     $checked = 'checked';
+                    $option_is_set = true;
                 }
-                $form .= '<div>';
                 $form .= '<label for="' . esc_attr($taxonomy . '_' . $term->slug) . '">';
-                $form .= '<input type="checkbox" name="' . esc_attr($taxonomy) . '[]" id="' . esc_attr($taxonomy . '_' . $term->slug) . '" value="' . esc_attr($term->slug) . '" ' . esc_attr($checked) . ' onchange="this.form.submit();">';
+                $form .=  '<div class="checkbox"></div>';
+                $form .= '<input type="checkbox" class="checkbox-none "  name="' . esc_attr($taxonomy) . '[]" id="' . esc_attr($taxonomy . '_' . $term->slug) . '" value="' . esc_attr($term->slug) . '" ' . esc_attr($checked) . ' onchange="this.form.submit();">';
                 $form .= esc_html($term->name);
                 $form .= '</label>';
-                $form .= '</div>';
             }
+            $form .= '</div>';
             $form .= '</div>';
         }
     }
