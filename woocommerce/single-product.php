@@ -133,8 +133,8 @@ $product_description = $product->get_description();
 									</a>
 								</div>
 							</div>
-							<span class="available">In stock</span>
 						</div>
+						<span class="available">In stock</span>
 						<div class="line"></div>
 						<div class="product-information__right-dropdowns">
 							<?php

@@ -121,7 +121,7 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    
+
 
     $(document.body).on('click', '.quantity-minus', function (e) {
         e.preventDefault();
@@ -491,23 +491,71 @@ jQuery(document).ready(function ($) {
     }
 
 
-
-
-
-
-
-
 });
 
 
 
 
 
+jQuery(document).ready(function ($) {
+    // const headerList = document.querySelectorAll('.select-header-list');
+    // headerList.forEach(item => {
+    //     item.addEventListener('click', () => {
+    //         const dropdown = item.nextElementSibling;
+    //         dropdown.classList.toggle('open');
+    //         item.classList.toggle('rotate-up');
+    //     });
+    // });
+    $('.select-header-list').click(function () {
+        var dropdown = $(this).next();
+        dropdown.toggleClass('open');
+        $(this).toggleClass('rotate-up');
+    });
+
+    $('.filter-button').on('click', function () {
+        $('.filter-form').slideToggle();
+    });
 
 
 
 
 
+    // добавляем кнопку
+    $(document).ready(function () {
+        // добавляем кнопку
+        $('.filter-toggle').click(function (e) {
+            e.preventDefault();
+            // $('body').toggleClass('overlay'); // добавляем затемнение фона
+            // $('.filter-form').slideToggle(); // добавляем эффект slideUp
+            e.preventDefault();
+            $('.filter-form').toggleClass('open');
+            $('.overlay').toggle();
+        });
+        // добавляем обработчик на кнопку закрытия
+        $('.filter-form').on('click', '.filter-close', function () {
+            $('.filter-form').hide();
+        });
+        // инициализируем форму фильтров
+        $('.filter-form').each(function () {
+            var $form = $(this);
+            var $selects = $form.find('.select-wrapper');
+            $form.find(':checkbox').change(function () {
+                $form.submit();
+            });
+
+            // добавляем обработчик на выбор селекта
+            $selects.each(function () {
+                var $select = $(this).find('.select-header-list');
+                var $dropdown = $(this).find('.select-droppdown');
+
+                $select.click(function (e) {
+                    e.preventDefault();
+                    $dropdown.toggleClass('open');
+                    $select.toggleClass('rotate-up');
+                });
+            });
+        });
+    });
 
 
-
+});
