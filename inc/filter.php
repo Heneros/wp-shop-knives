@@ -277,13 +277,17 @@ function functions_tax_projects()
 function get_projects_filter_form($taxonomies = array())
 { 
     
-    $form = '<button class="filter-toggle">Фильтры</button>
+    $form = '
+    <button class="filter-toggle">פילטר</button>
+    <div class="filter-search">
+    <input type="search" placeholder="חיפוש" class="input-search">
+    </div>
     <div class="filter-form"><form method="get" action="' . esc_url(get_permalink()) . '">
-    <button class="filter-close">&times;</button>
+    <span class="filter-close"></span>
     <span class="form-title">סינון תוצאות לפי:</span>';
 
     foreach ($taxonomies as $taxonomy) {
-        // $option_is_set = false;
+
         $current_terms = isset($_GET[$taxonomy]) ? (array) $_GET[$taxonomy] : array();
         $args = array(
             'taxonomy' => $taxonomy,

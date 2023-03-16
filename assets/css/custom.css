@@ -409,8 +409,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 }
 
 .mc4wp-checkbox label {
-    /* position: absolute;
-    opacity: 0; */
+
     position: relative;
     cursor: pointer;
     padding: 0;
@@ -418,9 +417,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     font: 500 18px/27px Montserrat, sans-serif;
 }
 
-/* .styled-checkbox:checked+label:before{
 
-} */
 .mc4wp-checkbox [type=checkbox] {
     margin-right: 10px;
     display: inline-block;
@@ -503,7 +500,6 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     text-transform: capitalize;
 }
 
-.product-information__right-top {}
 
 .product-information__right-top .bestsellers-products-item__favorites {
     background-color: unset;
@@ -559,9 +555,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     width: 100%;
 }
 
-/* .info-dropdown .jq-selectbox__select{
-width: 880% !important;
-} */
+
 
 .feedback-item .meta {
     display: flex;
@@ -1156,10 +1150,10 @@ width: 880% !important;
     background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/plus-button.svg');
 }
 
-.filters-project {
+/* .filters-project {
     display: flex;
     justify-content: flex-start;
-}
+} */
 
 .filters-project .project-filter {
     position: relative;
@@ -1276,35 +1270,9 @@ body {
     position: relative;
 }
 
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-}
-
-.filter-form {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: calc(100% - 60px);
-    /* 60px - это высота кнопки */
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: scroll;
-}
 
 .filter-form.open {
     transform: translateY(0);
-    /* положение при открытии */
 }
 
 
@@ -1330,21 +1298,79 @@ body {
         display: block;
     }
 
-    .filter-toggle {
+    .filter-toggle,
+    .filter-close {
         display: none;
+    }
+
+    .filter-search {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .filter-search .input-search {
+        position: relative;
+        border: unset;
+        outline: unset;
+        border-bottom: 1px solid #000;
+        text-align: right;
+        padding-bottom: 22px;
+        padding-top: 22px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .filter-search::after {
+        content: "";
+        left: 0;
+        position: absolute;
+        background-repeat: no-repeat;
+        width: 20px;
+        height: 20px;
+        background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/search-icon.svg');
     }
 }
 
 
 @media screen and (max-width: 767px) {
-    .filter-toggle {
-        display: flex;
+    .overlayy {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999999999999;
+        background-color: rgba(0, 0, 0, 0.5);
     }
 
-    .filter-toggle {
-        display: block;
-        margin: 10px 0;
+    .filter-form {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: calc(100% - 60px);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: scroll;
+        background-color: transparent;
     }
+
+    .filter-form::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
 
     .filter-form {
         display: none;
@@ -1361,7 +1387,9 @@ body {
         background: #fff;
         position: absolute;
         right: 0;
+        bottom: 0;
         left: 0;
+        min-height: 90%;
     }
 
     .filter-close {
@@ -1375,19 +1403,119 @@ body {
         font-size: 20px;
         font-weight: bold;
         color: #fff;
-        background-color: rgba(0, 0, 0, 0.5);
         border: none;
         cursor: pointer;
         z-index: 999;
+        background-repeat: no-repeat;
+        background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/close.svg');
     }
 
     .select-wrapper {
         position: sticky;
         z-index: 1;
-        /* добавляем */
+        width: -webkit-fill-available;
+        margin: unset;
     }
 
-    .filter-form {}
+    body.overlayy .container {
+        max-width: unset;
+        margin: unset;
+        padding: unset;
+    }
 
-    .select-wrapper {}
+
+    .filters-project {
+        justify-content: space-around;
+    }
+
+    .filter-toggle {
+        position: relative;
+        margin: 0 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 70%;
+        height: 35px;
+        background: #F6F6F6;
+        border: unset;
+        outline: unset;
+        cursor: pointer;
+
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .filter-toggle::after {
+        content: "";
+        height: 14px;
+        width: 14px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        background-position: center;
+        background-size: cover;
+        background: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/btn-filter.svg') no-repeat;
+    }
+
+
+    .filter-search {
+        position: relative;
+        flex: 1 1 20%;
+        background: #F6F6F6;
+        border: unset;
+        outline: unset;
+        cursor: pointer;
+
+
+    }
+
+
+
+    .input-search {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-top: none;
+        z-index: 1;
+    }
+
+    .filter-search.open .input-search {
+        display: block;
+    }
+
+    .filter-search::after {
+        content: "";
+        height: 26px;
+        width: 33px;
+        position: absolute;
+        bottom: 0;
+        background-position: center;
+        background-size: cover;
+        background: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/search-icon.svg') no-repeat;
+    }
+
+    .select-header-list {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        padding: 20px 32px 20px 28px;
+        background-color: #F6F6F6;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    .filter-form form .select-wrapper .select-header-list.rotate-down {
+        background-color: #fff;
+        border: unset;
+    }
+
+    .select-droppdown.open {
+        box-shadow: unset;
+    }
 }
