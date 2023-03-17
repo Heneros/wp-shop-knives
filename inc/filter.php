@@ -108,6 +108,7 @@ function my_project_shortcode($atts)
     );
 ?>
     <div class="container">
+        <span class="adaptive-title-filter"> סינון תוצאות לפי:</span>
         <div class="filters-project">
             <?php
             do_action('filters_tax_projects');
@@ -275,13 +276,15 @@ function functions_tax_projects()
 }
 
 function get_projects_filter_form($taxonomies = array())
-{ 
-    
+{
+
     $form = '
+ 
     <button class="filter-toggle">פילטר</button>
     <div class="filter-search">
     <input type="search" placeholder="חיפוש" class="input-search">
     </div>
+
     <div class="filter-form"><form method="get" action="' . esc_url(get_permalink()) . '">
     <span class="filter-close"></span>
     <span class="form-title">סינון תוצאות לפי:</span>';
