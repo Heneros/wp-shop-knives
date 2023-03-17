@@ -201,16 +201,19 @@ $product_description = $product->get_description();
 									</ul>
 								</div>
 								<div class="line"></div>
-								<?php wc_get_template('single-product/price.php');
-								do_action('woocommerce_single_product_summary');
-								?>
-
+								<style>
+									.bestsellers-products-item__size {
+										display: none !important;
+									}
+								</style>
+								<?php wc_get_template('single-product/price.php'); ?>
 								<div class="product-information__right-bottom">
-
 									<div class="product-information__btns">
-										<div class="group-btns">
-
-										</div>
+							
+											<?php
+											do_action('woocommerce_single_product_summary');
+											?>
+							
 									</div>
 								</div>
 							<?php

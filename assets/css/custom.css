@@ -685,11 +685,54 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 
 
 
+.product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart .btn-yellow {
+    background-color: #E8AA31;
+    color: #fff;
+    width: 100%;
+    box-shadow: 0px 4px 20px rgba(232, 170, 49, 0.43);
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    font: 600 18px/21px "Montserrat", sans-serif;
+    padding: 17px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart .btn-yellow::after {
+    content: "";
+    background: url("../img/cart-white.svg") no-repeat;
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    margin-left: 15px;
+    margin-top: -4px;
+}
+
+
+.product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns  .product-information__btns{
+    display: unset;
+}
+
+.product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 2fr));
+}
+
+.product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart {}
 
 
 
 
 
+
+
+
+
+
+
+
+/* Filter Page */
 
 .items-project {
     margin-top: 90px;
