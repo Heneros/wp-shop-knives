@@ -95,9 +95,6 @@ function my_project_shortcode($atts)
     ), $atts);
 
 
-
-
-
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
     $postsPerPage = 6;
     $postOffset = ($paged - 1) * $postsPerPage;
@@ -257,17 +254,6 @@ function my_project_shortcode($atts)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 add_action('filters_tax_projects', 'functions_tax_projects');
 
 function functions_tax_projects()
@@ -275,16 +261,13 @@ function functions_tax_projects()
     echo get_projects_filter_form(array('project_areas', 'field_activities'));
 }
 
+
 function get_projects_filter_form($taxonomies = array())
 {
 
     $form = '
  
     <button class="filter-toggle">פילטר</button>
-    <div class="filter-search">
-    <input type="search" placeholder="חיפוש" class="input-search">
-    </div>
-
     <div class="filter-form"><form method="get" action="' . esc_url(get_permalink()) . '">
     <span class="filter-close"></span>
     <span class="form-title">סינון תוצאות לפי:</span>';
@@ -323,16 +306,23 @@ function get_projects_filter_form($taxonomies = array())
             }
             $form .= '</ul>';
             $form .= '</div>';
-            $form .= '</div>';
+            $form .= '</div>
+  
+            ';
         }
     }
 
     $form .= '<input type="hidden" name="page_id" value="' . esc_attr(get_the_ID()) . '">';
 
-    $form .= '</form></div>';
+    $form .= '</form></div>          <div class="filter-search">
+            <div class="input-wrapper">
+              <input type="search" placeholder="חיפוש" class="input-search">
+            </div>
+          </div>';
 
     return $form;
 }
+
 
 
 
@@ -399,11 +389,85 @@ function loadmore_ajax_handler()
                     ?>
                 </div>
             </div>
-<?php
+        <?php
         endwhile;
     endif;
 
     wp_reset_postdata();
 
+    die();
+}
+
+
+
+
+
+
+
+///Seach Value
+
+add_action('wp_ajax_nopriv_seach_value_filters', 'seach_value_filters');
+add_action('wp_ajax_seach_value_filters', 'seach_value_filters');
+
+function seach_value_filters()
+{
+    $search_value = $_POST['search_value'];
+
+    $args = array(
+        'post_type' => 'projects',
+        's' => $search_value,
+    );
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) :
+        while ($query->have_posts()) :
+            $query->the_post();
+            global $post;
+            $featured_img = wp_get_attachment_url(get_post_thumbnail_id());
+            $link = get_permalink();
+
+            $field_activities_tax = get_the_term_list($post->ID, 'field_activities', '', ', ');
+            $field_activities = '';
+
+            if ($field_activities_tax) {
+                $field_activities = explode(',', $field_activities_tax);
+                foreach ($field_activities as &$area) {
+                    $area = '<span class="tax">' . trim(strip_tags($area)) . '</span>';
+                }
+            }
+            $project_areas_tax = get_the_term_list($post->ID, 'project_areas', '', ', ');
+            $project_areas =   strip_tags($project_areas_tax);
+            $project_areas = '<span>' . $project_areas . '</span>';
+        ?>
+            <div class="cardd-item">
+                <div class="card-img" style="background-image: url(<?php echo $featured_img  ?>); ">
+                    <div class="taxs">
+                        <?php
+                        echo implode(' ', $field_activities);
+                        ?>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h1>
+                        <a href="<?= $link ?>">
+                            <?php the_title(); ?>
+                        </a>
+                    </h1>
+                    <?php if ($project_areas_tax) : ?>
+                        <div class="card-location">
+                            <?php
+                            echo $project_areas;
+                            ?>
+                        </div>
+                    <?php
+                    endif;
+                    ?>
+                </div>
+            </div>
+<?php
+        endwhile;
+    endif;
+
+    wp_reset_postdata();
     die();
 }

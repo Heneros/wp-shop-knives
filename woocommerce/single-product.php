@@ -208,13 +208,12 @@ $product_description = $product->get_description();
 								</style>
 								<?php wc_get_template('single-product/price.php'); ?>
 								<div class="product-information__right-bottom">
-									<div class="product-information__btns">
+								
 							
 											<?php
 											do_action('woocommerce_single_product_summary');
 											?>
 							
-									</div>
 								</div>
 							<?php
 							}

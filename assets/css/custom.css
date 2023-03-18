@@ -682,9 +682,6 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     align-items: baseline;
 }
 
-
-
-
 .product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart .btn-yellow {
     background-color: #E8AA31;
     color: #fff;
@@ -710,16 +707,13 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 }
 
 
-.product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns  .product-information__btns{
-    display: unset;
-}
+
 
 .product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(50%, 2fr));
 }
 
-.product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart {}
 
 
 
@@ -1182,7 +1176,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     position: relative;
 }
 
-.loadmore .load_more span::before {
+/* .loadmore .load_more span::before {
     content: "";
     width: 21px;
     height: 33px;
@@ -1191,7 +1185,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     top: 0px;
     background-repeat: no-repeat;
     background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/plus-button.svg');
-}
+} */
 
 /* .filters-project {
     display: flex;
@@ -1544,7 +1538,7 @@ body {
     .input-search {
         display: none;
         position: absolute;
-        top: 100%;
+        /* top: 100%; */
         left: 0;
         width: 100%;
         padding: 10px;
@@ -1563,6 +1557,9 @@ body {
         height: 26px;
         width: 33px;
         position: absolute;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
         bottom: 0;
         background-position: center;
         background-size: cover;
@@ -1591,5 +1588,13 @@ body {
 
     .select-droppdown.open {
         box-shadow: unset;
+    }
+
+    .filter-search.open {
+        flex: 1 1 100%;
+    }
+
+    .filter-search.active .input-search {
+        display: block;
     }
 }

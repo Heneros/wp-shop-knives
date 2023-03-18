@@ -1,9 +1,17 @@
 <?php
 
+
 require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
 require get_template_directory() . '/inc/viewed_products.php';
 require get_template_directory() . '/inc/filter.php';
+
+
+
+
+
+
+
 
 add_action('wp_ajax_nopriv_remove_product_from_cookie', 'remove_product_from_cookie');
 add_action('wp_ajax_remove_product_from_cookie', 'remove_product_from_cookie');

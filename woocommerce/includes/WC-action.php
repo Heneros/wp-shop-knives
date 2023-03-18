@@ -637,3 +637,22 @@ function custom_loop_product_title()
     add_action("wp_ajax_update_product_quantity", "update_product_quantity");
     add_action("wp_ajax_nopriv_update_product_quantity", "update_product_quantity");
 
+
+
+
+
+
+
+
+    ///Fixing issue with duplicate product in added cart.
+    add_filter('woocommerce_add_to_cart_validation', 'prevent_duplicate_add_to_cart', 10, 3);
+    function prevent_duplicate_add_to_cart($passed, $product_id, $quantity)
+    {
+        $product_cart_id = WC()->cart->generate_cart_id($product_id);
+        $in_cart = WC()->cart->find_product_in_cart($product_cart_id);
+        if ($in_cart) {
+            wc_add_notice(__('This product is already in your cart.', 'woocommerce'), 'error');
+            return false;
+        }
+        return $passed;
+    }

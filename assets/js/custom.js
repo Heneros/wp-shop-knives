@@ -497,6 +497,10 @@ jQuery(document).ready(function ($) {
 
 
 jQuery(document).ready(function ($) {
+
+
+
+
     $('.select-header-list').click(function () {
         var dropdown = $(this).next();
         dropdown.toggleClass('open');
@@ -532,6 +536,24 @@ jQuery(document).ready(function ($) {
 
 
 
+    $('.input-search').on('input', function () {
+        var inputValue = $(this).val();
+
+        $.ajax({
+            type: 'POST',
+            url: my_ajax_object.ajax_url,
+            data: {
+                action: 'seach_value_filters',
+                search_value: inputValue
+            },
+            success: function (response) {
+                $('.items-project').html(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("AJAX Error: " + textStatus + " " + errorThrown);
+            }
+        })
+    });
 
 
 
@@ -571,8 +593,22 @@ jQuery(document).ready(function ($) {
 
 
     ///filter search
-    $('.filter-search').on('click', function () {
-        $(this).toggleClass('open');
-    });
 
+    if ($(window).width() <= 767) {
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.filter-search').length) {
+                $('.filter-search').removeClass('open');
+                $('.input-search').hide();
+            }
+        });
+
+        $('.filter-search').on('click', function () {
+            $('.input-search').show().focus();
+            $(this).toggleClass('open');
+
+        });
+        $('.input-search').on('blur', function () {
+            $(this).hide();
+        });
+    }
 });
