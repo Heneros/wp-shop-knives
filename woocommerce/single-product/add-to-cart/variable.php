@@ -72,11 +72,11 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
                                         'options'   => $options,
                                         'attribute' => $attribute_name,
                                         'product'   => $product,
-                                        'class'               => '',
+                                        'class'     => 'filter-style select-item',
+                                        'data-jqselect' => 'filter-style select-item'
                                     )
                                 );
                                 ?>
-                                <!-- <span class="custom-arrow"></span> -->
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 
             </div>
         </div>
-      
+
 
 
         <?php do_action('woocommerce_after_variations_table'); ?>

@@ -93,39 +93,46 @@ if (empty($product) || !$product->is_visible()) {
 
 		?>
 	</div>
-	<button class="remove-product" data-product-id="<?php echo get_the_ID(); ?>">Remove product</button>
-	<script>
-		(function() {
-			const removeBtns = document.querySelectorAll(".remove-product");
+	<?php
+	if (is_page('viewed-products')) :
+	?>
+		<button class="remove-product" data-product-id="<?php echo get_the_ID(); ?>">Remove product</button>
+		<script>
+			(function() {
+				const removeBtns = document.querySelectorAll(".remove-product");
 
-			removeBtns.forEach(btn => {
-				btn.addEventListener('click', () => {
-					const productId = btn.getAttribute("data-product-id");
-					let watchedProducts = JSON.parse(getCookie('watched_products'));
-					if (watchedProducts) {
-						delete watchedProducts[productId];
-						setCookie('watched_products', JSON.stringify(watchedProducts), 30);
-					}
-					btn.parentNode.remove();
+				removeBtns.forEach(btn => {
+					btn.addEventListener('click', () => {
+						const productId = btn.getAttribute("data-product-id");
+						let watchedProducts = JSON.parse(getCookie('watched_products'));
+						if (watchedProducts) {
+							delete watchedProducts[productId];
+							setCookie('watched_products', JSON.stringify(watchedProducts), 30);
+						}
+						btn.parentNode.remove();
+					});
 				});
-			});
 
-			function getCookie(name) {
-				const value = `; ${document.cookie}`;
-				const parts = value.split(`; ${name}=`); ///интерполяция
-				if (parts.length === 2) return parts.pop().split().shift();
-			}
-
-			function setCookie(name, value, days) {
-				let expires = '';
-				if (days) {
-					const date = new Date();
-					date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-					expires = `; expires=${date.toUTCString()}`;
+				function getCookie(name) {
+					const value = `; ${document.cookie}`;
+					const parts = value.split(`; ${name}=`); ///интерполяция
+					if (parts.length === 2) return parts.pop().split().shift();
 				}
-				document.cookie = `${name}=${value}${expires}; path=/`;
-			}
 
-		})();
-	</script>
+				function setCookie(name, value, days) {
+					let expires = '';
+					if (days) {
+						const date = new Date();
+						date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+						expires = `; expires=${date.toUTCString()}`;
+					}
+					document.cookie = `${name}=${value}${expires}; path=/`;
+				}
+
+			})();
+		</script>
+	<?php
+	endif;
+	?>
+
 </div>

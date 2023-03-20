@@ -134,7 +134,15 @@ $product_description = $product->get_description();
 								</div>
 							</div>
 						</div>
-						<span class="available">In stock</span>
+						<?php if ($product->is_in_stock()) : ?>
+							<span class="available">
+								In stock
+							</span>
+						<?php else : ?>
+							<span class="out_stock">
+								Out of stock
+							</span>
+						<?php endif; ?>
 						<div class="line"></div>
 						<div class="product-information__right-dropdowns">
 							<?php
@@ -205,15 +213,19 @@ $product_description = $product->get_description();
 									.bestsellers-products-item__size {
 										display: none !important;
 									}
+
+									.stock.out-of-stock {
+										display: none !important;
+									}
 								</style>
 								<?php wc_get_template('single-product/price.php'); ?>
 								<div class="product-information__right-bottom">
-								
-							
-											<?php
-											do_action('woocommerce_single_product_summary');
-											?>
-							
+
+
+									<?php
+									do_action('woocommerce_single_product_summary');
+									?>
+
 								</div>
 							<?php
 							}

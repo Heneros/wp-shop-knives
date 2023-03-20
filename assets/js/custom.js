@@ -490,6 +490,67 @@ jQuery(document).ready(function ($) {
         return 0;
     }
 
+    $('select[data-jqselect="filter-style select-item"]').css('display', 'none');
+    $('select[data-jqselect="filter-style select-item"]').each(function () {
+        var $this = $(this);
+        var $dropdown = $('<ul>', {
+            class: 'jq-selectbox__dropdown'
+        }).css({
+            width: $this.outerWidth(),
+            top: $this.outerHeight(),
+            left: 0,
+            display: 'none'
+        });
+        $this.children('option').each(function () {
+            var $option = $(this);
+            var $li = $('<li>', {
+                html: $option.text(),
+                class: $option.is(':selected') ? 'selected sel' : '',
+                style: $option.is(':disabled') ? 'display:none' : ''
+            });
+            $li.click(function () {
+                $this.val($option.val());
+                $dropdown.hide();
+                $this.trigger('change');
+                return false;
+            });
+            $li.appendTo($dropdown);
+        });
+        var $select = $('<div>', {
+            class: 'jq-selectbox__select'
+        }).insertBefore($dropdown);
+        $('<div>', {
+            class: 'jq-selectbox__select-text',
+            html: $this.children('option:selected').text()
+        }).appendTo($select);
+        $('<div>', {
+            class: 'jq-selectbox__trigger'
+        }).html('<div class="jq-selectbox__trigger-arrow"></div>').appendTo($select);
+        $dropdown.insertAfter($select);
+    });
+    
+    // Показать/скрыть dropdown при клике на селектбокс
+    $('.jq-selectbox__select').click(function () {
+        var $selectbox = $(this).closest('.jq-selectbox');
+        var $dropdown = $selectbox.children('.jq-selectbox__dropdown');
+        $('.jq-selectbox__dropdown').not($dropdown).hide();
+        $dropdown.toggle();
+        return false;
+    });
+    
+
+    $(document).click(function (event) {
+        if (!$(event.target).closest('.jq-selectbox').length) {
+            $('.jq-selectbox__dropdown').hide();
+        }
+    });
+    
+
+    $('.jq-selectbox__dropdown ul li').click(function () {
+        var select_val = $(this).text();
+        $(this).parents('.jq-selectbox').find('.jq-selectbox__select-text').html(select_val);
+    });
+
 
 });
 
@@ -611,4 +672,10 @@ jQuery(document).ready(function ($) {
             $(this).hide();
         });
     }
+
+
+
+
+
+
 });

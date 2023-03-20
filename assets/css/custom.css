@@ -718,9 +718,68 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 
 
 
+.out_stock {
+    color: red;
+    font: 500 18px/27px Montserrat, sans-serif;
+}
 
 
 
+.info-dropdown select {
+    display: none;
+}
+
+.custom-select {
+    display: inline-block;
+    position: relative;
+    padding: 0 30px 0 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 40px;
+    height: 40px;
+    width: 200px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-select.open {
+    background-color: #f2f2f2;
+    border-color: #999;
+}
+
+.custom-select::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 4px 0 4px;
+    border-color: #999 transparent transparent transparent;
+}
+
+.custom-option {
+    display: block;
+    padding: 0 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    line-height: 40px;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-option:last-of-type {
+    border-bottom: none;
+}
 
 
 
