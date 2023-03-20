@@ -70,7 +70,9 @@
 
 .product-information__right-top .product-information__icons img {
     height: 30px;
+    object-fit: cover;
 }
+
 
 .bestsellers-products-item__favorites img {
     position: absolute;
@@ -685,7 +687,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 .product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart .btn-yellow {
     background-color: #E8AA31;
     color: #fff;
-    width: 100%;
+    /* width: 100%; */
     box-shadow: 0px 4px 20px rgba(232, 170, 49, 0.43);
     border-radius: 3px;
     outline: none;

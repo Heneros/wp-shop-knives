@@ -1,10 +1,28 @@
 <?php
+add_filter('woocommerce_add_to_cart_validation', 'prevent_duplicate_add_to_cart', 10, 3);
+function prevent_duplicate_add_to_cart($passed, $product_id, $quantity)
+{
+    if (isset($_COOKIE['cart_product_' . $product_id])) {
+        wc_add_notice(__('This product is already in your cart.', 'woocommerce'), 'error');
+        return false;
+    } else {
+        setcookie('cart_product_' . $product_id, true, time() + 86400, '/');
+        return $passed;
+    }
+}
+
+
+
+
+
+
 
 
 require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
 require get_template_directory() . '/inc/viewed_products.php';
 require get_template_directory() . '/inc/filter.php';
+
 
 
 
