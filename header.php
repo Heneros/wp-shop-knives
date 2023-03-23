@@ -58,7 +58,6 @@
                         global $woocommerce;
                         $cart = WC()->cart;
                         $items_count = WC()->cart->get_cart_contents_count();
-
                         ?>
                         <a href="#!" class="header__cart-link ">
                             <div class="header-mobile__icon header__cart-svg header-mobile__cart js-open-cart">

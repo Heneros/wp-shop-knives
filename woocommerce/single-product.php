@@ -309,6 +309,7 @@ $product_description = $product->get_description();
 					?>
 				</div>
 				<div data-tab="delivery" class="delivery js-tabs-body-item ">
+					Places we deliver:
 					<?php
 					if (have_rows('your_country')) :
 					?>
@@ -359,7 +360,7 @@ $product_description = $product->get_description();
 	</div>
 </section>
 <!-- Related Products -->
-<section class="similiar-products">
+<section class="similiar-products single-products">
 	<div class="container">
 		<div class="text-above">
 			<h1 class="title">Similiar Products</h1>
@@ -384,7 +385,7 @@ $product_description = $product->get_description();
 	</div>
 	</div>
 </section>
-<section class="products-recommedation">
+<section class="products-recommedation single-products">
 	<div class="container">
 		<div class="text-above">
 			<h1 class="title">Recommedation </h1>

@@ -1,15 +1,26 @@
 <?php
-add_filter('woocommerce_add_to_cart_validation', 'prevent_duplicate_add_to_cart', 10, 3);
-function prevent_duplicate_add_to_cart($passed, $product_id, $quantity)
-{
-    if (isset($_COOKIE['cart_product_' . $product_id])) {
-        wc_add_notice(__('This product is already in your cart.', 'woocommerce'), 'error');
-        return false;
-    } else {
-        setcookie('cart_product_' . $product_id, true, time() + 86400, '/');
-        return $passed;
-    }
-}
+
+
+
+// add_filter('woocommerce_add_to_cart_validation', 'prevent_duplicate_add_to_cart', 10, 3);
+
+// function prevent_duplicate_add_to_cart($passed, $product_id, $quantity)
+// {
+//     $product = wc_get_product($product_id);
+//     $product_cart_id = WC()->cart->generate_cart_id($product_id);
+//     $in_cart = WC()->cart->find_product_in_cart($product_cart_id);
+
+//     if ($in_cart) {
+//         wc_add_notice(__('This product is already in your cart.', 'woocommerce'), 'error');
+//         return false;
+//     } else {
+//         WC()->cart->add_to_cart($product_id, $quantity);
+//         WC()->session->set('prevent_duplicate_add_to_cart', true);
+//         return $passed;
+//     }
+// }
+
+
 
 
 

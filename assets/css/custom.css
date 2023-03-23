@@ -704,7 +704,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     width: 27px;
     height: 27px;
     position: absolute;
-    margin-left: 15px;
+    margin-left: 10px;
     margin-top: -4px;
 }
 
@@ -1658,4 +1658,13 @@ body {
     .filter-search.active .input-search {
         display: block;
     }
+}
+
+
+.shop-catalog__products {
+    gap: 35px;
+}
+
+.single-products .bestsellers-products-item__favorites img {
+    left: 0 !important;
 }
