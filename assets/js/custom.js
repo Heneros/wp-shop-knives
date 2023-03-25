@@ -397,72 +397,70 @@ jQuery(document).ready(function ($) {
     });
 
 
-    $('.add-to-cart-btn').on('click', function (e) {
-        e.preventDefault();
-
-        var form = $(this).closest('form');
-        var product_id = form.find('input[name="product_id"]').val();
-        var variation_id = 0;
-
-        if (form.find('.variation-attributes').length > 0) {
-            var attributes = {};
-            form.find('.variation-attributes select').each(function () {
-                var attribute_name = $(this).attr('name').replace('attribute_', '');
-                attributes[attribute_name] = $(this).val();
-            });
-            variation_id = getVariationId(attributes);
-        }
-
-        var quantity = form.find('.js-quantity-input').val();
-
-        var data = {
-            action: 'woocommerce_ajax_add_to_cart',
-            product_id: product_id,
-            variation_id: variation_id,
-            quantity: quantity
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: woocommerce_params.ajax_url,
-            data: data,
-            dataType: 'json',
-            success: function (response) {
-                if (!response) {
-                    return;
-                }
-
-                if (response.error && response.product_url) {
-                    window.location.href = response.product_url;
-                    return;
-                }
-                miniCartAjaxUpdate();
-
-                var fragments = response.fragments;
-                var cart_hash = response.cart_hash;
-
-                if (fragments) {
-                    $.each(fragments, function (key, value) {
-                        $(key).replaceWith(value);
-                    });
-
-                    $('body').trigger('wc_fragments_loaded');
-                }
-
-                if (response && response.error && response.error.message) {
-                    alert(response.error.message);
-                } else {
-                    $('body').trigger('added_to_cart', [fragments, cart_hash]);
-                }
-            },
-            error: function (errorThrown) {
-                console.log(errorThrown);
-            }
-        });
-    });
-
-
-
+    // $('.add-to-cart-btn').on('click', function (e) {
+    //     e.preventDefault();
+    
+    //     var form = $(this).closest('form');
+    //     var product_id = form.find('input[name="product_id"]').val();
+    //     var variation_id = 0;
+    
+    //     if (form.find('.variation-attributes').length > 0) {
+    //         var attributes = {};
+    //         form.find('.variation-attributes select').each(function () {
+    //             var attribute_name = $(this).attr('name').replace('attribute_', '');
+    //             attributes[attribute_name] = $(this).val();
+    //         });
+    //         variation_id = getVariationId(attributes);
+    //     }
+    
+    //     var quantity = form.find('.js-quantity-input').val();
+    
+    //     var data = {
+    //         action: 'woocommerce_ajax_add_to_cart',
+    //         product_id: product_id,
+    //         variation_id: variation_id,
+    //         quantity: quantity
+    //     };
+    
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: woocommerce_params.ajax_url,
+    //         data: data,
+    //         dataType: 'json',
+    //         success: function (response) {
+    //             if (!response) {
+    //                 return;
+    //             }
+    
+    //             if (response.error && response.product_url) {
+    //                 window.location.href = response.product_url;
+    //                 return;
+    //             }
+    //             miniCartAjaxUpdate();
+    
+    //             var fragments = response.fragments;
+    //             var cart_hash = response.cart_hash;
+    
+    //             if (fragments) {
+    //                 $.each(fragments, function (key, value) {
+    //                     $(key).replaceWith(value);
+    //                 });
+    
+    //                 $('body').trigger('wc_fragments_loaded');
+    //             }
+    
+    //             if (response && response.error && response.error.message) {
+    //                 alert(response.error.message);
+    //             } else {
+    //                 $('body').trigger('added_to_cart', [fragments, cart_hash]);
+    //             }
+    //         },
+    //         error: function (errorThrown) {
+    //             console.log(errorThrown);
+    //         }
+    //     });
+    // });
+    
 
 
     function getVariationId(attributes) {
@@ -528,8 +526,8 @@ jQuery(document).ready(function ($) {
         }).html('<div class="jq-selectbox__trigger-arrow"></div>').appendTo($select);
         $dropdown.insertAfter($select);
     });
-    
-    // Показать/скрыть dropdown при клике на селектбокс
+
+
     $('.jq-selectbox__select').click(function () {
         var $selectbox = $(this).closest('.jq-selectbox');
         var $dropdown = $selectbox.children('.jq-selectbox__dropdown');
@@ -537,14 +535,14 @@ jQuery(document).ready(function ($) {
         $dropdown.toggle();
         return false;
     });
-    
+
 
     $(document).click(function (event) {
         if (!$(event.target).closest('.jq-selectbox').length) {
             $('.jq-selectbox__dropdown').hide();
         }
     });
-    
+
 
     $('.jq-selectbox__dropdown ul li').click(function () {
         var select_val = $(this).text();
