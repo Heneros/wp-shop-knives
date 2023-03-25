@@ -50,23 +50,23 @@ jQuery(document).ready(function ($) {
 
 
     ////////////Add To cart
-    // function addToCart(url) {
+    function addToCart(url) {
 
-    //     $.ajax({
-    //         url: url,
-    //         method: "POST",
-    //         error: function (response) {
-    //             console.log(response);
-    //         },
-    //         success: function (response) {
-    //             miniCartAjaxUpdate();
-    //             let miniCartCount = document.getElementById("mini-cart-count");
-    //             let currentCount = parseInt(miniCartCount.innerText) + 1;
-    //             miniCartCount.innerText = currentCount;
-    //         }
-    //     });
+        $.ajax({
+            url: url,
+            method: "POST",
+            error: function (response) {
+                console.log(response);
+            },
+            success: function (response) {
+                miniCartAjaxUpdate();
+                let miniCartCount = document.getElementById("mini-cart-count");
+                let currentCount = parseInt(miniCartCount.innerText) + 1;
+                miniCartCount.innerText = currentCount;
+            }
+        });
 
-    // }
+    }
 
 
 
@@ -395,72 +395,48 @@ jQuery(document).ready(function ($) {
             })
         }
     });
+ 
 
 
-    // $('.add-to-cart-btn').on('click', function (e) {
-    //     e.preventDefault();
-    
-    //     var form = $(this).closest('form');
-    //     var product_id = form.find('input[name="product_id"]').val();
-    //     var variation_id = 0;
-    
-    //     if (form.find('.variation-attributes').length > 0) {
-    //         var attributes = {};
-    //         form.find('.variation-attributes select').each(function () {
-    //             var attribute_name = $(this).attr('name').replace('attribute_', '');
-    //             attributes[attribute_name] = $(this).val();
-    //         });
-    //         variation_id = getVariationId(attributes);
-    //     }
-    
-    //     var quantity = form.find('.js-quantity-input').val();
-    
-    //     var data = {
-    //         action: 'woocommerce_ajax_add_to_cart',
-    //         product_id: product_id,
-    //         variation_id: variation_id,
-    //         quantity: quantity
-    //     };
-    
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: woocommerce_params.ajax_url,
-    //         data: data,
-    //         dataType: 'json',
-    //         success: function (response) {
-    //             if (!response) {
-    //                 return;
-    //             }
-    
-    //             if (response.error && response.product_url) {
-    //                 window.location.href = response.product_url;
-    //                 return;
-    //             }
-    //             miniCartAjaxUpdate();
-    
-    //             var fragments = response.fragments;
-    //             var cart_hash = response.cart_hash;
-    
-    //             if (fragments) {
-    //                 $.each(fragments, function (key, value) {
-    //                     $(key).replaceWith(value);
-    //                 });
-    
-    //                 $('body').trigger('wc_fragments_loaded');
-    //             }
-    
-    //             if (response && response.error && response.error.message) {
-    //                 alert(response.error.message);
-    //             } else {
-    //                 $('body').trigger('added_to_cart', [fragments, cart_hash]);
-    //             }
-    //         },
-    //         error: function (errorThrown) {
-    //             console.log(errorThrown);
-    //         }
-    //     });
-    // });
-    
+    $('.add-to-cart-btn').on('click', function (e) {
+        e.preventDefault();
+
+        let addToCartUrl = this.href;
+        let getIdFromUrl = addToCartUrl.split('=');
+
+        let productID = parseInt(getIdFromUrl[1]);
+        $.ajax({
+            type: "POST",
+            url: my_ajax_object.ajax_url,
+            cache: false,
+            data: {
+                product_id: productID,
+                action: 'check_if_product_exist_in_cart'
+            },
+            success: function (response) {
+                $.ajax({
+                    type: 'POST',
+                    url: my_ajax_object.ajax_url,
+                    cache: false,
+                    data: {
+                        product_id: productID,
+                        action: 'check_if_product_in_stock'
+                    },
+                    success: function (response_s) {
+                        if (response_s.stock_status == true) {
+                            addToCart(addToCartUrl);
+                        } else {
+                            alert("Error happend add-to-cart");
+                        }
+                    }
+                })
+            }
+        })
+
+    })
+
+
+
 
 
     function getVariationId(attributes) {

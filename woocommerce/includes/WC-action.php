@@ -165,9 +165,9 @@ function custom_loop_product_title()
                 </div>
                 <div class="card-price">' . $product_price . '</div>
                 <div class="card-quantity js-quantity">
-                    <button class="icon icon-minus quantity-minus">-</button>
+                 
                     <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
-                    <button class="icon icon-plus quantity-plus">+</button>
+            
                 </div>
                 ' . apply_filters(
                 'woocommerce_cart_item_remove_link',
@@ -639,36 +639,33 @@ function custom_loop_product_title()
 
 
 
+    add_action('wp_ajax_add_to_cart', 'add_to_cart');
+    add_action('wp_ajax_nopriv_add_to_cart', 'add_to_cart');
+    function add_to_cart()
+    {
+        $error = '';
+        $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : '';
+        $attributes = isset($_POST['attributes']) ? $_POST['attributes'] : [];
+        $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
 
-    // function woocommerce_ajax_add_to_cart() {
-    //     global $woocommerce;
-    //     $product_id = absint($_POST['product_id']);
-    //     $quantity = empty($_POST['quantity']) ? 1 : wc_stock_amount($_POST['quantity']);
-    //     $variation_id = absint($_POST['variation_id']);
-    
-    //     $product_status = get_post_status($product_id);
-    //     if (!$product_status) {
-    //         die(json_encode(array('error' => true, 'product_id' => $product_id)));
-    //     }
-    
-    //     if ($variation_id) {
-    //         $product = new WC_Product_Variation($variation_id);
-    //     } else {
-    //         $product = new WC_Product($product_id);
-    //     }
-    
-    //     // Добавляем товар в корзину
-    //     $cart_item_key = $woocommerce->cart->add_to_cart($product_id, $quantity, $variation_id);
-    
-    //     // Возвращаем данные о состоянии корзины и обновляем ее фрагменты
-    //     $data = array(
-    //         'fragments' => apply_filters('woocommerce_add_to_cart_fragments', array()),
-    //         'cart_hash' => $woocommerce->cart->get_cart_hash(),
-    //     );
-    
-    //     echo wp_json_encode($data);
-    //     wp_die();
-    // }
-    // add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
-    // add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
-    
+        if (empty($product_id)) {
+            $error = 'Product was not send';
+        }
+
+        if (empty($error)) {
+            $variation_id = (new \WC_Product_Data_Store_CPT())->find_matching_product_variation(
+                new \WC_Product($product_id),
+                $attributes
+            );
+
+            WC()->cart->add_to_cart($product_id, $quantity, $variation_id);
+
+            wp_send_json_success([
+                'message' => 'Product was added'
+            ]);
+        } else {
+            wp_send_json_error([
+                'message' => $error
+            ]);
+        }
+    }
