@@ -669,3 +669,10 @@ function custom_loop_product_title()
             ]);
         }
     }
+
+    add_action('wp_ajax_clear_wishlist', 'clear_wishlist');
+    add_action('wp_ajax_nopriv_clear_wishlist', 'clear_wishlist');
+    function clear_wishlist()
+    {
+        
+    }

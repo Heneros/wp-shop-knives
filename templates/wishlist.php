@@ -21,7 +21,24 @@
     ?>
  <script>
      (function($) {
+         $(document).on('click', '.clear_wishlist', function(e) {
+             e.preventDefault();
 
+             $.ajax({
+                 url: woocommerce_params.ajax_url,
+                 method: 'POST',
+                 data: {
+                     clear_wishlist: true,
+                     action: 'clear_wishlist'
+                 },
+                 beforeSend: function() {},
+                 success: function(data) {
+                     var res = JSON.parse(data);
+
+                     $('.clear_wishlist').hide();
+                 }
+             })
+         });
      })(jQuery);
  </script>
  <div class="container ">
@@ -30,7 +47,7 @@
      <br>
      <?php if ($recent_prods->found_posts > 0) : ?>
 
-         <a href="javascript: void(0)">Remove All Product from list</a>
+         <a class="clear_wishlist" href="javascript: void(0)">Remove All Product from list</a>
      <?php endif; ?>
      <div class="shop-catalog__products">
          <?php
