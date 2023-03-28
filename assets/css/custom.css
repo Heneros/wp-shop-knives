@@ -1668,3 +1668,22 @@ body {
 .single-products .bestsellers-products-item__favorites img {
     left: 0 !important;
 }
+
+.clear_wishlist {
+    color: #e8aa31;
+    
+    text-decoration: unset;
+}
+
+@media(min-width: 767px) {
+    .wishlist {
+        margin-top: 120px;
+        margin-bottom: 75px;
+    }
+}
+
+@media(max-width: 767px) {
+    .wishlist {
+        margin: 60px 0;
+    }
+}

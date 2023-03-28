@@ -674,5 +674,9 @@ function custom_loop_product_title()
     add_action('wp_ajax_nopriv_clear_wishlist', 'clear_wishlist');
     function clear_wishlist()
     {
-        
+        if (isset($_POST['clear_wishlist'])) {
+            echo json_encode(['foundd_posts' => 0, 'response' => 'success', 'wishlist_reset' => '<p>No products in wishlist</p>']);
+            unset($_SESSION['wishlist']);
+        }
+        die;
     }

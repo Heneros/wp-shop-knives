@@ -395,7 +395,7 @@ jQuery(document).ready(function ($) {
             })
         }
     });
- 
+
 
 
     $('.add-to-cart-btn').on('click', function (e) {
@@ -647,7 +647,25 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    $(document.body).on('click', '.clear_wishlist', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: woocommerce_params.ajax_url,
+            method: 'POST',
+            data: {
+                clear_wishlist: true,
+                action: 'clear_wishlist'
+            },
+            beforeSend: function () { },
+            success: function (data) {
+                var res = JSON.parse(data);
+                $(".wishlist_products").html(res.wishlist_reset)
+                $(".count_wishlist").html(res.foundd_posts)
 
+                $('.clear_wishlist').hide();
+            }
+        })
+    });
 
 
 

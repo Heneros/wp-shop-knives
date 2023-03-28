@@ -20,46 +20,29 @@
     get_header();
     ?>
  <script>
-     (function($) {
-         $(document).on('click', '.clear_wishlist', function(e) {
-             e.preventDefault();
 
-             $.ajax({
-                 url: woocommerce_params.ajax_url,
-                 method: 'POST',
-                 data: {
-                     clear_wishlist: true,
-                     action: 'clear_wishlist'
-                 },
-                 beforeSend: function() {},
-                 success: function(data) {
-                     var res = JSON.parse(data);
-
-                     $('.clear_wishlist').hide();
-                 }
-             })
-         });
-     })(jQuery);
  </script>
- <div class="container ">
-     <h1 class="title"><?php the_title(); ?></h1>
-     <span>Found in wishlist: <?php echo $recent_prods->found_posts ?></span>
-     <br>
-     <?php if ($recent_prods->found_posts > 0) : ?>
-
-         <a class="clear_wishlist" href="javascript: void(0)">Remove All Product from list</a>
-     <?php endif; ?>
-     <div class="shop-catalog__products">
-         <?php
-            if ($recent_prods->have_posts()) :
-                while ($recent_prods->have_posts()) :
-                    $recent_prods->the_post();
-                    wc_get_template_part('content', 'product');
-                    wp_reset_postdata();
-                endwhile;
-            endif; ?>
+ <section class="wishlist">
+     <div class="container ">
+         <h1 class="title"><?php the_title(); ?></h1>
+         <span>Found in wishlist: <b class="count_wishlist"> <?php echo $recent_prods->found_posts ?></b></span>
+         <br>
+         <?php if ($recent_prods->found_posts > 0) : ?>
+             <a class="clear_wishlist" href="javascript: void(0)">Remove All Product from list</a>
+         <?php endif; ?>
+         <div class="shop-catalog__products wishlist_products">
+             <?php
+                if ($recent_prods->have_posts()) :
+                    while ($recent_prods->have_posts()) :
+                        $recent_prods->the_post();
+                        wc_get_template_part('content', 'product');
+                    endwhile;
+                endif;
+                wp_reset_postdata();
+                ?>
+         </div>
      </div>
- </div>
+ </section>
  <?php
 
     get_footer();
