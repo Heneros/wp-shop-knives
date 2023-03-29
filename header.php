@@ -66,7 +66,6 @@
                                 </div>
                             </div>
                         </a>
-
                         <div class="header-mobile__burger" id="burger-menu">
                             <a href="#!" class="header__logo-white">
                                 <?php echo _assets_paths('img/sprite.svg#logo-white'); ?>
@@ -206,7 +205,6 @@
                             <?php the_custom_logo(); ?>
                         </a>
                         <div class="header__search-field">
-                            <!-- <input type="text" name="search" class="input header__input" id="search" placeholder="Search..."> -->
                             <?php echo do_shortcode('[fibosearch]'); ?>
                         </div>
                     </div>
@@ -491,9 +489,11 @@
                     woocommerce_mini_cart();
                     ?>
                 </div>
-                <?php
-
-                ?>
+                <div class="cart-header">
+                    <a href="<?php echo site_url('/cart'); ?>">
+                        Go To Cart
+                    </a>
+                </div>
                 <div class="cart-price">
                     <div class="total-price-description">
                         Total Price
@@ -503,6 +503,8 @@
                         echo WC()->cart->get_total();
                         ?>
                     </span>
+                    <br>
+
                 </div>
 
 
