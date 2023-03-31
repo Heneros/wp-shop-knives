@@ -1710,6 +1710,7 @@ body {
 
 .woocommerce-cart-form__cart-item .product-name a {
     color: #000;
+    font-size: 19px;
 }
 
 .woocommerce-cart-form__cart-item .cart_item a,
@@ -1739,4 +1740,34 @@ body {
 
 #quantity_6425edd4b9b69 {
     text-align: center;
+}
+
+.variation dt {
+    /* padding: 0 25px; */
+    font-weight: 600;
+    color: #000;
+}
+
+.product-name .variation {
+    display: flex;
+    align-items: baseline;
+    /* flex-direction: column; */
+}
+
+.product-name .variation dd {
+    padding-right: 15px;
+}
+
+.product-price span {
+    font-weight: 600;
+    color: #000;
+}
+
+.cart_totals .checkout-button {
+    background-color: #e8aa31 !important;
+}
+
+.breadcrumbs-box .breadcrumbs {
+    text-align: center;
+    margin: 0 auto;
 }

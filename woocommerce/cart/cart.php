@@ -21,6 +21,13 @@ defined('ABSPATH') || exit;
 do_action('woocommerce_before_cart'); ?>
 <section class="cart">
 	<div class="container">
+		<div class="breadcrumbs-box ">
+			<?php
+			if (function_exists('yoast_breadcrumb')) {
+				yoast_breadcrumb('<p id="breadcrumbs" class="breadcrumbs ">', '</p>');
+			}
+			?>
+		</div>
 		<div class="title-box">
 			<h1><?php the_title(); ?></h1>
 		</div>
@@ -143,9 +150,7 @@ do_action('woocommerce_before_cart'); ?>
 						}
 					}
 					?>
-
 					<?php do_action('woocommerce_cart_contents'); ?>
-
 					<tr>
 						<td colspan="6" class="actions">
 
