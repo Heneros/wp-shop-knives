@@ -1771,3 +1771,8 @@ body {
     text-align: center;
     margin: 0 auto;
 }
+
+.row-checkout{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
