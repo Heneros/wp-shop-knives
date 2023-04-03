@@ -2,6 +2,8 @@
 
 session_start();
 
+
+
 add_action('woocommerce_shop_loop_item_title', 'change_loop_ratings_location', 2);
 function change_loop_ratings_location()
 {
@@ -679,4 +681,17 @@ function custom_loop_product_title()
             unset($_SESSION['wishlist']);
         }
         die;
+    }
+
+
+    add_filter('woocommerce_checkout_fields', 'remove_checkout_field');
+
+    function remove_checkout_field($fields)
+    {
+        unset($fields['billing']['billing_company']);
+        unset($fields['billing']['billing_postcode']);
+        
+        return $fields;
+
+        
     }
