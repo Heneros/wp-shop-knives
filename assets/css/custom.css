@@ -1772,7 +1772,23 @@ body {
     margin: 0 auto;
 }
 
-.row-checkout{
+.row-checkout {
     display: grid;
     grid-template-columns: 50% 50%;
+}
+
+.parent-row {
+    display: flex;
+}
+
+.parent-row .col-6 {
+    width: 60%;
+}
+
+.parent-row .col-4 {
+    width: 40%;
+}
+
+.favorites__info-title .favorites__info-title {
+    padding-right: 45px;
 }

@@ -12,12 +12,12 @@ do_action('woocommerce_before_checkout_form', $checkout);
 		<div class="header">
 			<?php the_title(); ?>
 		</div>
-		<div class="row">
-			<div class="col-5">
+		<div class="parent-row">
+			<div class="col-6">
 				<?php do_action('woocommerce_checkout_billing'); ?>
 			</div>
-			<div class="col-5">
-
+			<div class="col-4" id="order_review">
+				<?php do_action('woocommerce_checkout_order_review'); ?>
 			</div>
 		</div>
 	</div>
