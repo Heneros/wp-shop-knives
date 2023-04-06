@@ -19,15 +19,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<li class="wc_payment_method payment_method_<?php echo esc_attr( $gateway->id ); ?>">
-	<input id="payment_method_<?php echo esc_attr( $gateway->id ); ?>" type="radio" class="input-radio" name="payment_method" value="<?php echo esc_attr( $gateway->id ); ?>" <?php checked( $gateway->chosen, true ); ?> data-order_button_text="<?php echo esc_attr( $gateway->order_button_text ); ?>" />
-
-	<label for="payment_method_<?php echo esc_attr( $gateway->id ); ?>">
-		<?php echo $gateway->get_title(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?> <?php echo $gateway->get_icon(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>
-	</label>
-	<?php if ( $gateway->has_fields() || $gateway->get_description() ) : ?>
+<label class="radio default payment wc_payment_method payment_method_<?php echo esc_attr( $gateway->id ); ?>">
+    <input type="radio" 
+           class="radio-input" 
+           id="payment_method_<?php echo esc_attr( $gateway->id ); ?>"
+           name="payment_method"
+           value="<?php echo esc_attr( $gateway->id ); ?>"
+           <?php checked( $gateway->chosen, true ); ?>
+           data-order_button_text="<?php echo esc_attr( $gateway->order_button_text ); ?>">
+    <span class="radio-style"></span>
+    <p class="radio__descr"><?php echo $gateway->get_title(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?></p>
+    <div class="radio__images-box">
+        <div class="radio__img">
+            <?php echo $gateway->get_icon(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>
+        </div>
+    </div>
+    <?php if ( $gateway->has_fields() || $gateway->get_description() ) : ?>
 		<div class="payment_box payment_method_<?php echo esc_attr( $gateway->id ); ?>" <?php if ( ! $gateway->chosen ) : /* phpcs:ignore Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace */ ?>style="display:none;"<?php endif; /* phpcs:ignore Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace */ ?>>
 			<?php $gateway->payment_fields(); ?>
 		</div>
 	<?php endif; ?>
-</li>
+</label>
