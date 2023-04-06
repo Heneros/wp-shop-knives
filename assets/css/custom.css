@@ -1792,3 +1792,10 @@ body {
 .favorites__info-title .favorites__info-title {
     padding-right: 45px;
 }
+
+.close-card {
+    color: #000;
+    position: relative;
+    bottom: 19px;
+    right: 11px;
+}

@@ -38,7 +38,7 @@ if (!WC()->cart->is_empty()) :
 				echo apply_filters(
 					'woocommerce_cart_item_remove_link',
 					sprintf(
-						'<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+						'<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
 						esc_url(wc_get_cart_remove_url($cart_item_key)),
 						esc_attr__("Remove this item", "woocommerce"),
 						esc_attr($product_id),
