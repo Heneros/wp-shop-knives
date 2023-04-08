@@ -1787,6 +1787,7 @@ body {
 
 .parent-row .col-4 {
     width: 40%;
+    padding: 0 45px;
 }
 
 .favorites__info-title .favorites__info-title {
@@ -1798,4 +1799,15 @@ body {
     position: relative;
     bottom: 19px;
     right: 11px;
+}
+
+tbody .card-info .favorites__info-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
 }

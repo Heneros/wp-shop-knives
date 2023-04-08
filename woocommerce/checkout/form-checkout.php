@@ -22,3 +22,15 @@ do_action('woocommerce_before_checkout_form', $checkout);
 		</div>
 	</div>
 </form>
+<script>
+        $(document).ready(function(){
+            let items = $('.woocommerce-shipping-methods').children('li');
+            $(items).each(function(){
+                $(this).children('label').append('<div class="shipping-methods-check-box"><span class="shipping-methods-check"></span></div>');
+                let check = $(this).children('input').attr('checked')
+                if(check != undefined){
+                    $(this).find('.shipping-methods-check-box').addClass('js-chekced');
+                }
+            })
+        })
+    </script>
