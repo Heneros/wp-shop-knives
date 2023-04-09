@@ -1811,3 +1811,14 @@ tbody .card-info .favorites__info-title {
     font-size: 12px;
     line-height: 16px;
 }
+
+/* .shop-catalog .bestsellers-products-item .sale{
+    background-color: #fff;
+} */
+.woocommerce span.onsale {
+    background-color: #e8aa31;
+}
+
+.shop-catalog .bestsellers-products-item .sale {
+    background-color: unset !important;
+}
