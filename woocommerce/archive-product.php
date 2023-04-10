@@ -102,11 +102,11 @@ do_action('woocommerce_before_main_content');
 							 */
 							// do_action('woocommerce_shop_loop');
 					?>
-							<div class="bestsellers-products-item">
+							
 								<?php
 								wc_get_template_part('content', 'product');
 								?>
-							</div>
+				
 				<?php
 						}
 					}
