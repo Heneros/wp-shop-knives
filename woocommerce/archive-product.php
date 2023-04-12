@@ -27,13 +27,11 @@ get_header('shop');
  * @hooked woocommerce_breadcrumb - 20
  * @hooked WC_Structured_Data::generate_website_data() - 30
  */
-do_action('woocommerce_before_main_content');
+// do_action('woocommerce_before_main_content');
 
 ?>
 <header class="woocommerce-products-header">
-	<?php if (apply_filters('woocommerce_show_page_title', true)) : ?>
-		<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
-	<?php endif; ?>
+
 
 	<?php
 	/**
@@ -48,12 +46,12 @@ do_action('woocommerce_before_main_content');
 <section class="shop-category">
 	<div class="container">
 		<div class="shop-category__information">
-			<h1 class="shop-category__title title">Blade Knifes</h1>
+			<h1 class="shop-category__title title"><?php echo woocommerce_page_title(); ?></h1>
 			<div class="shop-category__second-row">
 				<div class="shop-category__breadcrumbs">
-					<a href="index.html" class="breadcrumbs-link breadcrumbs-homepage">Homepage</a>
+					<a href="<?php echo site_url('/'); ?>" class="breadcrumbs-link breadcrumbs-homepage">Homepage</a>
 					<span class="divide">></span>
-					<a href="shop.html" class="breadcrumbs-link">Blade Knifes</a>
+					<a href="<?php echo site_url('/shop'); ?>" class="breadcrumbs-link"><?= woocommerce_page_title(); ?></a>
 				</div>
 				<button class="btn btn-shop" id="btn-filters">
 					Filters
@@ -73,6 +71,11 @@ do_action('woocommerce_before_main_content');
 	<div class="container grid">
 		<div class="shop-catalog__left">
 			<div class="blank"></div>
+			<div class="shop-catalog__filters">
+				<?php
+				echo do_shortcode('[wpf-filters id=1]');
+				?>
+			</div>
 		</div>
 		<div class="shop-catalog__right">
 
@@ -90,43 +93,32 @@ do_action('woocommerce_before_main_content');
 
 				// woocommerce_product_loop_start();
 			?>
-
 				<div class="shop-catalog__products">
-					<?php
-					if (wc_get_loop_prop('total')) {
-						while (have_posts()) {
-							the_post();
-
-							/**
-							 * Hook: woocommerce_shop_loop.
-							 */
-							// do_action('woocommerce_shop_loop');
-					?>
-							
-								<?php
-								wc_get_template_part('content', 'product');
-								?>
-				
 				<?php
-						}
+				if (wc_get_loop_prop('total')) {
+					while (have_posts()) {
+						the_post();
+						do_action('woocommerce_shop_loop');
+						wc_get_template_part('content', 'product');
 					}
-
-					woocommerce_product_loop_end();
-
-					/**
-					 * Hook: woocommerce_after_shop_loop.
-					 *
-					 * @hooked woocommerce_pagination - 10
-					 */
-					do_action('woocommerce_after_shop_loop');
-				} else {
-					/**
-					 * Hook: woocommerce_no_products_found.
-					 *
-					 * @hooked wc_no_products_found - 10
-					 */
-					do_action('woocommerce_no_products_found');
 				}
+
+				woocommerce_product_loop_end();
+
+				/**
+				 * Hook: woocommerce_after_shop_loop.
+				 *
+				 * @hooked woocommerce_pagination - 10
+				 */
+				do_action('woocommerce_after_shop_loop');
+			} else {
+				/**
+				 * Hook: woocommerce_no_products_found.
+				 *
+				 * @hooked wc_no_products_found - 10
+				 */
+				do_action('woocommerce_no_products_found');
+			}
 
 				?>
 				</div>

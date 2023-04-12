@@ -1822,3 +1822,8 @@ tbody .card-info .favorites__info-title {
 .shop-catalog .bestsellers-products-item .sale {
     background-color: unset !important;
 }
+
+.shop-catalog__products .bestsellers-products-item__bottom img {
+    width: 100%;
+    left: 0;
+}
