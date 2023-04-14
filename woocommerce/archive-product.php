@@ -43,7 +43,7 @@ get_header('shop');
 	do_action('woocommerce_archive_description');
 	?>
 </header>
-<section class="shop-category">
+<section class="shop-category ">
 	<div class="container">
 		<div class="shop-category__information">
 			<h1 class="shop-category__title title"><?php echo woocommerce_page_title(); ?></h1>
