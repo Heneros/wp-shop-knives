@@ -3,6 +3,33 @@ jQuery(document).ready(function ($) {
 
 
 
+    var btnFilter = document.querySelector("#btn-filters");
+    var shopCatalogLeft = document.querySelector(".shop-catalog__left");
+    var shopCatalogFilters = document.querySelector(".shop-catalog__filters");
+    var bodyy = document.querySelector("body");
+    var blank = document.querySelector(".blank");
+
+    var close = function close() {
+        shopCatalogFilters.classList.remove("activeLeft");
+        shopCatalogLeft.classList.remove("blur");
+        bodyy.classList.remove("overflowHidden");
+    };
+
+    if (btnFilter != null) {
+        btnFilter.addEventListener("click", function (e) {
+            // alert(123);
+            shopCatalogFilters.classList.add("activeLeft");
+            shopCatalogLeft.classList.add("blur");
+            bodyy.classList.add("overflowHidden");
+        });
+    }
+
+    if (blank != null) {
+        blank.addEventListener("click", function (e) {
+            close();
+        });
+    }
+
 
 
 

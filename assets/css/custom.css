@@ -1837,6 +1837,27 @@ tbody .card-info .favorites__info-title {
 /* .wpfMainWrapper{
     height: 750px;
 } */
+.wpfCheckboxHier > ul{
+    margin-top: 20px;
+}
+@media (max-width: 1150px) {
+    .shop-catalog .activeLeft {
+        top: 22% !important;
+    }
+
+    .shop-catalog__left .shop-catalog__filters .wpfFilterWrapper .wfpTitle {
+        width: 100% !important;
+    }
+
+}
+
+@media (max-width: 1150px) {
+    .page-header .menu-wrapper {
+        top: 201px;
+    }
+}
+
+
 .shop-catalog__left .shop-catalog__filters .wpfFilterWrapper .wfpTitle {
     width: 90%;
     background-color: #000;
