@@ -57,11 +57,45 @@ get_header('shop');
 					Filters
 				</button>
 				<div class="shop-category__sortby">
-					<select class="filter-style select-item">
+					<?php
+					woocommerce_catalog_ordering(array(
+						'orderby' => array(
+							'default' => 'menu_order',
+							'popularity' => 'popularity',
+							'rating' => 'rating',
+							'date' => 'date',
+							'price' => 'price',
+							'price-desc' => 'price-desc'
+						),
+						'order' => array(
+							'default' => 'desc',
+							'popularity' => 'desc',
+							'rating' => 'desc',
+							'date' => 'desc',
+							'price' => 'asc',
+							'price-desc' => 'desc'
+						),
+						'catalog_orderby_options' => array(
+							'default' => __('Сортировка по умолчанию', 'woocommerce'),
+							'popularity' => __('По популярности', 'woocommerce'),
+							'rating' => __('По рейтингу', 'woocommerce'),
+							'date' => __('По новизне', 'woocommerce'),
+							'price' => __('По возрастанию цены', 'woocommerce'),
+							'price-desc' => __('По убыванию цены', 'woocommerce')
+						),
+
+
+
+						'orderby_selected' => isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'default',
+						'class' => 'filter-style select-item'
+					));
+					?>
+					<button type="button" id="reset-btn">Reset </button>
+					<!-- <select class="filter-style select-item">
 						<option value="">Popularity</option>
 						<option value="">Newness</option>
 						<option value="">Rating</option>
-					</select>
+					</select> -->
 				</div>
 			</div>
 		</div>

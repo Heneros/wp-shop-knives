@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
 
 
 
-
+    ///Filter Shop. Adaptive
     var btnFilter = document.querySelector("#btn-filters");
     var shopCatalogLeft = document.querySelector(".shop-catalog__left");
     var shopCatalogFilters = document.querySelector(".shop-catalog__filters");
@@ -33,7 +33,23 @@ jQuery(document).ready(function ($) {
 
 
 
+    $(".woocommerce-ordering .orderby").addClass("filter-style select-item");
 
+
+    $("#reset-btn").on("click", function () {
+        $('.woocommerce-ordering select[name="orderby"]').val('menu_order');
+        $('.woocommerce-ordering input[name="paged"]').val('1');
+        $('.woocommerce-ordering input[name="removed_item"]').val('1');
+
+        history.pushState(null, null, window.location.href.split('?')[0]);
+        $('.woocommerce-ordering').submit();
+    });
+
+    // $("#reset-btn").on("click", function () {
+    //     $('.woocommerce-ordering')[0].reset();
+    //     $('.orderby.filter-style.select-item').val('menu_order');
+    //     window.history.replaceState({}, document.title, window.location.pathname);
+    // });;
 
 
     /////////Add to favorites
