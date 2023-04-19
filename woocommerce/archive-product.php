@@ -132,19 +132,27 @@ get_header('shop');
 					$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 					$postsPerPage = 6;
 					$postOffset = ($paged - 1) * $postsPerPage;
-					
-					if (wc_get_loop_prop('total')) {
-						while (have_posts()) {
-							the_post();
+					$args = array(
+						'post_type' => 'product',
+						'offset' => $postOffset,
+						'posts_per_page' => $postsPerPage
+					);
+					$query = new WP_Query($args);
+					if ($query->have_posts()) {
+						while ($query->have_posts()) {
+							$query->the_post();
 							do_action('woocommerce_shop_loop');
 							wc_get_template_part('content', 'product');
 						}
 					}
 
 					woocommerce_product_loop_end();
+					$next_page = $paged + 1;
+					$max_pages = $query->max_num_pages;
+
 					?>
 
-					<button class="btn btn-loadmore" data-nextpage="<?php ?>" data-maxpages="<?php ?>" id="load-more">
+					<button class="btn btn-loadmore" data-nextpage="<?php echo $next_page; ?>" data-maxpages="<?php echo $max_pages; ?>" id="load-more">
 						Load More
 					</button>
 				<?php
