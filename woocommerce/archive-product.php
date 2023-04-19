@@ -128,16 +128,26 @@ get_header('shop');
 				// woocommerce_product_loop_start();
 			?>
 				<div class="shop-catalog__products">
-				<?php
-				if (wc_get_loop_prop('total')) {
-					while (have_posts()) {
-						the_post();
-						do_action('woocommerce_shop_loop');
-						wc_get_template_part('content', 'product');
+					<?php
+					$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+					$postsPerPage = 6;
+					$postOffset = ($paged - 1) * $postsPerPage;
+					
+					if (wc_get_loop_prop('total')) {
+						while (have_posts()) {
+							the_post();
+							do_action('woocommerce_shop_loop');
+							wc_get_template_part('content', 'product');
+						}
 					}
-				}
 
-				woocommerce_product_loop_end();
+					woocommerce_product_loop_end();
+					?>
+
+					<button class="btn btn-loadmore" data-nextpage="<?php ?>" data-maxpages="<?php ?>" id="load-more">
+						Load More
+					</button>
+				<?php
 
 				/**
 				 * Hook: woocommerce_after_shop_loop.

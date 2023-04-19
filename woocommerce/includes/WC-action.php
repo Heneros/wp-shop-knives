@@ -2,6 +2,13 @@
 
 session_start();
 
+add_filter('loop_shop_per_page', 'new_loop_shop_per_page', 20);
+function new_loop_shop_per_page($cols)
+{
+
+    $cols = 6;
+    return $cols;
+}
 
 
 add_action('woocommerce_shop_loop_item_title', 'change_loop_ratings_location', 2);
@@ -690,8 +697,6 @@ function custom_loop_product_title()
     {
         unset($fields['billing']['billing_company']);
         unset($fields['billing']['billing_postcode']);
-        
-        return $fields;
 
-        
+        return $fields;
     }

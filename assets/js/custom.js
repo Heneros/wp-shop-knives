@@ -2,6 +2,12 @@ jQuery(document).ready(function ($) {
 
 
 
+   $(document.body).on("click",  "#load-more", function(){
+  
+   })
+
+
+
     ///Filter Shop. Adaptive
     var btnFilter = document.querySelector("#btn-filters");
     var shopCatalogLeft = document.querySelector(".shop-catalog__left");
