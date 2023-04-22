@@ -151,18 +151,23 @@ get_header('shop');
 					$max_pages = $query->max_num_pages;
 
 					?>
-
+				</div>
+				<div class="shop-catalog__bottom">
 					<button class="btn btn-loadmore" data-nextpage="<?php echo $next_page; ?>" data-maxpages="<?php echo $max_pages; ?>" id="load-more">
 						Load More
 					</button>
-				<?php
+					<?php
 
-				/**
-				 * Hook: woocommerce_after_shop_loop.
-				 *
-				 * @hooked woocommerce_pagination - 10
-				 */
-				do_action('woocommerce_after_shop_loop');
+					/**
+					 * Hook: woocommerce_after_shop_loop.
+					 *
+					 * @hooked woocommerce_pagination - 10
+					 */
+					do_action('woocommerce_after_shop_loop');
+					?>
+				</div>
+
+			<?php
 			} else {
 				/**
 				 * Hook: woocommerce_no_products_found.
@@ -172,22 +177,22 @@ get_header('shop');
 				do_action('woocommerce_no_products_found');
 			}
 
-				?>
-				</div>
-				<?php
-				/**
-				 * Hook: woocommerce_after_main_content.
-				 *
-				 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-				 */
-				do_action('woocommerce_after_main_content');
+			?>
 
-				/**
-				 * Hook: woocommerce_sidebar.
-				 *
-				 * @hooked woocommerce_get_sidebar - 10
-				 */
-				?>
+			<?php
+			/**
+			 * Hook: woocommerce_after_main_content.
+			 *
+			 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+			 */
+			do_action('woocommerce_after_main_content');
+
+			/**
+			 * Hook: woocommerce_sidebar.
+			 *
+			 * @hooked woocommerce_get_sidebar - 10
+			 */
+			?>
 
 		</div>
 

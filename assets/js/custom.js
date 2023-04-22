@@ -2,9 +2,19 @@ jQuery(document).ready(function ($) {
 
 
 
-   $(document.body).on("click",  "#load-more", function(){
-  
-   })
+    $(document.body).on("click", "#load-more", function () {
+        var button = $(this);
+        var next_page = button.data('nextpage');
+        var max_page = button.data('maxpages');
+
+        $.ajax({
+            url: my_ajax_object.ajax_url,
+            type: 'POST',
+            data:{
+                
+            }
+        })
+    });
 
 
 
