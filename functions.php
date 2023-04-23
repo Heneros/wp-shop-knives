@@ -34,7 +34,7 @@ require get_template_directory() . '/woocommerce/includes/WC-action.php';
 require get_template_directory() . '/inc/viewed_products.php';
 require get_template_directory() . '/inc/filter.php';
 require get_template_directory() . '/inc/functions/custom_pagination.php';
-
+require get_template_directory() . '/inc/shop.php';
 
 
 

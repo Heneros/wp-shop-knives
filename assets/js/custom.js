@@ -1,17 +1,36 @@
 jQuery(document).ready(function ($) {
 
 
-
+    var offset = 0;
+    var next_page = 2;
+    var posts_per_page = 2;
+    var post_type = 'product';
     $(document.body).on("click", "#load-more", function () {
         var button = $(this);
         var next_page = button.data('nextpage');
-        var max_page = button.data('maxpages');
+        var max_pages = button.data('maxpages');
 
         $.ajax({
             url: my_ajax_object.ajax_url,
             type: 'POST',
-            data:{
-                
+            data: {
+                action: 'loadmore_shop',
+                offset: offset + posts_per_page,
+                posts_per_page: posts_per_page,
+                next_page: next_page,
+                post_type: post_type
+            },
+            beforeSend: function () {
+                $("#load-more").text("Loading...");
+            },
+            success: function (data) {
+                $("#load-more").text("Load More");
+                $(".shop-catalog__products").append(data);
+                offset += posts_per_page;
+                next_page++;
+                if (next_page + 1 > max_pages) {
+                    button.hide();
+                }
             }
         })
     });
