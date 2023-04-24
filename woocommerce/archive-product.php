@@ -141,7 +141,7 @@ get_header('shop');
 					if ($query->have_posts()) {
 						while ($query->have_posts()) {
 							$query->the_post();
-							do_action('woocommerce_shop_loop');
+							// do_action('woocommerce_shop_loop');
 							wc_get_template_part('content', 'product');
 						}
 					}
@@ -153,11 +153,18 @@ get_header('shop');
 					?>
 				</div>
 				<div class="shop-catalog__bottom">
-					<button class="btn btn-loadmore" data-nextpage="<?php echo $next_page; ?>" data-maxpages="<?php echo $max_pages; ?>" id="load-more">
-						Load More
-					</button>
-					<?php
+					<?php if ($next_page <= $max_pages) : ?>
 
+						<button class="btn btn-loadmore" data-nextpage="<?php echo $next_page; ?>" data-maxpages="<?php echo $max_pages; ?>" id="load-more">
+							Load More
+						</button>
+					<?php else : ?>
+						<style>
+							.btn-loadmore {
+								display: none !important;
+							}
+						</style>
+					<?php endif; 
 					/**
 					 * Hook: woocommerce_after_shop_loop.
 					 *
