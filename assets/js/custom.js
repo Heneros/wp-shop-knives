@@ -3,7 +3,7 @@ jQuery(document).ready(function ($) {
 
 var offset = 0;
 var next_page = 2;
-var posts_per_page = 2;
+var posts_per_page = 6;
 var post_type = 'product';
 $(document.body).on("click", "#load-more", function () {
     var button = $(this);

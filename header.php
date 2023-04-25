@@ -40,7 +40,7 @@
                     </div>
                     <div class="header__right">
                         <div class="header__profile">
-                            <a href="#!" class="header__profile-name">My Profile</a>
+                            <a href="<?php echo site_url('/my-account'); ?>" class="header__profile-name">My Profile</a>
                         </div>
                     </div>
                     <div class="header-mobile header__mobile-icons">
