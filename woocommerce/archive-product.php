@@ -127,7 +127,7 @@ get_header('shop');
 
 				// woocommerce_product_loop_start();
 			?>
-				<div class="shop-catalog__products">
+				<div class="shop-catalog__products" id="products-container">
 					<?php
 					$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 					$postsPerPage = 6;
@@ -164,7 +164,7 @@ get_header('shop');
 								display: none !important;
 							}
 						</style>
-					<?php endif; 
+					<?php endif;
 					/**
 					 * Hook: woocommerce_after_shop_loop.
 					 *
@@ -173,6 +173,34 @@ get_header('shop');
 					do_action('woocommerce_after_shop_loop');
 					?>
 				</div>
+				<script>
+					jQuery(document).ready(function($) {
+						var page = 2;
+						$('#load-more').on('click', function() {
+							$.ajax({
+	
+								url: my_ajax_object.ajax_url,
+								type: 'POST',
+								data: {
+									action: 'loadmore_shop',
+									page: page,
+									posts_per_page: <?php echo $postsPerPage; ?>
+								},
+								beforeSend: function() {
+									$('#load-more').text('Loading...');
+								},
+								success: function(html) {
+									$('#products-container').append(html);
+									$('#load-more').text('Load more');
+									page++;
+									if (page > <?php echo $max_pages; ?>) {
+										$('#load-more').hide();
+									}
+								}
+							});
+						});
+					});
+				</script>
 
 			<?php
 			} else {
