@@ -53,7 +53,7 @@ get_header('shop');
 					<span class="divide">></span>
 					<a href="<?php echo site_url('/shop'); ?>" class="breadcrumbs-link"><?= woocommerce_page_title(); ?></a>
 				</div>
-				<button class="btn btn-shop" id="btn-filters">
+				<button type="submit" class="btn btn-shop btn-reset" id="btn-filters">
 					Filters
 				</button>
 				<div class="shop-category__sortby">
@@ -141,7 +141,6 @@ get_header('shop');
 					if ($query->have_posts()) {
 						while ($query->have_posts()) {
 							$query->the_post();
-							// do_action('woocommerce_shop_loop');
 							wc_get_template_part('content', 'product');
 						}
 					}
