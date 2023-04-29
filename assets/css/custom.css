@@ -1837,9 +1837,10 @@ tbody .card-info .favorites__info-title {
 /* .wpfMainWrapper{
     height: 750px;
 } */
-.wpfCheckboxHier > ul{
+.wpfCheckboxHier>ul {
     margin-top: 20px;
 }
+
 @media (max-width: 1150px) {
     .shop-catalog .activeLeft {
         top: 22% !important;
@@ -1893,4 +1894,23 @@ tbody .card-info .favorites__info-title {
     z-index: 9999;
     right: 27px;
     top: 28px;
+}
+
+.header__logo span {
+    color: #141414;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.shop-category__sortby {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-direction: row-reverse;
+}
+
+.btn-reset {
+    padding: 18px 55px;
+    font: 600 20px/21px Montserrat, sans-serif;
+    margin-right: 25px;
 }

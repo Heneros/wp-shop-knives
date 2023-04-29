@@ -90,12 +90,7 @@ get_header('shop');
 						'class' => 'filter-style select-item'
 					));
 					?>
-					<button type="button" id="reset-btn">Reset </button>
-					<!-- <select class="filter-style select-item">
-						<option value="">Popularity</option>
-						<option value="">Newness</option>
-						<option value="">Rating</option>
-					</select> -->
+					<button type="button" class="btn btn-reset" id="reset-btn">Reset </button>
 				</div>
 			</div>
 		</div>
@@ -177,7 +172,7 @@ get_header('shop');
 						var page = 2;
 						$('#load-more').on('click', function() {
 							$.ajax({
-	
+
 								url: my_ajax_object.ajax_url,
 								type: 'POST',
 								data: {

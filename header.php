@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="<?php echo _assets_paths('/img/favicon.ico'); ?>" type="image/x-icon">
-    <title> <?php
-            single_post_title();
-            ?></title>
+    <!-- <title> <?php
+                    // single_post_title();
+                    ?></title> -->
+    <title><?php wp_title('|', true, 'right'); ?></title>
+
     <?php wp_head(); ?>
 </head>
 
@@ -201,8 +203,8 @@
                 <div class="header__container container grid grid-mobile">
                     <div class="header__left-second">
                         <a href="<?php echo home_url('/'); ?>" class="logo header__logo ">
-                            <!-- <img src="<?php echo _assets_paths('img/sprite.svg#logo'); ?>" alt="logo site"> -->
-                            <?php the_custom_logo(); ?>
+
+                            <span> Logo</span>
                         </a>
                         <div class="header__search-field">
                             <?php echo do_shortcode('[fibosearch]'); ?>
@@ -253,7 +255,9 @@
                                     ?>
                                 </span>
                                 <span class="text-cart-order">
-                                    Checkout
+                                    <a href="<?php echo site_url('/checkout'); ?>">
+                                        Checkout
+                                    </a>
                                 </span>
                             </p>
 

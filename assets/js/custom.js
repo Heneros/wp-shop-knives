@@ -1,41 +1,6 @@
 jQuery(document).ready(function ($) {
 
 
-    // var offset = 0;
-    // var next_page = 2;
-    // var posts_per_page = 6;
-    // var post_type = 'product';
-    // $(document.body).on("click", "#load-more", function () {
-    //     var button = $(this);
-    //     var max_pages = button.data('maxpages');
-    //     var current_page = button.data('currentpage') || 1;
-    //     $.ajax({
-    //         url: my_ajax_object.ajax_url,
-    //         type: 'POST',
-    //         data: {
-    //             action: 'loadmore_shop',
-    //             offset: offset,
-    //             current_page: current_page,
-    //             posts_per_page: posts_per_page,
-    //             post_type: post_type
-    //         },
-    //         beforeSend: function () {
-    //             $("#load-more").text("Loading...");
-    //         },
-    //         success: function (data) {
-    //             $("#load-more").text("Load More");
-    //             $(".shop-catalog__products").append(data);
-    //             offset += posts_per_page;
-    //             next_page++;
-    //             if (current_page + 1 > max_pages) {
-    //                 button.hide();
-    //             } else {
-    //                 button.data('currentpage', current_page + 1);
-    //             }
-    //         }
-    //     })
-    // });
-
 
 
     ///Filter Shop. Adaptive
@@ -72,13 +37,21 @@ jQuery(document).ready(function ($) {
     $(".woocommerce-ordering .orderby").addClass("filter-style select-item");
 
 
-    $("#reset-btn").on("click", function () {
-        $('.woocommerce-ordering select[name="orderby"]').val('menu_order');
-        $('.woocommerce-ordering input[name="paged"]').val('1');
-        $('.woocommerce-ordering input[name="removed_item"]').val('1');
+    // $("#reset-btn").on("click", function () {
+    //     $('.woocommerce-ordering select[name="orderby"]').val('menu_order');
+    //     $('.woocommerce-ordering input[name="paged"]').val('1');
+    //     $('.woocommerce-ordering input[name="removed_item"]').val('1');
 
-        history.pushState(null, null, window.location.href.split('?')[0]);
-        $('.woocommerce-ordering').submit();
+    //     history.pushState(null, null, window.location.href.split('?')[0]);
+    //     $('.woocommerce-ordering').submit();
+    // });
+
+    $('#reset-btn').click(function () {
+        ////   извлекает текущий URL-адрес и удаляет любые параметры запроса (часть URL-адреса после символа "?")
+        var url = window.location.href.split('?')[0];
+        /// заменяет текущий URL-адрес в истории браузера на новый URL-адрес без параметров. 
+        window.history.pushState({ path: url }, '', url);
+        location.reload();
     });
 
     // $("#reset-btn").on("click", function () {

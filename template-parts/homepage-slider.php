@@ -22,7 +22,7 @@
                                         <?php echo $description; ?>
                                     </p>
                                     <button data-aos="fade-down" class="slider-homepage__btn btn">
-                                        <a href="<?php echo $link; ?>">Подробнее</a>
+                                        <a href="<?php echo $link; ?>">Read More</a>
                                     </button>
                                 </div>
                             </div>
