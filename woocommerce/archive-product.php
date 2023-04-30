@@ -228,6 +228,10 @@ get_header('shop');
 	</div>
 
 </section>
+<?php
 
+get_template_part('template-parts/description-shop');
+
+?>
 <?php
 get_footer('shop');
