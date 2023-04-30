@@ -1816,7 +1816,32 @@ tbody .card-info .favorites__info-title {
     background-color: #fff;
 } */
 .woocommerce span.onsale {
-    background-color: #e8aa31;
+    margin-top: 20px !important;
+    position: absolute !important;
+    background-color: #e8aa31 !important;
+    color: #fff !important;
+    font: 600 18px/21px Montserrat, sans-serif !important;
+    padding: 7px 22px !important;
+}
+
+
+.woocommerce span.onsale {
+    min-height: unset !important;
+    min-width: unset !important;
+    /* padding: unset !important; */
+    /* font-size: unset !important;
+    font-weight: unset !important; */
+    /* position: unset !important; */
+    text-align: center;
+    line-height: unset !important;
+    top: unset !important;
+    left: unset !important;
+    /* margin: unset !important; */
+    border-radius: unset !important;
+    /* background-color: unset !important; */
+    /* color: unset !important; */
+    font-size: unset !important;
+    z-index: unset !important;
 }
 
 .shop-catalog .bestsellers-products-item .sale {
@@ -1913,4 +1938,22 @@ tbody .card-info .favorites__info-title {
     padding: 18px 55px;
     font: 600 20px/21px Montserrat, sans-serif;
     margin-right: 25px;
+}
+
+.shop-catalog__pagination li {
+    margin-right: 15px;
+    padding: 8px 13px;
+    /* padding: 13px !important; */
+}
+
+.pagination {
+    margin-left: auto;
+}
+.bestsellers-products-item__img span.onsale{
+    margin-top: 20px !important;
+    position: absolute !important;
+    background-color: #e8aa31 !important;
+    color: #fff !important;
+    font: 600 18px/21px Montserrat, sans-serif !important;
+    padding: 7px 22px !important;
 }
