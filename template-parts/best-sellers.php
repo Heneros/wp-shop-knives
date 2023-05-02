@@ -2,7 +2,7 @@
     <div class="container">
         <div class="text-above">
             <h1 class="title">Best Sellers</h1>
-            <a href="shop.html" class="catalog">
+            <a href="<?php echo site_url("/shop"); ?>"" class=" catalog">
                 Go to catalog
             </a>
         </div>
@@ -35,7 +35,7 @@
         wp_reset_postdata();
         ?>
         <div class="text-above-adaptive">
-            <a href="shop.html" class="catalog">
+            <a href="<?php echo site_url("/shop"); ?>"" class=" catalog">
                 Go to catalog
             </a>
         </div>

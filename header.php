@@ -63,8 +63,10 @@
                         ?>
                         <a href="#!" class="header__cart-link ">
                             <div class="header-mobile__icon header__cart-svg header-mobile__cart js-open-cart">
-                                <div class="cart-num" id="">
-                                    <?php echo $items_count ? $items_count : '0'; ?>
+                                <div class="cart-num" id="mini-cart-count">
+                                    <?php
+                                    echo $items_count ? $items_count : '0';
+                                    ?>
                                 </div>
                             </div>
                         </a>
