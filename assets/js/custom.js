@@ -49,7 +49,6 @@ jQuery(document).ready(function ($) {
     $('#reset-btn').click(function () {
         ////   извлекает текущий URL-адрес и удаляет любые параметры запроса (часть URL-адреса после символа "?")
         var url = window.location.href.split('?')[0];
-        /// заменяет текущий URL-адрес в истории браузера на новый URL-адрес без параметров. 
         window.history.pushState({ path: url }, '', url);
         location.reload();
     });
@@ -65,27 +64,30 @@ jQuery(document).ready(function ($) {
     $(document.body).on("click", ".add_favorite", function (e) {
         e.preventDefault();
         var prod_id = $(this).attr('data-prodid');
-        var that = $(this);
         var action = '';
-        if ($(that).hasClass('in_list')) {
+        var that = $(this); 
+
+        if (that.hasClass('in_list')) {
             action = 'remove_from_wishlist';
         } else {
             action = 'add_to_wishlist';
         }
         $.ajax({
-            url: woocommerce_params.ajax_url,
+            url: my_ajax_object.ajax_url,
             method: 'POST',
             data: {
                 action: action,
-                prod_id: prod_id
+                prod_id: prod_id,
+                nonce: my_ajax_object.nonce
             },
-            beforeSend: function () { },
+            beforeSend: function () {  },
             success: function (data) {
                 var res = JSON.parse(data);
                 if (res.response == 'success' && action == 'add_to_wishlist') {
-                    $(that).addClass('in_list');
+                    alert('Product added to wishlist!')
+                    that.addClass('in_list');
                 } else if (res.response == 'success' && action == 'remove_from_wishlist') {
-                    $(that).removeClass('in_list');
+                    that.removeClass('in_list');
                     if ($('.product-wishlist').length) {
                         $('.found_recent b').html(res.found_POSTs);
                         if (res.found_POSTs == 0) {
@@ -94,6 +96,7 @@ jQuery(document).ready(function ($) {
                         $('.products-wishlist').html(res.products);
                     }
                 }
+
             }
         })
     });
@@ -359,7 +362,7 @@ jQuery(document).ready(function ($) {
             };
             // console.log(variable_product_obj);
             if (parseInt(quantity) == 0) {
-                alert('add-to-cart-with-quantity-variable dont added to cart');
+                alert('add-to-cart-with-quantity-variable don\'t added to cart');
             } else {
                 $.ajax({
                     method: 'POST',

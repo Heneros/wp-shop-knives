@@ -249,7 +249,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     display: none;
 }
 
-.header .text-cart-order a{
+.header .text-cart-order a {
     font: 500 16px/20px Montserrat, sans-serif;
     color: #e8aa31;
 }
@@ -1716,9 +1716,9 @@ body {
     color: #e8aa31;
 }
 
-.cart {
+/* .cart {
     margin-top: 120px;
-}
+} */
 
 .title-box {
     padding-bottom: 35px;

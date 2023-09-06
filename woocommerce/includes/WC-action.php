@@ -91,12 +91,36 @@ function custom_loop_product_title()
 
     function add_to_wishlist()
     {
-        if (isset($_POST['prod_id']) && !empty($_POST['prod_id']) && !in_array($_POST['prod_id'], $_SESSION['wishlist'])) {
-            $_SESSION['wishlist'][] = $_POST['prod_id'];
-            echo json_encode(['response' => 'success']);
+    
+        if (!session_id()) {
+            session_start();
         }
-        die;
+
+        // Проверяем, передан ли prod_id и он не пустой
+        if (isset($_POST['prod_id']) && !empty($_POST['prod_id'])) {
+            // Проверяем, существует ли сессионная переменная wishlist
+            if (!isset($_SESSION['wishlist'])) {
+                $_SESSION['wishlist'] = array();
+            }
+
+            if (!in_array($_POST['prod_id'], $_SESSION['wishlist'])) {
+                $_SESSION['wishlist'][] = $_POST['prod_id'];
+                $response = array('response' => 'success');
+                echo json_encode($response);
+            } else {
+                $response = array('response' => 'error', 'message' => 'Товар уже добавлен в список желаний.');
+                echo json_encode($response);
+            }
+        } else {
+            $response = array('response' => 'error', 'message' => 'Недостаточно данных для выполнения запроса.');
+            echo json_encode($response);
+        }
+
+        wp_die();
     }
+
+
+
 
     add_action("wp_ajax_remove_from_wishlist", "remove_from_wishlist");
     add_action("wp_ajax_nopriv_remove_from_wishlist", "remove_from_wishlist");
@@ -104,6 +128,10 @@ function custom_loop_product_title()
 
     function remove_from_wishlist()
     {
+        if (!session_id()) {
+            session_start();
+        }
+
         if (isset($_POST['prod_id']) && !empty($_POST['prod_id'])) {
             foreach ($_SESSION['wishlist'] as $k => $item) {
                 if ($item == $_POST['prod_id']) {
@@ -124,7 +152,8 @@ function custom_loop_product_title()
             $content = ob_get_clean();
             echo json_encode(['response' => 'success', 'products' => ($content) ? $content : '<p>No products been found.</p>', 'found_posts' =>  $wishlist_prods->found_posts]);
         }
-        die;
+        
+        wp_die();
     }
 
 

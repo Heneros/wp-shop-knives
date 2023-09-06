@@ -2,32 +2,6 @@
 
 
 
-// add_filter('woocommerce_add_to_cart_validation', 'prevent_duplicate_add_to_cart', 10, 3);
-
-// function prevent_duplicate_add_to_cart($passed, $product_id, $quantity)
-// {
-//     $product = wc_get_product($product_id);
-//     $product_cart_id = WC()->cart->generate_cart_id($product_id);
-//     $in_cart = WC()->cart->find_product_in_cart($product_cart_id);
-
-//     if ($in_cart) {
-//         wc_add_notice(__('This product is already in your cart.', 'woocommerce'), 'error');
-//         return false;
-//     } else {
-//         WC()->cart->add_to_cart($product_id, $quantity);
-//         WC()->session->set('prevent_duplicate_add_to_cart', true);
-//         return $passed;
-//     }
-// }
-
-
-
-
-
-
-
-
-
 
 require get_template_directory() . '/woocommerce/includes/WC-action.php';
 
@@ -138,7 +112,9 @@ function shop_scripts()
     wp_enqueue_script("ajax-script", get_template_directory_uri() . '/assets/js/custom.js', array("jquery"));
 
     wp_localize_script("ajax-script", 'my_ajax_object', array(
-        'ajax_url' =>  admin_url('admin-ajax.php')
+        'ajax_url' =>  admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('my-ajax-nonce')
+
     ));
 
     wp_enqueue_script('js-vendor-swiper', _assets_paths('/js/vendor/swiper.min.js'), ['jquery'], true);

@@ -23,19 +23,24 @@ defined('ABSPATH') || exit;
 if (!$product_attributes) {
 	return;
 }
-if (is_page('11')) {
+if (is_front_page()) {
 	product_attribute_dimensions();
 } else {
-	foreach ($product_attributes as $product_attribute_key => $product_attribute) {
-		if ($product_attribute['name'] == $attribute_name) {
+	product_attribute_dimensions();
 ?>
-			<table class="woocommerce-product-attributes shop_attributes">
-				<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--<?php echo esc_attr($product_attribute_key); ?>">
-					<td class="woocommerce-product-attributes-item__value"><?php echo wp_kses_post($product_attribute['value']); ?></td>
-				</tr>
-			</table>
+	<!-- <table class="woocommerce-product-attributes shop_attributes">
+		<?php
+		$limit = 5;
+		$counter = 0;
+		foreach ($product_attributes as $product_attribute_key => $product_attribute) :
+			if ($counter++ > $limit) {
+				break;
+			}
+		?>
+			<tr class="">
+				<td class="woocommerce-product-attributes-item__value"><?php echo wp_kses_post($product_attribute['value']); ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</table> -->
 <?php
-			break;
-		}
-	}
 }
