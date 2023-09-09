@@ -65,7 +65,7 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
         var prod_id = $(this).attr('data-prodid');
         var action = '';
-        var that = $(this); 
+        var that = $(this);
 
         if (that.hasClass('in_list')) {
             action = 'remove_from_wishlist';
@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
                 prod_id: prod_id,
                 nonce: my_ajax_object.nonce
             },
-            beforeSend: function () {  },
+            beforeSend: function () { },
             success: function (data) {
                 var res = JSON.parse(data);
                 if (res.response == 'success' && action == 'add_to_wishlist') {
@@ -109,15 +109,21 @@ jQuery(document).ready(function ($) {
 
         $.ajax({
             url: url,
+            // url: my_ajax_object.ajax_url,
             method: "POST",
             error: function (response) {
                 console.log(response);
             },
             success: function (response) {
+                console.log(response);
                 miniCartAjaxUpdate();
                 let miniCartCount = document.getElementById("mini-cart-count");
+                let miniCartCountMob = document.getElementById("mini-cart-count-mob");
                 let currentCount = parseInt(miniCartCount.innerText) + 1;
+                let currentCountMob = parseInt(miniCartCountMob.innerText) + 1;
+                // console.log(currentCount);
                 miniCartCount.innerText = currentCount;
+                miniCartCountMob.innerText = currentCountMob;
             }
         });
 
@@ -138,8 +144,13 @@ jQuery(document).ready(function ($) {
             data: {
                 action: 'update_mini_cart_action'
             },
+            error: function (error) {
+                console.log(error);
+            },
             success: function (response) {
                 let miniCartCount = document.getElementById('mini-cart-count');
+                let miniCartCountMob = document.getElementById("mini-cart-count-mob");
+
                 let miniCartItemsContainer = document.getElementById('mini-cart-all-items');
                 let miniCartSubtotal = document.getElementById('mini-cart-subtotal');
                 let checkoutTotalPrice = document.getElementById('checkout-total-price');
@@ -156,10 +167,11 @@ jQuery(document).ready(function ($) {
                 $("#mini-cart-subtotal").append(response.cart_total);
                 $("#mini-cart-all-items").append(response.cart_contents);
                 $("#mini-cart-count").text(response.cart_items_count);
-
+                $("#mini-cart-count-mob").text(response.cart_items_count);
 
 
                 miniCartCount.innerText = response.cart_items_count;
+                miniCartCountMob.innerText = response.cart_items_count;
             }
         })
     }
@@ -408,47 +420,66 @@ jQuery(document).ready(function ($) {
     }
 
 
+    function addToCartWithQuantity(url) {
+        $.ajax({
+            url: url,
+            type: 'post',
+            error: function (response) {
+                console.log(response);
+            },
+            success: function (response) {
+                miniCartAjaxUpdate();
+            }
+        });
+
+    }
+
 
 
     $(".add-to-cart-with-quantity-btn").on('click', function (e) {
         e.preventDefault();
-        let addToCartUrlWithQuantity = this.href;
-        let quantity = $("input[name=prod_quantity]").val();
-        let getIdFromUrl = addToCartUrlWithQuantity.split('=');
-        let productID = parseInt(getIdFromUrl[1]);
-        if (parseInt(quantity) == 0) {
-            console.log("Not added to cart. Simple product");
-        } else {
-            $.ajax({
-                method: "POST",
-                url: woocommerce_params.ajax_url,
 
-                cache: false,
-                data: {
-                    product_id: productID,
-                    action: 'check_if_product_exist_in_cart'
-                },
-                success: function (response_s) {
-                    addToCartUrlWithQuantity += '&quantity=' + quantity;
-                    $.ajax({
-                        method: 'POST',
-                        url: woocommerce_params.ajax_url,
-                        cache: false,
-                        data: {
-                            product_id: productID,
-                            action: 'check_if_product_in_stock'
-                        },
-                        success: function (response_s) {
-                            if (response_s.stock_status == true) {
-                                addToCartWithQuantity(addToCartUrlWithQuantity)
-                            } else {
-                                console.log("Not added to cart with quantity. Simple product.");
-                            }
-                        }
-                    })
-                }
-            })
+        let quantity = parseInt($(".prod_quantity").val());
+        let productID = $(this).data('product-id');
+
+        if (isNaN(quantity) || quantity <= 0) {
+            console.log("Error quantity product");
+            return;
         }
+
+      
+        let addToCartUrlWithQuantity = woocommerce_params.wc_ajax_url + '?add-to-cart=' + productID + '&quantity=' + quantity;
+
+        $.ajax({
+            method: "POST",
+            url: woocommerce_params.ajax_url,
+
+            cache: false,
+            data: {
+                product_id: productID,
+                action: 'check_if_product_exist_in_cart'
+            },
+            success: function (response_s) {
+                addToCartUrlWithQuantity += '&quantity=' + quantity;
+                $.ajax({
+                    method: 'POST',
+                    url: woocommerce_params.ajax_url,
+                    cache: false,
+                    data: {
+                        product_id: productID,
+                        action: 'check_if_product_in_stock'
+                    },
+                    success: function (response_s) {
+                        if (response_s.stock_status == true) {
+                            addToCartWithQuantity(addToCartUrlWithQuantity)
+                        } else {
+                            console.log("Not added to cart with quantity. Simple product.");
+                        }
+                    }
+                })
+            }
+        })
+
     });
 
 

@@ -34,11 +34,13 @@ global $product;
 			<button class="product-information__plus icon-plus   quantity-plus" type="button">+</button>
 		</div>
 
-		<div class="group-btns">
-			<button type="submit" class="btn btn-bottom btn-yellow  single_add_to_cart_button button hidden-btn alt<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
-			<button class="btn btn-bottom btn-yellow">
-				Buy in 1 click
+		<div class="group-btns ">
+			<button type="submit" class="btn btn-bottom btn-yellow  single_add_to_cart_button add-to-cart-with-quantity-btn  button hidden-btn">
+				<?php echo esc_html($product->single_add_to_cart_text()); ?>
 			</button>
+			<!-- <button class="btn btn-bottom btn-yellow">
+				Buy in 1 click
+			</button> -->
 
 			<?php do_action('woocommerce_after_add_to_cart_button'); ?>
 

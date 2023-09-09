@@ -49,9 +49,9 @@ if ($product->is_in_stock()) : ?>
 				?>
 				<button class="product-information__plus icon-plus   quantity-plus" type="button">+</button>
 			</div>
-			<div class="group-btns">
-				<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="btn btn-bottom btn-yellow single_add_to_cart_button button alt<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
-				<button class="btn btn-bottom btn-yellow ">Buy in 1 click</button>
+			<div class="group-btns ">
+				<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="btn btn-bottom btn-yellow single_add_to_cart_button  button alt" data-product-id="<?php $product->get_id() ?>"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
+				<!-- <button class="btn btn-bottom btn-yellow ">Buy in 1 click</button> -->
 			</div>
 
 

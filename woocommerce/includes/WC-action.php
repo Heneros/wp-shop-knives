@@ -91,7 +91,7 @@ function custom_loop_product_title()
 
     function add_to_wishlist()
     {
-    
+
         if (!session_id()) {
             session_start();
         }
@@ -152,7 +152,7 @@ function custom_loop_product_title()
             $content = ob_get_clean();
             echo json_encode(['response' => 'success', 'products' => ($content) ? $content : '<p>No products been found.</p>', 'found_posts' =>  $wishlist_prods->found_posts]);
         }
-        
+
         wp_die();
     }
 
@@ -681,6 +681,7 @@ function custom_loop_product_title()
     add_action('wp_ajax_nopriv_add_to_cart', 'add_to_cart');
     function add_to_cart()
     {
+        
         $error = '';
         $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : '';
         $attributes = isset($_POST['attributes']) ? $_POST['attributes'] : [];
@@ -729,3 +730,14 @@ function custom_loop_product_title()
 
         return $fields;
     }
+
+
+
+
+
+    ///Change text in btn.
+
+
+    // add_filter('woocommerce_loop_add_to_cart_link', function ($text) {
+    //     return 'Text 123';
+    // });

@@ -31,10 +31,9 @@ if ($max_value && $min_value === $max_value) {
 
 	<div class="quantity">
 		<?php do_action('woocommerce_before_quantity_input_field'); ?>
-
-
 		<input 
 		type="number" 
+		name="prod_quantity"
 		id="<?php echo esc_attr($input_id); ?>" 
 		class="<?php echo esc_attr(join(' ', (array) $classes)); ?> product-information__input h5 js-quantity-input input_qty" 
 		step="<?php echo esc_attr($step); ?>" 

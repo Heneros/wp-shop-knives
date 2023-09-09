@@ -134,7 +134,10 @@ $product_description = $product->get_description();
 								</div>
 							</div>
 						</div>
-						<?php if ($product->is_in_stock()) : ?>
+						<?php 
+						// if ($product->is_in_stock()) : 
+							if (!$product->managing_stock() && !$product->is_in_stock()) :
+							?>
 							<span class="available">
 								In stock
 							</span>
@@ -165,9 +168,6 @@ $product_description = $product->get_description();
 									.woocommerce-variation-availability {
 										display: none !important;
 									}
-
-							
-
 									.product-information__right-dropdowns .product_title .entry-title {
 										display: none !important;
 									}
@@ -220,8 +220,6 @@ $product_description = $product->get_description();
 								</style>
 								<?php wc_get_template('single-product/price.php'); ?>
 								<div class="product-information__right-bottom">
-
-
 									<?php
 									do_action('woocommerce_single_product_summary');
 									?>
