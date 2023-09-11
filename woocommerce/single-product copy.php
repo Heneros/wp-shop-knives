@@ -135,8 +135,9 @@ $product_description = $product->get_description();
 							</div>
 						</div>
 						<?php
-						if ($product->is_in_stock()) :
-							// do_action('woocommerce_single_product_summary');
+						// if ($product->is_in_stock()) : 
+						if (!$product->managing_stock() && !$product->is_in_stock()) :
+							do_action('woocommerce_single_product_summary');
 						?>
 							<span class="available">
 								In stock
@@ -151,13 +152,87 @@ $product_description = $product->get_description();
 							<?php
 							if ($product->is_type('variable')) {
 								do_action('woocommerce_single_product_summary');
-								wc_display_variation_product($product);
 							?>
+								<style>
+									.bestsellers-products-item__size {
+										display: none !important;
+									}
+
+									/* .product_meta {
+										display: none !important;
+									}
+
+									.product-information__right-dropdowns .price {
+										display: none !important;
+									}
+
+									.woocommerce-variation-availability {
+										display: none !important;
+									}
+									.product-information__right-dropdowns .product_title .entry-title {
+										display: none !important;
+									}
+
+									.quantity.hidden {
+										display: none !important;
+									}
+
+									.hidden-btn {
+										display: none !important;
+									} */
+								</style>
 
 
 							<?php
-							}
+							} else {
+
 							?>
+								<div class="product-information__right-middle">
+									<ul class="list-reset product-information__right-list">
+										<li class="product-information__right-item-left"> Vendor Code:</li>
+										<li class="product-information__right-item-left"> Trademark:</li>
+										<li class="product-information__right-item-left"> Seria:</li>
+										<li class="product-information__right-item-left"> Bonus points:</li>
+									</ul>
+									<ul class="list-reset product-information__right-list">
+										<li class="product-information__right-item-right"> <?php
+																							echo get_post_meta($post->ID, '_custom_product_vendor_code', true);
+																							?></li>
+										<li class="product-information__right-item-right"> <?php
+																							echo get_post_meta($post->ID, '_custom_product_trademark_field', true);
+																							?></li>
+										<li class="product-information__right-item-right"> <?php
+																							echo get_post_meta($post->ID, '_custom_product_seria', true);
+																							?></li>
+										<li class="product-information__right-item-right"> <?php
+																							echo get_post_meta($post->ID, '_custom_product_bonus_points', true);
+																							?></li>
+									</ul>
+								</div>
+								<div class="line"></div>
+								<style>
+									.bestsellers-products-item__size {
+										display: none !important;
+									}
+
+									.stock.out-of-stock {
+										display: none !important;
+									}
+								</style>
+								<?php
+								////	wc_get_template('single-product/price.php');
+								?>
+								<div class="product-information__right-bottom">
+									<?php
+									// do_action('woocommerce_single_product_summary');
+									?>
+
+								</div>
+							<?php
+							}
+
+							?>
+
 						</div>
 					</div>
 

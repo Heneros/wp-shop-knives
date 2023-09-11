@@ -732,8 +732,11 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 
 
 .product-information__right-side .product-information__right-wrapper .product-information__right-dropdowns .cart {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50%, 2fr));
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50%, 2fr)); */
+
+    /* display: flex;
+    flex-direction: column; */
 }
 
 
@@ -2051,11 +2054,25 @@ tbody .card-info .favorites__info-title {
 }
 
 .quantity input::-webkit-outer-spin-button,
-.quantity  input::-webkit-inner-spin-button {
+.quantity input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
 .quantity input[type=number] {
     -moz-appearance: textfield;
-  }
+}
+
+.variations_form.hidden {
+    display: none !important;
+}
+
+.alg-product-input-fields-table,
+.alg-product-input-fields-table tr,
+.alg-product-input-fields-table td {
+    display: none !important;
+}
+
+.product-information__right-dropdowns .bestsellers-products-item__size {
+    display: none !important;
+}

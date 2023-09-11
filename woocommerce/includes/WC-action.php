@@ -378,34 +378,45 @@ function custom_loop_product_title()
             <form class="variations_form cart filter-style select-item" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint($product->id); ?>" data-product_variations="<?php echo htmlspecialchars(json_encode($product->get_available_variations())) ?>">
                 <?php do_action('woocommerce_before_variations_form'); ?>
                 <?php if (empty($product->get_available_variations()) && false !== $product->get_available_variations()) : ?>
-                    <span></span>
-                <?php else : ?>
-                    <table class="variations" cellspacing="0">
-                        <tbody>
-                            <?php foreach ($product->get_variation_attributes() as $attribute_name => $options) : ?>
-                                <tr>
-                                    <td class="value">
-                                        <?php
-                                        $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urldecode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
-                                        wc_dropdown_variation_attribute_options(array('options' => $options, 'attribute' => $attribute_name, 'product' => $product, 'selected' => $selected));
-                                        ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
 
-                    <?php do_action('woocommerce_before_add_to_cart_button'); ?>
+                <?php else : ?>
+
+                    <?php
+                    do_action('woocommerce_before_add_to_cart_button');
+                    ?>
 
                     <div class="single_variation_wrap" style="display:none;">
+
                         <?php
-                        /**
-                         * woocommerce_before_single_variation Hook.
-                         */
                         do_action('woocommerce_before_single_variation');
                         do_action('woocommerce_single_variation');
                         do_action('woocommerce_after_single_variation');
                         ?>
+                        <div class="variations">
+                            <?php foreach ($product->get_variation_attributes() as $attribute_name => $options) : ?>
+                                <div class="value">
+                                    <?php
+
+                        
+
+                                    $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urldecode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
+
+                                    echo '<label class="product-information__right-item-left" for="attribute_' . sanitize_title($attribute_name) . '">' . wc_attribute_label($attribute_name) . '</label>';
+
+
+                                    wc_dropdown_variation_attribute_options(array(
+                                        'options' => $options,
+                                        'attribute' => $attribute_name,
+                                        'product' => $product,
+                                        'selected' => $selected,
+                                        'name' => 'attribute_' . sanitize_title($attribute_name),
+                                        'show_option_none' => __('Choose an option 5555 ', 'woocommerce'),
+                                    ));
+                                    ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
                     </div>
                     <?php do_action('woocommerce_after_add_to_cart_button'); ?>
                 <?php endif; ?>
@@ -681,7 +692,7 @@ function custom_loop_product_title()
     add_action('wp_ajax_nopriv_add_to_cart', 'add_to_cart');
     function add_to_cart()
     {
-        
+
         $error = '';
         $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : '';
         $attributes = isset($_POST['attributes']) ? $_POST['attributes'] : [];
@@ -730,14 +741,3 @@ function custom_loop_product_title()
 
         return $fields;
     }
-
-
-
-
-
-    ///Change text in btn.
-
-
-    // add_filter('woocommerce_loop_add_to_cart_link', function ($text) {
-    //     return 'Text 123';
-    // });
