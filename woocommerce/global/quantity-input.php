@@ -17,7 +17,7 @@
  */
 
 defined('ABSPATH') || exit;
-
+global $product;
 if ($max_value && $min_value === $max_value) {
 ?>
 	<div class="quantity hidden">
@@ -31,17 +31,7 @@ if ($max_value && $min_value === $max_value) {
 
 	<div class="quantity">
 		<?php do_action('woocommerce_before_quantity_input_field'); ?>
-		<input 
-		type="number" 
-		name="prod_quantity"
-		id="<?php echo esc_attr($input_id); ?>" 
-		class="<?php echo esc_attr(join(' ', (array) $classes)); ?> product-information__input h5 js-quantity-input input_qty" 
-		step="<?php echo esc_attr($step); ?>" 
-		min="<?php echo esc_attr($min_value); ?>" 
-		max="<?php echo esc_attr(0 < $max_value ? $max_value : ''); ?>" name="<?php echo esc_attr($input_name); ?>" 
-		value="<?php echo esc_attr($input_value); ?>" 
-		title="<?php echo esc_attr_x('Qty', 'Product quantity input tooltip', 'woocommerce'); ?>" 
-		size="4" placeholder="<?php echo esc_attr($placeholder); ?>" inputmode="<?php echo esc_attr($inputmode); ?>" autocomplete="<?php echo esc_attr(isset($autocomplete) ? $autocomplete : 'on'); ?>" />
+		<input type="text" name="prod_quantity" class="<?php echo esc_attr(join(' ', (array) $classes)); ?> product-information__input h5 js-quantity-input input_qty" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>" />
 		<?php do_action('woocommerce_after_quantity_input_field'); ?>
 	</div>
 <?php

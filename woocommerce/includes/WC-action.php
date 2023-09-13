@@ -341,22 +341,22 @@ function custom_loop_product_title()
 
 
 
-
-
     function get_variable_product_data_by_id()
     {
+        global $woocommerce;
         $variation_id = (int)$_POST['var_id'];
         $variation = wc_get_product($variation_id);
         $variableProductImage = wp_get_attachment_image_src(get_post_thumbnail_id($variation_id), '');
+
         $v_product_data = [
             'p_image' => $variableProductImage[0],
             'p_sku' => $variation->get_sku(),
-            'p_price' => $variation->get_price_html()
+            'p_price' => $variation->get_price_html(),
         ];
+
         wp_send_json($v_product_data);
         die;
     }
-
 
     add_action('wp_ajax_get_variable_product_data_by_id', 'get_variable_product_data_by_id');
     add_action('wp_ajax_nopriv_get_variable_product_data_by_id', 'get_variable_product_data_by_id');
@@ -393,17 +393,13 @@ function custom_loop_product_title()
                         do_action('woocommerce_after_single_variation');
                         ?>
                         <div class="variations">
+
                             <?php foreach ($product->get_variation_attributes() as $attribute_name => $options) : ?>
                                 <div class="value">
                                     <?php
-
-                        
-
                                     $selected = isset($_REQUEST['attribute_' . sanitize_title($attribute_name)]) ? wc_clean(urldecode($_REQUEST['attribute_' . sanitize_title($attribute_name)])) : $product->get_variation_default_attribute($attribute_name);
 
                                     echo '<label class="product-information__right-item-left" for="attribute_' . sanitize_title($attribute_name) . '">' . wc_attribute_label($attribute_name) . '</label>';
-
-
                                     wc_dropdown_variation_attribute_options(array(
                                         'options' => $options,
                                         'attribute' => $attribute_name,
@@ -415,6 +411,7 @@ function custom_loop_product_title()
                                     ?>
                                 </div>
                             <?php endforeach; ?>
+                         
                         </div>
 
                     </div>

@@ -308,35 +308,37 @@ jQuery(document).ready(function ($) {
 
     //////Change select.
     $('input.variation_id').change(function () {
-        if ('' != $("input.variation_id").val()) {
-            var var_id = $("input.variation_id").val();
-            $.ajax({
-                url: woocommerce_params.ajax_url,
-                method: "POST",
-                data: {
-                    var_id: var_id,
-                    action: 'get_variable_product_data_by_id'
-                },
-                success: function (response) {
-                    console.log(response);
-                    let big_img_container = document.getElementsByClassName('swiper-slide-active')[0];
-                    let big_image_href_img_src = big_img_container.getElementsByTagName('img')[0];
+        // $(document).on('change', 'input.variation_id', function () {
+        var selected_variation_id = $(this).val();
+        // if ('' != $("input.variation_id").val()) {
+        // var var_id = $("input.variation_id").val();
+        $.ajax({
+            url: woocommerce_params.ajax_url,
+            method: "POST",
+            data: {
+                var_id: selected_variation_id,
+                action: 'get_variable_product_data_by_id'
+            },
+            success: function (response) {
+                console.log(response);
+                let big_img_container = document.getElementsByClassName('swiper-slide-active')[0];
+                let big_image_href_img_src = big_img_container.getElementsByTagName('img')[0];
 
 
-                    // let product_p_sku = document.getElementById('p_sku');
-                    let variable_product_price = document.getElementById('variable_product_price');
-                    if (response.p_image) {
-                        big_image_href_img_src.src = response.p_image;
-                    }
-
-                    // product_p_sku.innerHTML = response.p_sku;
-                    if (variable_product_price) {
-                        variable_product_price.innerHTML = response.p_price;
-                    }
-
+                // let product_p_sku = document.getElementById('p_sku');
+                let variable_product_price = document.getElementById('variable_product_price');
+                if (response.p_image) {
+                    big_image_href_img_src.src = response.p_image;
                 }
-            });
-        }
+
+                // product_p_sku.innerHTML = response.p_sku;
+                if (variable_product_price) {
+                    variable_product_price.innerHTML = response.p_price;
+                }
+
+            }
+        });
+        // }
     });
 
     function addToCartWithQuantityVariableProduct(prod_obj) {
@@ -360,12 +362,16 @@ jQuery(document).ready(function ($) {
     }
 
     ///Add variable product in cart
-    $(document.body).on("click", ".add-to-cart-with-quantity-variable_product-btn", function (e) {
+    // $(document.body).on("click", ".add-to-cart-with-quantity-variable_product-btn", function (e) {
+    $(".add-to-cart-with-quantity-variable_product-btn").on('click', function (e) {
         e.preventDefault();
-
+        var $this = $(this);
+        let thisBtn = this;
         let quantity = $("input[name=prod_quantity]").val();
         let variation_id = $("input[name=variation_id]").val();
         let productID = $("input[name=product_id]").val();
+
+        console.log(quantity);
         if (variation_id) {
             let variable_product_obj = {
                 quantity: quantity,
@@ -420,19 +426,19 @@ jQuery(document).ready(function ($) {
     }
 
 
-    function addToCartWithQuantity(url) {
-        $.ajax({
-            url: url,
-            type: 'post',
-            error: function (response) {
-                console.log(response);
-            },
-            success: function (response) {
-                miniCartAjaxUpdate();
-            }
-        });
+    // function addToCartWithQuantity(url) {
+    //     $.ajax({
+    //         url: url,
+    //         type: 'post',
+    //         error: function (response) {
+    //             console.log(response);
+    //         },
+    //         success: function (response) {
+    //             miniCartAjaxUpdate();
+    //         }
+    //     });
 
-    }
+    // }
 
 
 
@@ -445,10 +451,10 @@ jQuery(document).ready(function ($) {
 
         if (addToCartUrlWithQuantity.includes('=')) {
 
-        }else{
-            
+        } else {
+
         }
-            
+
         let productID = parseInt(getIdFromUrl[1]);
         // let productID = $(this).data('product-id');
 

@@ -135,9 +135,7 @@ $product_description = $product->get_description();
 							</div>
 						</div>
 						<?php
-						if ($product->is_in_stock()) :
-							// do_action('woocommerce_single_product_summary');
-						?>
+						if ($product->is_in_stock()) :?>
 							<span class="available">
 								In stock
 							</span>
@@ -147,17 +145,15 @@ $product_description = $product->get_description();
 							</span>
 						<?php endif; ?>
 						<div class="line"></div>
+						<script></script>
 						<div class="product-information__right-dropdowns">
 							<?php
 							if ($product->is_type('variable')) {
 								do_action('woocommerce_single_product_summary');
 								wc_display_variation_product($product);
-							?>
-
-
-							<?php
 							}
 							?>
+					
 						</div>
 					</div>
 
