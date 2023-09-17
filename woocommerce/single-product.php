@@ -32,6 +32,11 @@ $product_short_desc = $product->get_short_description();
 $product_description = $product->get_description();
 
 
+$vendor_code = get_post_meta($product->get_id(), '_custom_product_vendor_code', true);
+$trademark = get_post_meta($product->get_id(), '_custom_product_trademark_field', true);
+$product_seria = get_post_meta($product->get_id(), '_custom_product_seria', true);
+$bonus_points = get_post_meta($product->get_id(), '_custom_product_bonus_points', true);
+
 
 ?>
 
@@ -41,7 +46,7 @@ $product_description = $product->get_description();
 	var watchedProducts = getCookie("watched_products");
 	watchedProducts = watchedProducts ? JSON.parse(watchedProducts) : {};
 
-	watchedProducts[productId] = true; // создает ассоциативный массив.
+	watchedProducts[productId] = true;
 	setCookie('watched_products', JSON.stringify(watchedProducts), 30);
 
 	function getCookie(name) {
@@ -133,17 +138,17 @@ $product_description = $product->get_description();
 									</a>
 								</div>
 							</div>
+							<?php
+							if ($product->is_in_stock()) : ?>
+								<span class="available">
+									In stock
+								</span>
+							<?php else : ?>
+								<span class="out_stock">
+									Out of stock
+								</span>
+							<?php endif; ?>
 						</div>
-						<?php
-						if ($product->is_in_stock()) :?>
-							<span class="available">
-								In stock
-							</span>
-						<?php else : ?>
-							<span class="out_stock">
-								Out of stock
-							</span>
-						<?php endif; ?>
 						<div class="line"></div>
 						<script></script>
 						<div class="product-information__right-dropdowns">
@@ -151,17 +156,101 @@ $product_description = $product->get_description();
 							if ($product->is_type('variable')) {
 								do_action('woocommerce_single_product_summary');
 								wc_display_variation_product($product);
-							}
 							?>
-					
+								<div class="prodact-card__description h4"><?php echo $product->get_description() ?>
+									<!-- <div class="sku">
+										<span> SKU:</span> <strong><?= $product_sku; ?></strong>
+									</div> -->
+								<?php
+							} else { ?>
+									<div class="prodact-card__description h4"><?php echo $product->get_description() ?>
+										<!-- <div class="sku">
+											<span> SKU:</span> <strong><?= $product_sku; ?></strong>
+										</div> -->
+
+										<div class="product-information__right-middle">
+											<ul class="list-reset product-information__right-list">
+												<li class="product-information__right-item-left"> Vendor Code:</li>
+												<li class="product-information__right-item-left"> Trademark:</li>
+												<li class="product-information__right-item-left"> Seria:</li>
+												<li class="product-information__right-item-left"> Bonus points:</li>
+											</ul>
+											<ul class="list-reset product-information__right-list">
+												<li class="product-information__right-item-right"><?= $vendor_code ?> </li>
+												<li class="product-information__right-item-right"><?= $trademark ?> </li>
+												<li class="product-information__right-item-right"><?= $product_seria ?> </li>
+												<li class="product-information__right-item-right"><?= $bonus_points ?> </li>
+											</ul>
+										</div>
+									<?php	}
+									?>
+									<div class="line"></div>
+									<div class="custom-price product-information__price-info">
+										<?php if ($product->is_type('variable')) { ?>
+											<p id="variable_product_price" class="price product-price price">
+												<?php echo $product->get_price_html(); ?></p>
+										<?php
+										} else {
+										?>
+											<p class="price product-price price">
+												<?php echo $product->get_price_html(); ?> </p>
+										<?php
+										}
+										?>
+										<!-- <div class="info-points">
+										<p class="description">
+											+ 15 points per purchase.
+										</p>
+										<div class="tooltip">
+											<span class="tooltip-text">
+												Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rerum numquam
+												deserunt a quidem ipsam.
+											</span>
+											?
+										</div>
+									</div> -->
+									</div>
+									<?php
+									if ($product->is_in_stock()) : ?>
+										<div class="variations_button product-information__right-bottom">
+											<div class="product-information__btns">
+												<div class="product-information__quantity parent-quantity ">
+													<button class="product-information__minus  icon-minus  quantity-minus" type="button">-</button>
+													<?php
+													do_action('woocommerce_before_add_to_cart_quantity');
+													?>
+													<input type="text" name="prod_quantity" class="product-information__input h5 js-quantity-input input_qty" min="<?php echo apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product); ?>" max="<?php echo apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product); ?>" value="<?php echo isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(); ?>" />
+													<?php
+													do_action('woocommerce_after_add_to_cart_quantity');
+													?>
+													<button class="product-information__plus icon-plus   quantity-plus" type="button">+</button>
+												</div>
+												<input type="hidden" name="add-to-cart" value="<?php echo absint($product->get_id()); ?>" />
+												<input type="hidden" name="product_id" value="<?php echo absint($product->get_id()); ?>" />
+												<input type="hidden" name="action" value="add_to_cart">
+												<div class="group-btns">
+													<?php if ($product->is_type('variable')) { ?>
+														<button type="submit" class="btn btn-yellow add-to-cart-with-quantity-variable_product-btn button  js-open-cart">
+															<?php echo esc_html($product->single_add_to_cart_text()); ?>
+														</button>
+													<?php } else { ?>
+														<a class="btn btn-yellow  add-to-cart-with-quantity-btn button  js-open-cart"  href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>">
+															<?php echo esc_html($product->single_add_to_cart_text()); ?>
+														</a>
+													<?php } ?>
+												</div>
+											</div>
+										</div>
+									<?php else : ?>
+										<span>Product not avalaible</span>
+									<?php endif; ?>
+									</div>
+
+								</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
-		</div>
-	</div>
-	</div>
 </section>
 <section class="product-tabs">
 	<div class="container">

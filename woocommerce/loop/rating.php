@@ -30,7 +30,7 @@ $average      = $product->get_average_rating();
 ?>
 
 <div class="bestsellers-products-item__line">
-	<div class="stars stars_sm">
+	<div class="stars stars_sm 12">
 		<span style="width: <?php echo (($average / 5) * 100) ?>%"></span>
 	</div>
 	<div class="bestsellers-products-item__reviews">

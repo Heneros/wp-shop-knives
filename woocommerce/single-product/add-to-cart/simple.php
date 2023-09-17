@@ -50,6 +50,16 @@ if ($product->is_in_stock()) : ?>
 				<button class="product-information__plus icon-plus   quantity-plus" type="button">+</button>
 			</div>
 			<div class="group-btns ">
+
+				<?php
+			
+				$vendor_code = get_post_meta($product->get_id(), '_custom_product_vendor_code', true);
+
+				if (!empty($vendor_code)) {
+					echo '<p><strong>Vendor Code:</strong> ' . esc_html($vendor_code) . '</p>';
+				}
+				 ?>
+
 				<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="btn btn-bottom btn-yellow single_add_to_cart_button  button alt" data-product-id="<?php $product->get_id() ?>"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
 				<!-- <button class="btn btn-bottom btn-yellow ">Buy in 1 click</button> -->
 			</div>

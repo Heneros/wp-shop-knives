@@ -296,10 +296,6 @@ function custom_loop_product_title()
     add_action("wp_ajax_nopriv_check_if_product_in_stock", "check_if_product_in_stock");
 
 
-
-
-
-
     function add_to_cart_variable_product()
     {
         global $woocommerce;
@@ -411,7 +407,10 @@ function custom_loop_product_title()
                                     ?>
                                 </div>
                             <?php endforeach; ?>
-                         
+                            <div class="line"></div>
+
+
+
                         </div>
 
                     </div>
@@ -645,44 +644,44 @@ function custom_loop_product_title()
     function update_product_quantity()
     {
         global $woocommerce;
-        global $product;
-
         $variation_ids_in_cart = array();
+        global $product;
         $current_variation_prod = 0;
         $product_id = (int)$_POST['prod_id'];
         $quantity = (int)$_POST['quantity'];
-        $variation_id = isset($_POST['variation_id']) ? (int)$_POST['variation_id'] : false;
         $post_type = get_post_type($product_id);
-
-        if (!is_object($product)) {
+        if (!is_object($product))
             $product = wc_get_product($product_id);
+        // Loop through cart items
+        foreach (WC()->cart->get_cart() as $cart_item) {
+            // Collecting product variation IDs if they are in cart for this variable product
+            if ($cart_item['variation_id'] > 0 && in_array($cart_item['variation_id'], $product->get_children()))
+                $variation_ids_in_cart[] = $cart_item['variation_id'];
         }
-
-        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-            if ($variation_id && $cart_item['variation_id'] == $variation_id) {
-                $cart_item['quantity'] = $quantity;
-                WC()->cart->set_quantity($cart_item_key, $quantity);
-                break;
-            } elseif ($cart_item['product_id'] == $product_id && !$cart_item['variation_id']) {
-                $cart_item['quantity'] = $quantity;
-                WC()->cart->set_quantity($cart_item_key, $quantity);
-                break;
+        if ($post_type != 'product') {
+            if (!empty($variation_ids_in_cart)) {
+                foreach ($variation_ids_in_cart as $item_var_prod_id) {
+                    if ($item_var_prod_id == $product_id) {
+                        $current_variation_prod = $item_var_prod_id;
+                    }
+                }
+                // Get it's unique ID within the Cart
+                $prod_unique_id = $woocommerce->cart->generate_cart_id($product_id);
+                // Remove it from the cart by un-setting it
+                unset($woocommerce->cart->cart_contents[$prod_unique_id]);
+                $woocommerce->cart->add_to_cart($product_id, $quantity, $current_variation_prod);
             }
+        } else {
+            // Get it's unique ID within the Cart
+            $prod_unique_id = $woocommerce->cart->generate_cart_id($product_id);
+            // Remove it from the cart by un-setting it
+            unset($woocommerce->cart->cart_contents[$prod_unique_id]);
+            $woocommerce->cart->add_to_cart($product_id, $quantity);
         }
-
-        $cart_total = WC()->cart->get_cart_total();
-        $cart_items_count = WC()->cart->get_cart_contents_count();
-
-        $response = array(
-            'cart_total' => $cart_total,
-            'cart_items_count' => $cart_items_count,
-        );
-        wp_send_json_success($response);
     }
 
-    add_action("wp_ajax_update_product_quantity", "update_product_quantity");
-    add_action("wp_ajax_nopriv_update_product_quantity", "update_product_quantity");
-
+    add_action('wp_ajax_update_product_quantity', 'update_product_quantity');
+    add_action('wp_ajax_nopriv_update_product_quantity', 'update_product_quantity');
 
 
     add_action('wp_ajax_add_to_cart', 'add_to_cart');
@@ -738,3 +737,20 @@ function custom_loop_product_title()
 
         return $fields;
     }
+
+
+
+    // add_action('woocommerce_single_product_summary', 'display_vendor_code', 15);
+
+    // function display_vendor_code()
+    // {
+    //     global $product;
+
+    //     // Получаем значение метаполя "Vendor Code"
+    //     $vendor_code = get_post_meta($product->get_id(), 'vendor_code', true);
+
+    //     // Выводим "Vendor Code"
+    //     if (!empty($vendor_code)) {
+    //         echo '<p><strong>Vendor Code:</strong> ' . esc_html($vendor_code) . '</p>';
+    //     }
+    // }

@@ -122,7 +122,9 @@ $rating_count = $product->get_rating_count();
 				}
 
 				if (wc_review_ratings_enabled()) {
-					$comment_form['comment_field'] = '<div class="comment-form-rating"><label for="rating">' . esc_html__('Your rating', 'woocommerce') . (wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '') . '</label><select name="rating" id="rating" required>
+					$comment_form['comment_field'] = '<div class="comment-form-rating ">
+					<label for="rating">' . esc_html__('Your rating', 'woocommerce') . (wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '') . '</label>
+					<select name="rating" id="rating" required>
 						<option value="">' . esc_html__('Rate&hellip;', 'woocommerce') . '</option>
 						<option value="5">' . esc_html__('Perfect', 'woocommerce') . '</option>
 						<option value="4">' . esc_html__('Good', 'woocommerce') . '</option>
