@@ -74,11 +74,11 @@ function custom_loop_product_title()
             $class = 'in_list';
         }
         if (is_singular('product')) { ?>
-            <a href="#!" class="bestsellers-products-item__favorites add_favorite <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
+            <a href="#!" class="bestsellers-products-item__favorites add_favorite <?php echo $class; ?>" data-prodId="<?php echo $prod_id; ?>">
                 <img src="<?php echo _assets_paths('img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite">
             </a>
         <?php } else {   ?>
-            <a href="#!" class="bestsellers-products-item__favorites add_favorite <?php echo $class; ?>" data-prodid="<?php echo $prod_id; ?>">
+            <a href="#!" class="bestsellers-products-item__favorites add_favorite <?php echo $class; ?>" data-prodId="<?php echo $prod_id; ?>">
                 <img src="<?php echo _assets_paths('img/sprite.svg#favorites-yellow'); ?>" alt="icon favorite">
             </a>
         <?php
@@ -189,12 +189,9 @@ function custom_loop_product_title()
             if ($values['variation']) {
                 $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
             }
-
-
             if (in_array($product_id, $added_items)) {
                 continue;
             }
-
             $miniCartItems .= '
             <div class="card-item">
                 <div class="card-img">' . $thumbnail . '</div>
@@ -203,16 +200,14 @@ function custom_loop_product_title()
                 </div>
                 <div class="card-price">' . $product_price . '</div>
                 <div class="card-quantity js-quantity">
-                 
                     <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
-            
                 </div>
                 ' . apply_filters(
                 'woocommerce_cart_item_remove_link',
                 sprintf(
-                    '<a href="%s" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+                    '<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
                     esc_url(wc_get_cart_remove_url($cart_item_key)),
-                    esc_attr__("Remove this item", "woocommerce"),
+                    // esc_attr__("Remove this item", "woocommerce"),
                     esc_attr($product_id),
                     esc_attr($cart_item_key),
                     esc_attr($_product->get_sku())
@@ -224,11 +219,6 @@ function custom_loop_product_title()
             $added_items[] = $product_id;
         }
 
-        if (WC()->cart->tax_display_cart == 'excl') {
-            $cart_subtotal = WC()->cart->subtotal_ex_tax;
-        } else {
-            $cart_subtotal = WC()->cart->subtotal;
-        }
         $data = [
             'cart_contents' => $miniCartItems,
             'cart_total' => wc_price(WC()->cart->subtotal_ex_tax),
@@ -240,6 +230,76 @@ function custom_loop_product_title()
 
     add_action("wp_ajax_update_mini_cart_action", "update_mini_cart_action");
     add_action("wp_ajax_nopriv_update_mini_cart_action", "update_mini_cart_action");
+    // function update_mini_cart_action()
+    // {
+    //     global $woocommerce;
+    //     $miniCartItems = '';
+    //     $items = $woocommerce->cart->get_cart();
+    //     $customSubTotal = 0;
+    //     $added_items = array();
+    //     foreach (WC()->cart->get_cart() as $cart_item_key => $values) {
+    //         $_product = wc_get_product($values['data']->get_id());
+    //         $product_id = $values['product_id'];
+    //         $prodPrice = 0;
+    //         $quantity = $values['quantity'];
+    //         if (!empty($_product->get_sale_price())) {
+    //             $prodPrice = $_product->get_sale_price();
+    //         } else {
+    //             $prodPrice = $_product->get_price();
+    //         }
+    //         $lineSubTotal = $prodPrice * $quantity;
+    //         $customSubTotal += $lineSubTotal;
+
+    //         $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
+    //         $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
+    //         $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
+    //         $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($values) : '', $values, $cart_item_key);
+
+    //         $variation_data = '';
+    //         if ($values['variation']) {
+    //             $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
+    //         }
+    //         if (in_array($product_id, $added_items)) {
+    //             continue;
+    //         }
+    //         $miniCartItems .= '
+    //         <div class="card-item">
+    //             <div class="card-img">' . $thumbnail . '</div>
+    //             <div class="card-info">
+    //                 <a class="card-info__title" href="' .  $product_permalink . '">' . $product_name . ' ' . $variation_data . '</a>
+    //             </div>
+    //             <div class="card-price">' . $product_price . '</div>
+    //             <div class="card-quantity js-quantity">
+    //                 <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
+    //             </div>
+    //             ' . apply_filters(
+    //             'woocommerce_cart_item_remove_link',
+    //             sprintf(
+    //                 '<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+    //                 esc_url(wc_get_cart_remove_url($cart_item_key)),
+    //                 // esc_attr__("Remove this item", "woocommerce"),
+    //                 esc_attr($product_id),
+    //                 esc_attr($cart_item_key),
+    //                 esc_attr($_product->get_sku())
+    //             ),
+    //             $cart_item_key
+    //         ) . '
+    //         </div>
+    //         ';
+    //         $added_items[] = $product_id;
+    //     }
+
+    //     $data = [
+    //         'cart_contents' => $miniCartItems,
+    //         'cart_total' => wc_price(WC()->cart->subtotal_ex_tax),
+    //         'cart_items_count' => $woocommerce->cart->cart_contents_count
+    //     ];
+    //     wp_send_json($data);
+    //     die;
+    // }
+
+    // add_action("wp_ajax_update_mini_cart_action", "update_mini_cart_action");
+    // add_action("wp_ajax_nopriv_update_mini_cart_action", "update_mini_cart_action");
 
 
 

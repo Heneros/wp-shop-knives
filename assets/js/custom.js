@@ -63,7 +63,7 @@ jQuery(document).ready(function ($) {
     /////////Add to favorites
     $(document.body).on("click", ".add_favorite", function (e) {
         e.preventDefault();
-        var prod_id = $(this).attr('data-prodid');
+        var prod_id = $(this).attr('data-prodId');
         var action = '';
         var that = $(this);
 
