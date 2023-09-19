@@ -207,7 +207,7 @@ function custom_loop_product_title()
                 sprintf(
                     '<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
                     esc_url(wc_get_cart_remove_url($cart_item_key)),
-                    // esc_attr__("Remove this item", "woocommerce"),
+                    esc_attr__("Remove this item", "woocommerce"),
                     esc_attr($product_id),
                     esc_attr($cart_item_key),
                     esc_attr($_product->get_sku())

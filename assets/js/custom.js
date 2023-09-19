@@ -106,10 +106,8 @@ jQuery(document).ready(function ($) {
 
     ////////////Add To cart
     function addToCart(url) {
-
         $.ajax({
             url: url,
-            // url: my_ajax_object.ajax_url,
             method: "POST",
             error: function (response) {
                 console.log(response);
@@ -505,6 +503,7 @@ jQuery(document).ready(function ($) {
         let addToCartUrlWithQuantity = $(this).attr('href');
         let productID = parseInt(addToCartUrlWithQuantity.split('=')[1]);
         let quantity = parseInt($(this).closest('.product-information__btns').find("input[name=prod_quantity]").val());
+        console.log(productID);
         if (!isNaN(quantity) && quantity !== 0) {
             $.ajax({
                 method: "POST",
