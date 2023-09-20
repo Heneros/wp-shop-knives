@@ -167,58 +167,69 @@ function custom_loop_product_title()
         $items = $woocommerce->cart->get_cart();
         $customSubTotal = 0;
         $added_items = array();
-        foreach (WC()->cart->get_cart() as $cart_item_key => $values) {
-            $_product = wc_get_product($values['data']->get_id());
-            $product_id = $values['product_id'];
-            $prodPrice = 0;
-            $quantity = $values['quantity'];
-            if (!empty($_product->get_sale_price())) {
-                $prodPrice = $_product->get_sale_price();
-            } else {
-                $prodPrice = $_product->get_price();
-            }
-            $lineSubTotal = $prodPrice * $quantity;
-            $customSubTotal += $lineSubTotal;
+        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+            // $_product = wc_get_product($values['data']->get_id());
+            // $product_id = $values['product_id'];
+            // $prodPrice = 0;
+            // $quantity = $values['quantity'];
+            // if (!empty($_product->get_sale_price())) {
+            //     $prodPrice = $_product->get_sale_price();
+            // } else {
+            //     $prodPrice = $_product->get_price();
+            // }
+            // $lineSubTotal = $prodPrice * $quantity;
+            // $customSubTotal += $lineSubTotal;
 
-            $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
-            $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
-            $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
-            $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($values) : '', $values, $cart_item_key);
+            // $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
+            // $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
+            // $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
+            // $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($values) : '', $values, $cart_item_key);
 
-            $variation_data = '';
-            if ($values['variation']) {
-                $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
-            }
-            if (in_array($product_id, $added_items)) {
-                continue;
-            }
-            $miniCartItems .= '
+            // $variation_data = '';
+            // if ($values['variation']) {
+            //     $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
+            // }
+            // if (in_array($product_id, $added_items)) {
+            //     continue;
+            // }
+
+            $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+            $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+
+            if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocoomerce_widget_cart_item_visible', true, $cart_item, $cart_item_key)) {
+                $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
+                $thumbnail         = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
+                $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
+                $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
+
+
+                $miniCartItems .= '
             <div class="card-item">
                 <div class="card-img">' . $thumbnail . '</div>
                 <div class="card-info">
-                    <a class="card-info__title" href="' .  $product_permalink . '">' . $product_name . ' ' . $variation_data . '</a>
+                    <a class="card-info__title" href="' .  $product_permalink . '">' . $product_name . '</a>
                 </div>
                 <div class="card-price">' . $product_price . '</div>
                 <div class="card-quantity js-quantity">
-                    <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . $quantity  . '">
+                    <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="'. apply_filters('woocommerce_widget_cart_item_quantity', '' . sprintf('%s', $cart_item['quantity'], '') . '', $cart_item, $cart_item_key) . '">
                 </div>
                 ' . apply_filters(
-                'woocommerce_cart_item_remove_link',
-                sprintf(
-                    '<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
-                    esc_url(wc_get_cart_remove_url($cart_item_key)),
-                    esc_attr__("Remove this item", "woocommerce"),
-                    esc_attr($product_id),
-                    esc_attr($cart_item_key),
-                    esc_attr($_product->get_sku())
-                ),
-                $cart_item_key
-            ) . '
+                        'woocommerce_cart_item_remove_link',
+                        sprintf(
+                            '<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+                            esc_url(wc_get_cart_remove_url($cart_item_key)),
+                            esc_attr__("Remove this item", "woocommerce"),
+                            esc_attr($product_id),
+                            esc_attr($cart_item_key),
+                            esc_attr($_product->get_sku())
+                        ),
+                        $cart_item_key
+                    ) . '
             </div>
             ';
-            $added_items[] = $product_id;
+                $added_items[] = $product_id;
+            }
         }
-
         $data = [
             'cart_contents' => $miniCartItems,
             'cart_total' => wc_price(WC()->cart->subtotal_ex_tax),

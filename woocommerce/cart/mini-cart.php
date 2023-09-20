@@ -28,9 +28,6 @@ if (!WC()->cart->is_empty()) :
 					<?php echo $product_price; ?>
 				</div>
 				<div class="card-quantity js-quantity">
-					<!-- <button class="icon icon-minus quantity-minus" data-product_id="<?php echo $product_id; ?>" data-cart_item_key="<?php echo $cart_item_key; ?>">-</button> -->
-			
-					<!-- <button class="icon icon-plus quantity-plus" data-product_id="<?php echo $product_id; ?>" data-cart_item_key="<?php echo $cart_item_key; ?>">+</button> -->
 					<?php echo apply_filters('woocommerce_widget_cart_item_quantity', '<span class="quantity">' . sprintf('%s', $cart_item['quantity'], '') . '</span>', $cart_item, $cart_item_key); ?>
 
 				</div>
@@ -51,7 +48,7 @@ if (!WC()->cart->is_empty()) :
 			</div>
 	<?php
 		}
-		do_action('woocommerce_mini_cart_contents');
+	//	do_action('woocommerce_mini_cart_contents');
 	}
 else : ?>
 	<a href="<?= site_url('/shop'); ?>">
