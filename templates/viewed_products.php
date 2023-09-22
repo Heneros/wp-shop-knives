@@ -26,20 +26,20 @@ $args = array(
 $query = new WP_Query($args);
 
 if ($query->have_posts()) :
-    ?>
-    <div class="products-recent">
-        <div class="page-main-products__grid-wrapper">
-            <?php while ($query->have_posts()) : $query->the_post(); ?>
-                <?php wc_get_template_part('content', 'product'); ?>
-            <?php endwhile; ?>
+?>
+    <section class="recently-viewed">
+        <div class="container">
+            <h1 class="title">Recently watched products</h1>
+            <div class="shop-catalog__products">
+                <?php while ($query->have_posts()) : $query->the_post(); ?>
+                    <?php wc_get_template_part('content', 'product'); ?>
+                <?php endwhile; ?>
+            </div>
         </div>
-    </div>
+    </section>
 <?php else : ?>
     <p>No products found in cookie.</p>
 <?php endif;
 wp_reset_postdata();
 get_footer();
 ?>
-
-
-

@@ -93,9 +93,7 @@ if (empty($product) || !$product->is_visible()) {
 
 		?>
 	</div>
-	<?php
-	if (is_page('viewed-products')) :
-	?>
+	<?php if (is_page('viewed-products')) :?>
 		<button class="remove-product" data-product-id="<?php echo get_the_ID(); ?>">Remove product</button>
 		<script>
 			(function() {

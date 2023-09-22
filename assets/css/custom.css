@@ -2178,3 +2178,8 @@ tbody .card-info .favorites__info-title {
     }
 
 }
+
+
+.recently-viewed .bestsellers-products-item {
+    max-width: 360px;
+}

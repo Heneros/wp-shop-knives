@@ -211,20 +211,20 @@ function custom_loop_product_title()
                 </div>
                 <div class="card-price">' . $product_price . '</div>
                 <div class="card-quantity js-quantity">
-                    <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="'. apply_filters('woocommerce_widget_cart_item_quantity', '' . sprintf('%s', $cart_item['quantity'], '') . '', $cart_item, $cart_item_key) . '">
+                    <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="' . apply_filters('woocommerce_widget_cart_item_quantity', '' . sprintf('%s', $cart_item['quantity'], '') . '', $cart_item, $cart_item_key) . '">
                 </div>
                 ' . apply_filters(
-                        'woocommerce_cart_item_remove_link',
-                        sprintf(
-                            '<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
-                            esc_url(wc_get_cart_remove_url($cart_item_key)),
-                            esc_attr__("Remove this item", "woocommerce"),
-                            esc_attr($product_id),
-                            esc_attr($cart_item_key),
-                            esc_attr($_product->get_sku())
-                        ),
-                        $cart_item_key
-                    ) . '
+                    'woocommerce_cart_item_remove_link',
+                    sprintf(
+                        '<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
+                        esc_url(wc_get_cart_remove_url($cart_item_key)),
+                        esc_attr__("Remove this item", "woocommerce"),
+                        esc_attr($product_id),
+                        esc_attr($cart_item_key),
+                        esc_attr($_product->get_sku())
+                    ),
+                    $cart_item_key
+                ) . '
             </div>
             ';
                 $added_items[] = $product_id;
@@ -811,17 +811,17 @@ function custom_loop_product_title()
 
 
 
-    // add_action('woocommerce_single_product_summary', 'display_vendor_code', 15);
 
-    // function display_vendor_code()
-    // {
-    //     global $product;
+    add_filter('woocommerce_cart_item_name', 'remove_variation_attribute_name', 10, 3);
 
-    //     // Получаем значение метаполя "Vendor Code"
-    //     $vendor_code = get_post_meta($product->get_id(), 'vendor_code', true);
 
-    //     // Выводим "Vendor Code"
-    //     if (!empty($vendor_code)) {
-    //         echo '<p><strong>Vendor Code:</strong> ' . esc_html($vendor_code) . '</p>';
-    //     }
-    // }
+    function remove_variation_attribute_name($product_name, $cart_item, $cart_item_key)
+    {
+
+        $_product = $cart_item['data'];
+        if ($_product && $_product->is_type('variation')) {
+            $product_name = $_product->get_title();
+        }
+
+        return $product_name;
+    }
