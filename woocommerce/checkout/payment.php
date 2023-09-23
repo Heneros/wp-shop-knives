@@ -23,10 +23,7 @@ if ( ! is_ajax() ) {
 ?>
 <div class="checkout__payment" id="payment">
 
-    <div class="checkout__subtitle-box">
-        <p class="checkout__subtitle">שיטת תשלום</p>
-    </div>
-
+ 
     <?php if ( WC()->cart->needs_payment() ) : ?>
         <div class="checkout__payment-radio">
             <?php

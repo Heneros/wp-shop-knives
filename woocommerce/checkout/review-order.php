@@ -18,7 +18,7 @@
 
 defined('ABSPATH') || exit;
 ?>
-<table class="shop_table woocommerce-checkout-review-order-table">
+<table class="shop_table woocommerce-checkout-review-order-table p-30">
 	<thead>
 		<tr>
 			<th class="product-name"><?php esc_html_e('Product', 'woocommerce'); ?></th>
@@ -39,14 +39,6 @@ defined('ABSPATH') || exit;
 			if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key)) {
 		?>
 				<tr class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'card-item', $cart_item, $cart_item_key)); ?>">
-
-					<td class="product-name">
-						<?php if (!empty($image_url)) :  ?>
-							<div class="card-img">
-								<img src="	<?= $image_url ?>" alt="">
-							</div>
-						<?php endif;  ?>
-					</td>
 					<td class="card-info">
 						<a class="favorites__info-title" href="<?php the_permalink($review_product_id); ?>"> <?php echo apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key) . '&nbsp;'; ?>
 						</a>

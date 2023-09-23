@@ -825,3 +825,6 @@ function custom_loop_product_title()
 
         return $product_name;
     }
+
+//Remove styles
+    // add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );

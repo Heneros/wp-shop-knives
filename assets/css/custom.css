@@ -2183,3 +2183,138 @@ tbody .card-info .favorites__info-title {
 .recently-viewed .bestsellers-products-item {
     max-width: 360px;
 }
+
+.header {
+    margin-bottom: 65px !important;
+}
+
+
+.page-template-checkout {
+    background-color: #ecf1f2;
+}
+
+.checkout-form {
+    background-color: #fff;
+}
+
+.p-30 {
+    padding: 15px;
+}
+
+.parent-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+@media (min-width: 992px) {
+    .col-lg-8 {
+        flex:  66%;
+        max-width: 66%;
+        margin-right: 15px;
+        margin-left: 15px;
+        /* flex: 60%;
+        max-width: 58%; */
+
+    }
+
+    .col-lg-4 {
+        flex:  30%;
+        max-width: 30%;
+        margin-right: 15px;
+        margin-left: 15px;
+        /* flex: 33%;
+        max-width: 33%; */
+    }
+}
+
+.woocommerce-info {
+    border-top-color: unset
+}
+
+.woocommerce-error,
+.woocommerce-info,
+.woocommerce-message {
+    padding: unset;
+    margin: unset;
+    position: relative;
+    background-color: unset;
+    color: unset;
+    border-top: unset;
+    list-style: none outside;
+    width: unset;
+    word-wrap: unset;
+}
+
+.woocommerce .woocommerce-breadcrumb {
+    font: 500 18px/27px Montserrat, sans-serif;
+    color: #767676;
+    padding: 15px;
+}
+
+.woocommerce .woocommerce-breadcrumb a {
+    font: 500 18px/27px Montserrat, sans-serif;
+    color: #e8aa31;
+}
+
+/* .woocommerce-form-coupon-toggle {
+    padding: 15px;
+} */
+
+.woocommerce-form-coupon-toggle .showcoupon {
+    color: #e8aa31;
+}
+
+.woocommerce-form-coupon-toggle .woocommerce-info::before {
+    font-family: unset;
+    content: unset;
+    display: unset;
+    position: unset;
+    top: unset;
+    left: unset;
+}
+
+.m-form {
+    margin: 30px 0;
+}
+
+.p-form {
+    padding: 15px;
+}
+
+
+.checkout_coupon .input-text,
+.checkout .input-text {
+    background: rgba(255, 255, 255, .05);
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    color: #000;
+    font: 500 18px/27px Montserrat, sans-serif;
+    text-transform: lowercase;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 7px;
+    width: 100%;
+    outline: 0;
+    transition: .3s ease-out;
+}
+
+.woocommerce form .form-row-last,
+.woocommerce-page form .form-row-last {
+    float: unset;
+}
+
+.woocommerce form .form-row-last .btn-coupon {
+    background-color: #E8AA31;
+    color: #fff;
+    min-width: 205px;
+    box-shadow: 0px 4px 20px rgba(232, 170, 49, 0.43);
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    font: 600 18px/21px "Montserrat", sans-serif;
+    padding: 17px 0;
+    text-align: center;
+    cursor: pointer;
+}
