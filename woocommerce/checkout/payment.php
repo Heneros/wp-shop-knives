@@ -49,7 +49,7 @@ if ( ! is_ajax() ) {
 
     <?php do_action( 'woocommerce_review_order_before_submit' ); ?>
 
-    <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="btn checkout__btn" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( 'המשיכו לתשלום' ) . '">' . esc_html( 'המשיכו לתשלום' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+    <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="btn checkout__btn" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( 'Place order ' ) . '">' . esc_html( 'Place order ' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
 
     <?php do_action( 'woocommerce_review_order_after_submit' ); ?>
 

@@ -17,10 +17,12 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 	<form name="checkout" method="POST" class="checkout woocommerce-checkout" action="<?php echo esc_url(wc_get_checkout_url()) ?>" enctype="multipart/form-data">
 	
 			<div class="parent-row">
-				<div class="col-lg-8 checkout-form">
+				<div class="col-lg-8 checkout-form " >
 					<?php do_action('woocommerce_checkout_billing'); ?>
+					<?php do_action('woocommerce_checkout_shipping'); ?>
+					
 				</div>
-				<div class="col-lg-4 checkout-form" id="order_review">
+				<div class="col-lg-4 checkout-form " id="order_review">
 					<?php do_action('woocommerce_checkout_order_review'); ?>
 				</div>
 			</div>

@@ -826,5 +826,27 @@ function custom_loop_product_title()
         return $product_name;
     }
 
-//Remove styles
+    //Remove styles
     // add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+
+    ///Remove second
+    add_filter('woocommerce_checkout_fields', 'custom_rename_wc_checkout_fields');
+    function  custom_rename_wc_checkout_fields($fields)
+    {
+
+        unset($fields['billing']['billing_address_2']);
+        return $fields;
+    }
+
+
+
+    add_filter('woocommerce_breadcrumb_defaults', function () {
+        return array(
+            'delimiter' => '<span class="divide">&gt;</span>',
+            'wrap_before' => '<div class="product-information__breadcrumbs">',
+            'wrap_after'  => '</div>',
+            'before'      => '',
+            'after'       => '',
+            'home'        => __( 'Home', '' ),
+        );
+    });
