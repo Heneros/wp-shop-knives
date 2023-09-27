@@ -274,34 +274,7 @@
             <div class="header__third-line">
                 <div class="header__container container ">
                     <div class="header__menu-main select-header">
-                        <?php
-                        $terms = get_terms([
-                            'taxonomy' => 'product_cat',
-
-                        ]);
-                        $i = 0;
-                        if (!empty($terms)) :
-                            foreach ($terms as $term) :
-                                $i++;
-                        ?>
-                                <div class="header__menu-dropdown">
-                                    <div class="menu-item js-select" data-path="data-<?= $i ?>"><?= $term->name; ?></div>
-                                    <?php
-                                    $args_child = [
-                                        'taxonomy' => 'product_cat',
-                                        'parent' => $term->term_id
-                                    ];
-                                    $children = get_categories($args_child);
-                                    $term_link;
-                                    ?>
-                                    <div class="select-header__main" data-target="data-<?= $i; ?>">
-
-                                    </div>
-                                </div>
-                        <?php
-                            endforeach;
-                        endif; ?>
-                        <!-- <div class="header__menu-dropdown">
+                        <div class="header__menu-dropdown">
                             <div class="menu-item js-select" data-path="one">
                                 Catalog Knifes
                             </div>
@@ -505,7 +478,7 @@
 
                         <div class="menu-item js-select">Souvenirs</div>
                         <div class="menu-item js-select">Flashlights DS3DS</div>
-                        <div class="menu-item js-select">Related products</div> -->
+                        <div class="menu-item js-select">Related products</div>
                     </div>
 
 
