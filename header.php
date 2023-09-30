@@ -277,11 +277,23 @@
                         <?php
                         $terms = get_terms([
                             'taxonomy' => 'product_cat',
-
                         ]);
                         $i = 0;
-                        if (!empty($terms)) :
-                            foreach ($terms as $term) :
+                        $parent_categories = [];
+                        $child_categories = [];
+
+                        if (!empty($terms)) {
+                            foreach ($terms as $term) {
+                                if ($term->parent === 0) {
+                                    $parent_categories[] = $term;
+                                } else {
+                                    $child_categories[] = $term;
+                                }
+                            }
+                        }
+
+                        if (!empty($parent_categories)) :
+                            foreach ($parent_categories as $term) :
                                 $i++;
                         ?>
                                 <div class="header__menu-dropdown">
@@ -292,220 +304,48 @@
                                         'parent' => $term->term_id
                                     ];
                                     $children = get_categories($args_child);
-                                    $term_link;
+                                    if (!empty($children)) :
                                     ?>
-                                    <div class="select-header__main" data-target="data-<?= $i; ?>">
+                                        <div class="select-header__main" data-target="data-<?= $i; ?>">
+                                            <div class="select-header__column">
+                                                <div class="select-header__column-title">
+                                                    <?php
+                                                    if (!empty($children)) {
+                                                        foreach ($children as $child) {
+                                                            echo $child->name;
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <div class="select-header__column-list">
+                                                    <ul class="list-reset select-header__menu">
+                                                        <?php
+                                                        foreach ($children as $child) {
+                                                            $args_products = [
+                                                                'post_type' => 'product',
+                                                                'posts_per_page' => -1,
+                                                                'product_cat' => $child->slug
+                                                            ];
+                                                            $products = new WP_Query($args_products);
+                                                            if ($products->have_posts()) {
+                                                                while ($products->have_posts()) {
+                                                                    $products->the_post();
+                                                                    echo '<li class="select-header__item"><a class="select-header__link" href="' . get_the_permalink() . '">' . get_the_title() . '</a></li>';
+                                                                }
+                                                                wp_reset_postdata();
+                                                            }
+                                                        }
 
-                                    </div>
+                                                        ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                         <?php
                             endforeach;
                         endif; ?>
-                        <!-- <div class="header__menu-dropdown">
-                            <div class="menu-item js-select" data-path="one">
-                                Catalog Knifes
-                            </div>
-                            <div class="select-header__main " data-target="one">
-                                <div class="select-header__column">
-                                    <div class="select-header__column-title">
-                                        Categories Knifes
-                                    </div>
-                                    <div class="select-header__column-list">
-                                        <ul class="list-reset select-header__menu">
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Cutting
-                                                    knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Tourist
-                                                    knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    hunting</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Best
-                                                    knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    Norway</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">tactical
-                                                    purpose</a>
-                                            </li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Throwing
-                                                    knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Machetes
-                                                </a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    kitchen</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="select-header__box">
-                                        <a class="select-header__watch-all-link" href="shop.html">
-                                            See all
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="select-header__column">
-                                    <div class="select-header__column-title">
-                                        Production knives
-                                    </div>
-                                    <div class="select-header__column-list">
-                                        <ul class="list-reset select-header__menu">
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    ASD</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    ADS</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    ASC</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    ВВВ</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    DAS</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    ASASAC</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Bulat
-                                                    Lorem</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Bulat
-                                                    Lorem ipsum </a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    DSWRFV</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    Style-М</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Lorem,
-                                                    ipsum.</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="select-header__box">
-                                        <a class="select-header__watch-all-link" href="shop.html">
-                                            See all
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="select-header__column">
-                                    <div class="select-header__column-title">
-                                        knives by brand steel
-                                    </div>
-                                    <div class="select-header__column-list">
-                                        <ul class="list-reset select-header__menu">
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel 4х10</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel 5х8</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel 1X1</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel 1х17723</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel DZX-88 </a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel 777х42</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel ASD4-542</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel 3s3ws40 </a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    d-DFA</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    steel 45E3</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="select-header__box">
-                                        <a class="select-header__watch-all-link" href="shop.html">
-                                            See all
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="select-header__column">
-                                    <div class="select-header__column-title">
-                                        Sharpening and polishing knives
-                                    </div>
-                                    <div class="select-header__column-list">
-                                        <ul class="list-reset select-header__menu">
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Paste
-                                                    DD</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Diamond
-                                                    metal</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Lorem,
-                                                    ipsum dolor.</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Sharpening
-                                                    systems</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="select-header__box">
-                                        <a class="select-header__watch-all-link" href="shop.html">
-                                            See all
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="select-header__column">
-                                    <div class="select-header__column-title">
-                                        Knife workshop
-                                    </div>
-                                    <div class="select-header__column-list">
-                                        <ul class="list-reset select-header__menu">
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Knife
-                                                    selected</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Blanks
-                                                    for knives</a>
-                                            </li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Casting
-                                                    for knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Materials
-                                                    for handles</a>
-                                            </li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Care
-                                                    handles </a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="select-header__box">
-                                        <a class="select-header__watch-all-link" href="shop.html">
-                                            See all
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="header__menu-dropdown">
-                            <div class="menu-item js-select" data-path="two">
-                                Blade Weapon
-                            </div>
-                            <div class="select-header__main" data-target="two">
-                                <div class="select-header__column">
-                                    <div class="select-header__column-title">
-                                        Category knives
-                                    </div>
-                                    <div class="select-header__column-list">
-                                        <ul class="list-reset select-header__menu">
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Cutting
-                                                    knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Tourist
-                                                    knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    hunting</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Damask
-                                                    knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives from
-                                                    Norway</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">tactical
-                                                    purpose</a>
-                                            </li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Throwing
-                                                    knives</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">Machete
-                                                    and kukri</a></li>
-                                            <li class="select-header__item"><a class="select-header__link" href="#!">knives
-                                                    kitchen</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="select-header__box">
-                                        <a class="select-header__watch-all-link" href="shop.html">
-                                            See all
-                                        </a>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="menu-item js-select">Souvenirs</div>
-                        <div class="menu-item js-select">Flashlights DS3DS</div>
-                        <div class="menu-item js-select">Related products</div> -->
                     </div>
 
 
