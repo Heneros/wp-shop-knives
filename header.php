@@ -63,7 +63,6 @@
                         ?>
                         <a href="#!" class="header__cart-link ">
                             <div class="header-mobile__icon header__cart-svg header-mobile__cart js-open-cart">
-                                <!-- <div class="cart-num" id="mini-cart-count"> -->
                                 <div class="cart-num" id="mini-cart-count-mob">
                                     <?php
                                     echo $items_count ? $items_count : '0';
@@ -72,7 +71,7 @@
                             </div>
                         </a>
                         <div class="header-mobile__burger" id="burger-menu">
-                            <a href="#!" class="header__logo-white">
+                            <a href="<?= site_url('/'); ?>" class="header__logo-white">
                                 <?php echo _assets_paths('img/sprite.svg#logo-white'); ?>
                             </a>
                             <button type="button" class="hamburger burger-icon">
@@ -85,100 +84,43 @@
                                             <a href="#!" class="header-mobile-list-link nested">Personal Cabinet </a>
                                             <ul class="sub-menu level-2">
                                                 <li>
-                                                    <a href="#!" class="header-mobile-list-link nested">Categories knives </a>
+                                                    <!-- <a href="#!" class="header-mobile-list-link nested">Categories knives </a> -->
                                                     <ul class="sub-menu level-3">
-                                                        <li>
-                                                            <a class="header-mobile-list-link" href="product-page.html">Product
-                                                                Page</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="header-mobile-list-link" href="product-page.html">Product
-                                                                Page</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="header-mobile-list-link" href="product-page.html">Product
-                                                                Page</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="header-mobile-list-link" href="product-page.html">Product
-                                                                Page</a>
-                                                        </li>
                                                         <li>
                                                             <a class="header-mobile-list-link" href="product-page.html">Product
                                                                 Page</a>
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="#!">Test Item 1</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="#!">Test Item 2</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="#!">Test Item 3</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="#!">Test Item 4 </a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="#!">Test Item 5</a>
-                                                </li>
+                                                <?php
+                                                wp_nav_menu([
+                                                    'theme_location' => 'menu-footer-personal',
+                                                    'container' => 'ul',
+                                                    'add_li_class' => 'footer-item__li',
+                                                    'menu_class' => 'footer-list list-reset'
+                                                ]);
+                                                ?>
                                             </ul>
                                         </li>
                                         <li>
                                             <a href="#!" class="header-mobile-list-link nested">Featured Products</a>
+
                                             <ul class="sub-menu level-2">
-                                                <li>
+                                                <!-- <li>
                                                     <a class="header-mobile-list-link" href="product-page.html">Test Item 1</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="product-page.html">Test Item 2</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="product-page.html">Test Item 3</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="product-page.html">Test Item 4</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="product-page.html">Test Item 5</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="product-page.html">Test Item 6</a>
-                                                </li>
+                                                </li> -->
+                                                <?php
+                                                wp_nav_menu([
+                                                    'theme_location' => 'featured-product',
+                                                    'container' => 'ul',
+                                                    'add_li_class' => 'footer-item__li',
+                                                    'menu_class' => 'footer-list list-reset'
+                                                ]);
+                                                ?>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#!" class="header-mobile-list-link nested">Company</a>
-                                            <ul class="sub-menu level-2">
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="shop.html">Shop</a>
-                                                </li>
-                                                <li>
-                                                    <a class="header-mobile-list-link" href="shop.html">Shop</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#!" class="header-mobile-list-link nested">Information</a>
-                                                    <ul class="sub-menu level-3">
-                                                        <li>
-                                                            <a class="header-mobile-list-link" href="shop.html">Shop Page</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="header-mobile-list-link" href="shop.html">Shop Page</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="header-mobile-list-link" href="shop.html">Shop Page</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="header-mobile-list-link" href="shop.html">Shop Page</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a class="header-mobile-list-link" href="shop.html">Shop Page</a>
+                                            <a class="header-mobile-list-link" href="<?= site_url('/shop'); ?>">Shop Page</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -234,19 +176,7 @@
                                     <div class="cart-num" id="mini-cart-count">
                                         <?php
                                         echo WC()->cart->get_cart_contents_count();
-                                        // $cart_items = WC()->cart->get_cart();
-                                        // $product_count = 0;
-                                        // $added_items = array();
-                                        // foreach ($cart_items as $cart_item_key => $cart_item) {
-                                        //     $product_id = $cart_item['product_id'];
-                                        //     if (in_array($product_id, $added_items)) {
-                                        //         continue;
-                                        //     }
-                                        //     $product_count += $cart_item['quantity'];
-                                        //     $added_items[] = $product_id;
-                                        // }
-                                        // echo esc_html($product_count);
-                                        // echo count(WC()->cart->get_cart());
+
                                         ?>
                                     </div>
                                 </div>
@@ -307,39 +237,44 @@
                                     if (!empty($children)) :
                                     ?>
                                         <div class="select-header__main" data-target="data-<?= $i; ?>">
-                                            <div class="select-header__column">
-                                                <div class="select-header__column-title">
-                                                    <?php
-                                                    if (!empty($children)) {
-                                                        foreach ($children as $child) {
-                                                            echo $child->name;
-                                                        }
-                                                    }
-                                                    ?>
-                                                </div>
-                                                <div class="select-header__column-list">
-                                                    <ul class="list-reset select-header__menu">
-                                                        <?php
-                                                        foreach ($children as $child) {
-                                                            $args_products = [
-                                                                'post_type' => 'product',
-                                                                'posts_per_page' => -1,
-                                                                'product_cat' => $child->slug
-                                                            ];
-                                                            $products = new WP_Query($args_products);
-                                                            if ($products->have_posts()) {
-                                                                while ($products->have_posts()) {
-                                                                    $products->the_post();
-                                                                    echo '<li class="select-header__item"><a class="select-header__link" href="' . get_the_permalink() . '">' . get_the_title() . '</a></li>';
-                                                                }
-                                                                wp_reset_postdata();
-                                                            }
-                                                        }
+                                            <?php
+                                            if (!empty($children)) :
+                                                foreach ($children as $child) :
+                                            ?> <div class="select-header__column">
+                                                        <div class="select-header__column-title">
+                                                            <?= $child->name; ?>
+                                                        </div>
+                                                        <div class="select-header__column-list">
+                                                            <ul class="list-reset select-header__menu">
+                                                                <?php
+                                                                $args_products = [
+                                                                    'post_type' => 'product',
+                                                                    'posts_per_page' => -1,
+                                                                    'product_cat' => $child->slug
+                                                                ];
+                                                                $products = new WP_Query($args_products);
+                                                                if ($products->have_posts()) :
+                                                                    while ($products->have_posts()) :
+                                                                        $products->the_post();
+                                                                ?>
+                                                                        <li class="select-header__item">
+                                                                            <a class="select-header__link" href="<?= get_the_permalink(); ?>">
+                                                                                <?= get_the_title(); ?>
+                                                                            </a>
+                                                                        </li>
+                                                                <?php
+                                                                    endwhile;
+                                                                    wp_reset_postdata();
+                                                                endif;
+                                                                ?>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
 
-                                                        ?>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                            <?php
+                                                endforeach;
+                                            endif;
+                                            ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -358,105 +293,6 @@
                 <div class="cart-content" id="mini-cart-all-items">
                     <?php
                     woocommerce_mini_cart();
-                    // $customSubTotal = 0;
-                    // $is_on_sale = [];
-                    // $items = $woocommerce->cart->get_cart();
-                    // if (!empty($items)) {
-                    //     foreach ($items as $item => $values) {
-                    //         $_productMiniCart = wc_get_product($values['data']->get_id());
-                    //         $product_id = $values['product_id'];
-                    //         $image_url = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), '');
-                    //         $productImage = $image_url[0];
-                    //         $check_type = $_productMiniCart->get_type();
-                    //         $prodPrice = 0;
-                    //         $quantity = $values['quantity'];
-                    //         $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_productMiniCart->get_image(), $values, $item);
-                    //         if (!empty($_productMiniCart->get_sale_price())) {
-                    //             $prodPrice = ceil($_productMiniCart->get_sale_price());
-                    //         } else {
-                    //             $prodPrice = ceil($_productMiniCart->get_regular_price());
-                    //         }
-                    //         $lineSubTotal = $prodPrice * $quantity;
-                    //         $customSubTotal += $lineSubTotal;
-
-                    //         if ($_productMiniCart->is_on_sale()) {
-                    //             array_push($is_on_sale, 1);
-                    //         }
-
-                    // global $woocommerce;
-                    // $miniCartItems = '';
-                    // $items = $woocommerce->cart->get_cart();
-                    // $customSubTotal = 0;
-                    // $added_items = array();
-                    // foreach (WC()->cart->get_cart() as $cart_item_key => $values) {
-                    //     $_product = wc_get_product($values['data']->get_id());
-                    //     $product_id = $values['product_id'];
-                    //     $prodPrice = 0;
-                    //     $quantity = $values['quantity'];
-                    //     if (!empty($_product->get_sale_price())) {
-                    //         $prodPrice = $_product->get_sale_price();
-                    //     } else {
-                    //         $prodPrice = $_product->get_price();
-                    //     }
-                    //     $lineSubTotal = $prodPrice * $quantity;
-                    //     $customSubTotal += $lineSubTotal;
-
-                    //     // $product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
-                    //     $product_name = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $values, $cart_item_key);
-
-
-                    //     $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $values, $cart_item_key);
-                    //     $product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $values, $cart_item_key);
-                    //     $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($values) : '', $values, $cart_item_key);
-
-                    //     // $variation_data = '';
-                    //     // if ($values['variation']) {
-                    //     //     $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
-                    //     // }
-                    //     // if (in_array($product_id, $added_items)) {
-                    //     //     continue;
-                    //     // }
-                    //     $variation_data = '';
-                    //     if ($values['variation']) {
-                    //         $variation_data = woocommerce_get_formatted_variation($values['variation'], true);
-                    //     }
-
-                    //     if (in_array($product_id, $added_items)) {
-                    //         continue;
-                    //     }
-                    ?>
-                    <!-- <div class="card-item">
-                            <div class="card-img"> <?php echo $thumbnail ?> </div>
-                            <div class="card-info">
-                                <a class="card-info__title" href="<?php get_the_permalink($product_id); ?>">
-                                    <?php
-                                    // echo $product_name;
-                                    ?>
-                                </a>
-                            </div>
-                            <div class="card-price"><?php echo $product_price ?> </div>
-                            <div class="card-quantity js-quantity">
-                                <input class="card-input js-quantity-input" type="text" name="prod_quantity" value="<?= $quantity  ?>">
-                            </div>
-                            <?php
-                            // echo  apply_filters(
-                            //     'woocommerce_cart_item_remove_link',
-                            //     sprintf(
-                            //         '<a href="%s" aria-label="%s" class="close-card" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">X</a>',
-                            //         esc_url(wc_get_cart_remove_url($cart_item_key)),
-                            //         esc_attr__("Remove this item", "woocommerce"),
-                            //         esc_attr($product_id),
-                            //         esc_attr($cart_item_key),
-                            //         esc_attr($_product->get_sku())
-                            //     ),
-                            //     $cart_item_key
-                            // );
-                            // $added_items[] = $product_id;
-                            ?>
-                        </div> -->
-                    <?php
-                    // }
-
                     ?>
                 </div>
                 <div class="cart-header">

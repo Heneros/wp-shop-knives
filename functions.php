@@ -146,6 +146,8 @@ function shop_setup()
     register_nav_menu("menu-footer-support", "Menu Footer Support");
     register_nav_menu("menu-footer-additional", "Menu Footer Additional");
     register_nav_menu("menu-footer-personal", "Menu Footer Personal");
+    register_nav_menu("featured-product", "Menu Featured Products");
+
 
     add_theme_support('title-tag');
 

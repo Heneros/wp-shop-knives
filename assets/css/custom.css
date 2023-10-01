@@ -1961,7 +1961,7 @@ tbody .card-info .favorites__info-title {
 }
 
 @media (max-width: 1150px) {
-    .page-header .menu-wrapper {
+    .site-container .page-header .menu-wrapper {
         top: 201px;
     }
 }
@@ -2453,6 +2453,20 @@ tbody .card-info .favorites__info-title {
 .slider-homepage {
     margin-top: -2.5%;
 }
-.slider-homepage__text-content{
+
+.slider-homepage__text-content {
     padding-top: 2%;
+}
+
+
+.header__third-line .header__menu-main {
+    justify-content: space-between;
+}
+
+.site-container .header .header__third-line .menu-item {
+    margin: 24px 17px 0 0;
+}
+
+.header__menu-dropdown .select-header__main {
+    top: 210px;
 }
