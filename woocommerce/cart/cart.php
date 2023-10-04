@@ -19,8 +19,9 @@
 defined('ABSPATH') || exit;
 
 do_action('woocommerce_before_cart'); ?>
-<section class="cart">
-	<div class="container">
+<div class="container">
+	<section class="cart">
+
 		<div class="breadcrumbs-box ">
 			<?php
 			if (function_exists('yoast_breadcrumb')) {
@@ -188,7 +189,7 @@ do_action('woocommerce_before_cart'); ?>
 			do_action('woocommerce_cart_collaterals');
 			?>
 		</div>
-	</div>
-</section>
 
+	</section>
+</div>
 <?php do_action('woocommerce_after_cart'); ?>

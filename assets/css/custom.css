@@ -205,9 +205,9 @@
     cursor: pointer;
 }
 
-.header .icon:hover {
+/* .header .icon:hover {
     background-color: #e8aa31;
-}
+} */
 
 .card-info__title {
     overflow: hidden;
@@ -1869,7 +1869,7 @@ tbody .card-info .favorites__info-title {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     font-weight: 300;
-    font-size: 12px;
+    font-size: 17px;
     line-height: 16px;
 }
 
@@ -2395,9 +2395,9 @@ tbody .card-info .favorites__info-title {
     color: #e8aa31;
 }
 
-.woocommerce table.shop_table td {
+/* .woocommerce table.shop_table td {
     padding: unset;
-}
+} */
 
 .table.shop_table .input-text,
 .table.shop_table .input-text {
@@ -2469,4 +2469,98 @@ tbody .card-info .favorites__info-title {
 
 .header__menu-dropdown .select-header__main {
     top: 210px;
+}
+
+
+.woocommerce-cart-form__cart-item td {
+    padding: 9px 15px !important;
+}
+
+
+.checkout__payment {
+    padding: 25px;
+}
+
+.checkout__payment .checkout__btn {
+    width: 50%;
+    height: 55px;
+    font: 500 18px/27px Montserrat, sans-serif;
+    margin-bottom: 20px;
+}
+
+#add_payment_method #payment,
+.woocommerce-cart #payment,
+.woocommerce-checkout #payment {
+    background: unset;
+}
+
+.woocommerce-checkout {
+    margin-bottom: 35px;
+}
+
+@media(max-width: 1505px) {
+    .parent-row>.checkout-form {
+        max-width: 100%;
+        flex: 100%;
+    }
+}
+
+@media (max-width: 991px) {
+    .parent-row>.checkout-form {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+
+}
+
+
+.comment-reply-title {
+    font: 600 23px/27px Montserrat, sans-serif;
+}
+
+.comment-form {
+    margin-top: 35px;
+}
+
+.comment-form-comment textarea:active,
+.comment-form-comment textarea:focus {
+    border: 1px solid #e8aa31;
+
+}
+
+.comment-form-comment textarea:focus-visible {
+    outline: unset !important;
+}
+
+/* :focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
+} */
+
+.site-container .product-tabs .comment-form .btn {
+    background-color: #e8aa31 !important;
+    box-shadow: 0 4px 20px rgba(232, 170, 49, .43) !important;
+    border-radius: 3px !important;
+    outline: 0 !important;
+    cursor: pointer !important;
+    color: #fff !important;
+    transition: opacity .3s ease-in-out !important;
+    border: none !important;
+}
+
+/* Header icon */
+/* .header__container .header__profile-name{
+    flex-basis: unset;
+}
+.header__container .header__right {
+    grid-column: 1 span;
+}
+.header__container .header__left {
+    grid-column: 11 span;
+} */
+
+/* .site-container .header__profile:hover::after {
+    background-image: unset;
+} */
+.header__profile:hover .header__profile-name {
+    color: #e8aa31;
 }
