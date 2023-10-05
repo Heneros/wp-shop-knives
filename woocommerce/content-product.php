@@ -93,7 +93,13 @@ if (empty($product) || !$product->is_visible()) {
 
 		?>
 	</div>
-	<?php if (is_page('viewed-products')) :?>
+
+
+
+	<?php
+
+
+	if (is_page('viewed-products')) : ?>
 		<button class="remove-product" data-product-id="<?php echo get_the_ID(); ?>">Remove product</button>
 		<script>
 			(function() {
@@ -113,7 +119,7 @@ if (empty($product) || !$product->is_visible()) {
 
 				function getCookie(name) {
 					const value = `; ${document.cookie}`;
-					const parts = value.split(`; ${name}=`); 
+					const parts = value.split(`; ${name}=`);
 					if (parts.length === 2) return parts.pop().split().shift();
 				}
 

@@ -2564,3 +2564,40 @@ tbody .card-info .favorites__info-title {
 .header__profile:hover .header__profile-name {
     color: #e8aa31;
 }
+
+
+/* .addonify-compare-products-table .adfy-compare-products-table-row-content .attachment-woocommerce_thumbnail {
+    width: 50%;
+} */
+
+.addonify-compare-products-table tbody {
+    display: flex;
+    flex-direction: column;
+}
+
+.addonify-compare-products-table tr {
+    display: flex;
+    justify-content: space-between;
+}
+
+#addonify-compare-products-table-wrapper #addonify-compare-products-table tbody tr td .addonify-compare-table-remove-btn svg {
+    fill: red;
+}
+
+#addonify-compare-products-table-wrapper #addonify-compare-products-table {
+    margin: 0 auto;
+    width: 95%;
+}
+
+.theme-shop-knives #addonify-compare-dock-compare-btn,
+.theme-shop-knives #addonify-compare-dock-compare-btn-link {
+    background: #ccc;
+    font: 500 14px/27px Montserrat, sans-serif;
+    color: #000;
+}
+
+.theme-shop-knives #addonify-compare-dock {
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+}

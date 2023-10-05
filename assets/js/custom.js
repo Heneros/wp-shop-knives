@@ -1,8 +1,8 @@
 jQuery(document).ready(function ($) {
 
-    const btnSubmit = document.querySelector(".form-submit .submit")
-    btnSubmit.classList.remove("submit");
-    btnSubmit.classList.add("btn");
+    // const btnSubmit = document.querySelector(".form-submit .submit")
+    // btnSubmit.classList.remove("submit");
+    // btnSubmit.classList.add("btn");
 
 
     ///Filter Shop. Adaptive
