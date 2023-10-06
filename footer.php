@@ -2,6 +2,8 @@
 wp_footer();
 
 ?>
+<button class="back-to-top" type="button"> </button>
+
 
 <footer class="footer">
     <div class="container">

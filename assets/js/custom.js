@@ -1,8 +1,22 @@
 jQuery(document).ready(function ($) {
 
-    // const btnSubmit = document.querySelector(".form-submit .submit")
-    // btnSubmit.classList.remove("submit");
-    // btnSubmit.classList.add("btn");
+    var amountScrolled = 200;
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > 200) {
+            $('button.back-to-top').addClass('active');
+        } else {
+            $('button.back-to-top').removeClass('active');
+        }
+    });
+
+    $('button.back-to-top').click(function () {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+
 
 
     ///Filter Shop. Adaptive
