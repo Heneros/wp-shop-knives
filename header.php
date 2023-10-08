@@ -50,7 +50,7 @@
                             <div class="header-mobile__icon mobile-call">
                             </div>
                         </a>
-                        <a href="#!" class="header-mobile__person">
+                        <a href="<?= site_url('/my-account'); ?>" class="header-mobile__person">
                         </a>
                         <a href="<?php echo site_url('/wishlist'); ?>" class="header-mobile__favorites">
                             <div class="header-mobile__icon mobile-favorites">
@@ -221,7 +221,6 @@
                                 }
                             }
                         }
-
                         if (!empty($parent_categories)) :
                             foreach ($parent_categories as $term) :
                                 $i++;
@@ -270,7 +269,6 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-
                                             <?php
                                                 endforeach;
                                             endif;
@@ -282,13 +280,9 @@
                             endforeach;
                         endif; ?>
                     </div>
-
-
                 </div>
             </div>
             <!-- Thirds Line -->
-
-
             <div class="cart-products">
                 <div class="cart-content" id="mini-cart-all-items">
                     <?php

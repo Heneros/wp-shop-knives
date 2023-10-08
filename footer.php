@@ -2,11 +2,12 @@
 wp_footer();
 
 ?>
-<button class="back-to-top" type="button"> </button>
 
 
 <footer class="footer">
     <div class="container">
+    <button class="back-to-top" type="button"> </button>
+
         <div class="footer-items">
             <div class="footer-item">
                 <span class="footer-item__title">

@@ -17,7 +17,7 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-
+ 
 
 
     ///Filter Shop. Adaptive
@@ -59,35 +59,15 @@ jQuery(document).ready(function ($) {
         location.reload();
     });
 
-
-    $(document.body).on("click", ".compare_btn", function (e) {
+ 
+    $(document.body).on("click", "#compareProduct", function(e){
         e.preventDefault();
+
         var prod_id = $(this).attr('data-prodId');
+        var action = '';
+        var that = $(this);
 
-        console.log(prod_id);
-        $.ajax({
-            url: my_ajax_object.ajax_url,
-            method: 'POST',
-            data: {
-                action: 'compare_products',
-                prod_id: prod_id,
-                nonce: my_ajax_object.nonce
-            },
-
-            beforeSend: function () { },
-            success: function (data) {
-                var res = JSON.parse(data);
-                if (res.response === 'success') {
-                    console.log('Product added to compare page')
-                } else {
-                    console.log('Product not added to compare page!!!')
-                    console.log('Error message: ' + res.message);
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
+        // if(that.has)
     })
 
 

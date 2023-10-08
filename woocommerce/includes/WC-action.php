@@ -96,9 +96,7 @@ function custom_loop_product_title()
             session_start();
         }
 
-        // Проверяем, передан ли prod_id и он не пустой
         if (isset($_POST['prod_id']) && !empty($_POST['prod_id'])) {
-            // Проверяем, существует ли сессионная переменная wishlist
             if (!isset($_SESSION['wishlist'])) {
                 $_SESSION['wishlist'] = array();
             }

@@ -27,9 +27,11 @@ global $product;
 	<span class="bestsellers-products-item__price"><?php echo $price_html; ?></span>
 <?php endif; ?>
 
-<div class="bestsellers-products-item__icons" >
+<div class="bestsellers-products-item__icons">
 	<span class="bestsellers-products-item__scales">
-		<img src="<?php echo _assets_paths('img/sprite.svg#scales'); ?>" alt="icon scales">
+		<a href="#!" class="compare_btn" id="compareProduct" data-prodId=<?php echo $product->get_id(); ?>>
+			<!-- <img src="<?php echo _assets_paths('img/sprite.svg#scales'); ?>" alt="icon compare"> -->
+		</a>
 	</span>
 
 </div>
