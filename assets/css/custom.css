@@ -883,6 +883,9 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
         margin-top: 1.5%;
     }
 
+    .site-container .compare-products {
+        margin-top: 5%;
+    }
 }
 
 .main {
@@ -2690,5 +2693,68 @@ button.back-to-top.active::after {
     background-color: unset;
     cursor: pointer;
     padding: 25px;
+
+}
+
+.compare-products table,
+.compare-products th,
+.compare-products td {
+    border: 1px solid #e8aa31;
+}
+
+.compare-products td {
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.compare-products tr th {
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.compare-products a {
+    font: 500 16px/20px Montserrat, sans-serif;
+    color: #e8aa31;
+}
+
+.compare-products img {
+    max-width: 100%;
+    width: 25%;
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.compare-products table {
+    margin: 0 auto;
+}
+
+@media(max-width:991px) {
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: 600;
+    }
+
+    table td {
+        display: block;
+        text-align: right;
+    }
+
+    table tr {
+        margin-bottom: 25px;
+        display: block;
+    }
+
+    table th {
+  
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+        position: absolute;
+
+
+    }
 
 }

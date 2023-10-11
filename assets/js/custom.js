@@ -63,22 +63,37 @@ jQuery(document).ready(function ($) {
     $(document.body).on("click", ".compare_btn", function (e) {
         e.preventDefault();
         var prod_id = $(this).attr('data-prodId');
-
+        var that = $(this);
+        var action = '';
         console.log(prod_id);
+
+        if (that.hasClass('in_compare')) {
+            action = 'remove_compare_products'
+        } else {
+            action = 'compare_products'
+        }
         $.ajax({
             url: my_ajax_object.ajax_url,
             method: 'POST',
             data: {
-                action: 'compare_products',
+                action: action,
                 prod_id: prod_id,
                 nonce: my_ajax_object.nonce
             },
-
             beforeSend: function () { },
             success: function (data) {
                 var res = JSON.parse(data);
-                if (res.response === 'success') {
-                    console.log('Product added to compare page')
+                if (res.response === 'success' && action == 'compare_products') {
+                    // console.log('Product added to compare page')
+                    that.addClass('in_compare');
+                    alert('Product added to compare page')
+                } else if (res.response === 'success' && action == 'remove_compare_products') {
+                    that.removeClass('in_compare');
+                    alert('Product removed to compare page')
+                    if($('.products-compare').length){
+
+
+                    }
                 } else {
                     console.log('Product not added to compare page!!!')
                     console.log('Error message: ' + res.message);

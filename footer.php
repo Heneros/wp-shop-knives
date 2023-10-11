@@ -1,12 +1,13 @@
 <?php
 wp_footer();
+// var_dump($_SESSION);
 
 ?>
 
 
 <footer class="footer">
     <div class="container">
-    <button class="back-to-top" type="button"> </button>
+        <button class="back-to-top" type="button"> </button>
 
         <div class="footer-items">
             <div class="footer-item">
