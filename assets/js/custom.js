@@ -90,9 +90,7 @@ jQuery(document).ready(function ($) {
                 } else if (res.response === 'success' && action == 'remove_compare_products') {
                     that.removeClass('in_compare');
                     alert('Product removed to compare page')
-                    if($('.products-compare').length){
-
-
+                    if ($('.products-compare').length) {
                     }
                 } else {
                     console.log('Product not added to compare page!!!')
@@ -103,10 +101,37 @@ jQuery(document).ready(function ($) {
                 console.log(error);
             }
         })
-    })
+    });
 
 
-    /////////Add to favorites
+    ///Remove from table. Compare product.
+
+    $(document.body).on("click", ".remove_compare", function (e) {
+        e.preventDefault();
+        var prod_id = $(this).attr('data-prodId');
+        var that = $(this);
+        var action = 'remove_compare_products';
+        $.ajax({
+            url: my_ajax_object.ajax_url,
+            method: 'POST',
+            data: {
+                action: 'remove_compare_products',
+                prod_id: prod_id,
+                nonce: my_ajax_object.nonce
+            },
+            success: function (data) {
+                var res = JSON.parse(data);
+                if (res.response == 'success' && action == 'remove_compare_products') {
+                    alert("Removed from table compare")
+                    that.closest("tr").remove();
+                }
+            }
+        })
+    });
+    /////////Add to favorite
+
+
+
     $(document.body).on("click", ".add_favorite", function (e) {
         e.preventDefault();
         var prod_id = $(this).attr('data-prodId');

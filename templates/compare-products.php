@@ -73,7 +73,6 @@ $recent_prods = new WP_Query($args);
                     ?>
 
                         <tr>
-
                             <td data-label="">
                                 <a href=" <?= $product_link; ?>">
                                     <img src="<?= $product_image; ?>" alt="">
@@ -124,7 +123,7 @@ $recent_prods = new WP_Query($args);
                                 </td>
                             <?php endif; ?>
                             <td>
-                                <span data-prodId="<?= $product_id; ?>" class="compare_btn">
+                                <span data-prodId="<?= $product_id; ?>" class="remove_compare">
                                     Remove product from table
                                 </span>
                             </td>
