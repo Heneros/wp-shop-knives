@@ -2749,7 +2749,7 @@ button.back-to-top.active::after {
     }
 
     table th {
-  
+
         clip: rect(0 0 0 0);
         overflow: hidden;
         position: absolute;
@@ -2757,4 +2757,46 @@ button.back-to-top.active::after {
 
     }
 
+}
+
+
+table .remove_compare {
+    color: #e8aa31;
+    font: 700 18px/21px Montserrat, sans-serif;
+    cursor: pointer;
+    transition: .3s ease-in;
+}
+
+table .remove_compare:hover {
+    color: #e8aa31;
+    font: 700 18px/21px Montserrat, sans-serif;
+    cursor: pointer;
+}
+
+
+.popup-up {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+.popup-content {
+    position: fixed;
+    text-align: center;
+    max-width: 35rem;
+    left: 50%;
+    top: 20%;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    padding: 4rem 6rem 5rem;
 }

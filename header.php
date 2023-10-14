@@ -122,6 +122,9 @@
                                         <li>
                                             <a class="header-mobile-list-link" href="<?= site_url('/shop'); ?>">Shop Page</a>
                                         </li>
+                                        <li>
+                                            <a class="header-mobile-list-link" href="<?= site_url('/compare-products'); ?>">Compare Products</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="list-wrapper">
@@ -148,7 +151,6 @@
                 <div class="header__container container grid grid-mobile">
                     <div class="header__left-second">
                         <a href="<?php echo home_url('/'); ?>" class="logo header__logo ">
-
                             <span> Logo</span>
                         </a>
                         <div class="header__search-field">
@@ -176,7 +178,6 @@
                                     <div class="cart-num" id="mini-cart-count">
                                         <?php
                                         echo WC()->cart->get_cart_contents_count();
-
                                         ?>
                                     </div>
                                 </div>
@@ -193,8 +194,6 @@
                                     </a>
                                 </span>
                             </p>
-
-
                         </div>
                     </div>
                 </div>
@@ -304,9 +303,6 @@
                         ?>
                     </span>
                     <br>
-
                 </div>
-
-
             </div>
         </header>

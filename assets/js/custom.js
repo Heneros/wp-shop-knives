@@ -105,7 +105,6 @@ jQuery(document).ready(function ($) {
 
 
     ///Remove from table. Compare product.
-
     $(document.body).on("click", ".remove_compare", function (e) {
         e.preventDefault();
         var prod_id = $(this).attr('data-prodId');
@@ -122,15 +121,33 @@ jQuery(document).ready(function ($) {
             success: function (data) {
                 var res = JSON.parse(data);
                 if (res.response == 'success' && action == 'remove_compare_products') {
-                    alert("Removed from table compare")
+                    // alert("Removed from table compare")
                     that.closest("tr").remove();
                 }
             }
         })
     });
+    ///Clear compare table
+
+    $(document.body).on("click", ".clear_compare", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: my_ajax_object.ajax_url,
+            method: 'POST',
+            data: {
+                clear_compare: true,
+                action: 'clear_compare_list'
+            },
+            success: function (data) {
+                var res = JSON.parse(data);
+                $(".compare-products__table").html(res.compare_reset);
+                $(".clear_compare").hide();
+            }
+        })
+    })
+
+
     /////////Add to favorite
-
-
 
     $(document.body).on("click", ".add_favorite", function (e) {
         e.preventDefault();
@@ -882,5 +899,8 @@ jQuery(document).ready(function ($) {
 
 
 
+    $('.header__order-text').click(function () {
+        $('.popup-up').css("display", "block");
+    });
 
 });

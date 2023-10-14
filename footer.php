@@ -3,12 +3,32 @@ wp_footer();
 // var_dump($_SESSION);
 
 ?>
+<div class="popup-up">
+    <div class="popup-dialog">
+        <div class="popup-content">
+            <button class="popup-close">&times;</button>
+            <h4>Request Call</h4>
+            <div class="main-form">
+                <div class="form" id="">
+                    <form method="POST" action="<?php echo esc_url(admin_url('admin-post.php'));  ?>">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="text" name="phone" placeholder="Your Phone number" required>
+                        <textarea class="textarea__popup" name="message" placeholder="Your comment" rows=2></textarea>
+                        <button id="div" class="button button-order">Send</button>
+                        <input type="hidden" name="action" value="hotel-modal-form">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 
 <footer class="footer">
     <div class="container">
         <button class="back-to-top" type="button"> </button>
-
         <div class="footer-items">
             <div class="footer-item">
                 <span class="footer-item__title">

@@ -60,3 +60,16 @@ function remove_compare_products()
     }
     wp_die();
 }
+
+add_action("wp_ajax_clear_compare_list", "clear_compare_list");
+add_action("wp_ajax_nopriv_clear_compare_list", "clear_compare_list");
+
+
+function clear_compare_list()
+{
+    if (isset($_POST['clear_compare'])) {
+        echo json_encode(['found_posts' => 0, 'response' => 'success', 'compare_reset' => '<p>No products to compare</p>']);
+        unset($_SESSION['products_compare']);
+    }
+    wp_die();
+}

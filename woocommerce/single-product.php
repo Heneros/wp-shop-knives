@@ -128,9 +128,9 @@ $bonus_points = get_post_meta($product->get_id(), '_custom_product_bonus_points'
 									</div>
 								</div>
 								<div class="product-information__icons">
-									<span class="product-information__scales">
-										<img src="<?php echo _assets_paths('img/sprite.svg#scales'); ?>" alt="icon scales">
-									</span>
+									<a href="#!" class="compare_btn" id="compareProduct" data-prodId=<?php echo $product->get_id(); ?>>
+										<!-- <img src="<?php echo _assets_paths('img/sprite.svg#scales'); ?>" alt="icon scales"> -->
+									</a>
 									<a href="#!" class="product-information__favorites">
 										<?php
 										echo print_wish_icon($product->get_id());
@@ -234,7 +234,7 @@ $bonus_points = get_post_meta($product->get_id(), '_custom_product_bonus_points'
 															<?php echo esc_html($product->single_add_to_cart_text()); ?>
 														</button>
 													<?php } else { ?>
-														<a class="btn btn-yellow  add-to-cart-with-quantity-btn button  js-open-cart"  href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>">
+														<a class="btn btn-yellow  add-to-cart-with-quantity-btn button  js-open-cart" href="<?php echo site_url('/cart/?add-to-cart=') . absint($product->get_id()); ?>">
 															<?php echo esc_html($product->single_add_to_cart_text()); ?>
 														</a>
 													<?php } ?>
