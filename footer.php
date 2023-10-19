@@ -1,8 +1,16 @@
 <?php
 wp_footer();
-// var_dump($_SESSION);
+
 
 ?>
+<div id="model-success" class="modal">
+    <div class="modal-content">
+        <h2>Thank you for contacting us!</h2>
+        <p>We will contact you shortly.</p>
+    </div>
+</div>
+
+
 <div class="popup-up-overlay">
     <div class="popup-up">
         <div class="popup-dialog">
@@ -10,12 +18,12 @@ wp_footer();
                 <button class="popup-close">&times;</button>
                 <h4 class="title-small">Request Call</h4>
                 <div class="form">
-                    <form method="POST" id="popup-form" action="<?php echo esc_url(admin_url('admin-post.php'));  ?>">
-                        <!-- <form id="popup-form" method="POST"> -->
-                        <input type="text" name="name" placeholder="Your Name" required>
-                        <input type="text" name="phone" placeholder="Your phone number" required>
+                    <form method="POST" id="popup-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                        <input type="text" name="name" placeholder="Your Name">
+                        <input type="text" name="phone" placeholder="Your phone number">
                         <textarea class="textarea__popup" name="message" placeholder="Your comment" rows=2></textarea>
                         <button class="button-order btn" type="submit">Send</button>
+                        <?php wp_nonce_field('shop-modal-form-nonce', 'shop-modal-form-nonce'); ?>
                         <input type="hidden" name="action" value="shop-modal-form">
                     </form>
                 </div>

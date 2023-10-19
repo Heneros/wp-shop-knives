@@ -82,21 +82,63 @@ function shop_review_fields_cb($post_obj, $slug)
 // add_action("admin_post_shop-modal-form", "shop_modal_form_handler");
 // add_action("admin_post_nopriv_shop-modal-form", "shop_modal_form_handler");
 
+// add_action("admin_post_shop-modal-form", "shop_modal_form_handler");
+// add_action("admin_post_nopriv_shop-modal-form", "shop_modal_form_handler");
+
+// function shop_modal_form_handler()
+// {
+//     $name = $_POST['name'] ?  $_POST['name'] : 'Anonym';
+//     $phone = $_POST['phone'] ?  $_POST['phone'] : false;
+//     $message =  $_POST['message'] ?  $_POST['message'] : 'empty';
+//     $choice =   $_POST['form-post-id'] ?  $_POST['form-post-id'] : 'empty';
+
+//     if ($phone) {
+//         $name = wp_strip_all_tags($name);
+//         $phone = wp_strip_all_tags($phone);
+//         $message = wp_strip_all_tags($message);
+//         $choice = wp_strip_all_tags($choice);
+//         $id = wp_insert_post(wp_slash([
+//             'post_title' => 'Request call № ',
+//             'post_type' => 'request_calls',
+//             'post_status' => 'publish',
+//             'meta_input' => [
+//                 'shop_order_name' => $name,
+//                 'shop_order_message' => $message,
+//                 'shop_order_choice' => $choice
+//             ]
+//         ]));
+//         if ($id  !== 0) {
+//             wp_update_post([
+//                 'ID' => $id,
+//                 'post_title' => 'Request call №' . $id,
+//             ]);
+//             // update_field('status_order', 'new', $id);
+//         }
+//     }
+//     header("Location: " . home_url());
+// }
+
+// add_action("admin_post_shop-modal-form", "shop_modal_form_handler");
+// add_action("admin_post_nopriv_shop-modal-form", "shop_modal_form_handler");
+
+
+
 add_action("admin_post_shop-modal-form", "shop_modal_form_handler");
 add_action("admin_post_nopriv_shop-modal-form", "shop_modal_form_handler");
 
 function shop_modal_form_handler()
 {
-    $name = $_POST['name'] ?  $_POST['name'] : 'Anonym';
-    $phone = $_POST['phone'] ?  $_POST['phone'] : false;
-    $message =  $_POST['message'] ?  $_POST['message'] : 'empty';
-    $choice =   $_POST['form-post-id'] ?  $_POST['form-post-id'] : 'empty';
+    check_ajax_referer('shop-modal-form-nonce', 'shop-modal-form-nonce');
+
+    $name = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : 'Anonym';
+    $phone = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : false;
+    $message = isset($_POST['message']) ? sanitize_text_field($_POST['message']) : 'empty';
+
 
     if ($phone) {
         $name = wp_strip_all_tags($name);
         $phone = wp_strip_all_tags($phone);
         $message = wp_strip_all_tags($message);
-        $choice = wp_strip_all_tags($choice);
         $id = wp_insert_post(wp_slash([
             'post_title' => 'Request call № ',
             'post_type' => 'request_calls',
@@ -104,7 +146,6 @@ function shop_modal_form_handler()
             'meta_input' => [
                 'shop_order_name' => $name,
                 'shop_order_message' => $message,
-                'shop_order_choice' => $choice
             ]
         ]));
         if ($id  !== 0) {
@@ -112,8 +153,14 @@ function shop_modal_form_handler()
                 'ID' => $id,
                 'post_title' => 'Request call №' . $id,
             ]);
-            // update_field('status_order', 'new', $id);
         }
+        // wp_send_json([
+        //     'status' => 'success'
+        // ]);
+    } else {
+        // wp_send_json([
+        //     'status' => 'error'
+        // ]);
     }
-    header("Location: " . home_url());
+    header("Location: " . home_url() . '#model-success');
 }

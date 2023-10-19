@@ -900,6 +900,38 @@ jQuery(document).ready(function ($) {
 
     $(".submit").addClass("btn");
 
+    // $('#popup-form').submit(function (e) {
+    //     e.preventDefault();
+    //     var formData = $(this).serialize();
+    //     $.ajax({
+    //         method: 'POST',
+    //         url: my_ajax_object.ajax_url,
+    //         data: formData,
+    //         success: function (response) {
+    //             if (response.status === 'success') {
+    //                 alert('Message sent successfully');
+    //             } else {
+    //                 alert('Message sending failed');
+    //             }
+    //         },
+    //         error: function (error) {
+    //             console.log(error);
+    //         },
+    //     });
+    // });
+
+
+    if (window.location.hash === '#model-success') {
+        $('#model-success').css("display", "block");
+        $('#model-success').click(function (e) {
+            if (e.target === this) {
+                $(this).css("display", "none");
+                window.location.hash = '';
+            }
+        });
+
+    }
+
 
     $('.header__order-text').click(function (e) {
         $('.popup-up-overlay').css("display", "block");
