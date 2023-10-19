@@ -22,9 +22,10 @@
  <script>
 
  </script>
- <section class="wishlist">
+ <section class="wishlist  margin-top">
      <div class="container ">
          <h1 class="title"><?php the_title(); ?></h1>
+         <?php woocommerce_breadcrumb(); ?>
          <span>Found in wishlist: <b class="count_wishlist"> <?php echo $recent_prods->found_posts ?></b></span>
          <br>
          <?php if ($recent_prods->found_posts > 0) : ?>

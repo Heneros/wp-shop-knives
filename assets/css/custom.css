@@ -883,9 +883,9 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
         margin-top: 1.5%;
     }
 
-    .site-container .compare-products {
+    /* .site-container .compare-products {
         margin-top: 5%;
-    }
+    } */
 }
 
 .main {
@@ -2774,17 +2774,33 @@ table .remove_compare:hover {
 }
 
 
-.popup-up {
+
+.popup-up-overlay {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.75);
-    z-index: 20;
+    z-index: 888888;
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     display: none;
+}
+
+.popup-up {
+    position: fixed;
+    text-align: center;
+    max-width: 35rem;
+    left: 50%;
+    top: 20%;
+    border-radius: 4px;
+    transform: translateX(-50%);
+    padding: 4rem 6rem 5rem;
+}
+
+.overflow-hidden {
+    overflow: hidden;
 }
 
 .popup-content {
@@ -2799,4 +2815,52 @@ table .remove_compare:hover {
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     padding: 4rem 6rem 5rem;
+}
+
+.remove-product {
+    height: 35px;
+    font: 600 18px/22px Arial;
+}
+
+@media(min-width:991px) {
+    .margin-top {
+        margin-top: 5%;
+    }
+}
+
+.checkout-form .product-information__breadcrumbs {
+    padding: 13px 15px;
+}
+
+.popup-content .form input {
+    background: rgba(255, 255, 255, .05);
+    border: unset;
+    border-bottom: 1px solid #000;
+    color: #000;
+    font: 500 14px/27px Montserrat, sans-serif;
+    padding-top: 15px;
+    width: 100%;
+    outline: 0;
+    transition: .3s ease-out;
+
+}
+
+.popup-content .form textarea {
+    margin-top: 15px;
+    outline: 0;
+    background: rgba(255, 255, 255, .05);
+    border: unset;
+    border-bottom: 1px solid #000;
+    color: #000;
+    font: 500 14px/27px Montserrat, sans-serif;
+}
+
+.popup-content .form .button-order {
+    width: 100%;
+    height: 35px;
+}
+
+.popup-content  .title-small {
+    font: 700 20px/46px Montserrat, sans-serif;
+    color: #141414;
 }

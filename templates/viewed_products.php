@@ -27,9 +27,10 @@ $query = new WP_Query($args);
 
 if ($query->have_posts()) :
 ?>
-    <section class="recently-viewed">
+    <section class="recently-viewed margin-top">
         <div class="container">
             <h1 class="title">Recently watched products</h1>
+            <?php woocommerce_breadcrumb(); ?>
             <div class="shop-catalog__products">
                 <?php while ($query->have_posts()) : $query->the_post(); ?>
                     <?php wc_get_template_part('content', 'product'); ?>

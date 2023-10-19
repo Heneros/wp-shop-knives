@@ -898,9 +898,31 @@ jQuery(document).ready(function ($) {
     });
 
 
+    $(".submit").addClass("btn");
 
-    $('.header__order-text').click(function () {
-        $('.popup-up').css("display", "block");
+
+    $('.header__order-text').click(function (e) {
+        $('.popup-up-overlay').css("display", "block");
+        $('body').addClass('overflow-hidden');
+
+        // var target = e.target;
+        // var ID = target.getAttribute('data-post-id');
+        // var btnOld = document.querySelector(".form");
+        // var input = document.createElement('input');
+        // input.setAttribute('type', 'hidden');
+        // input.setAttribute('name', 'form-post-id');
+        // input.setAttribute('value', ID);
+        // btnOld.append(input);
+
+        $('.popup-up-overlay').click(function (e) {
+            if (e.target === this) {
+                $(this).css("display", "none");
+                $("body").removeClass("overflow-hidden");
+            }
+        });
+        $('.popup-close').click(function (e) {
+            $('.popup-up-overlay').css("display", "none");
+            $("body").removeClass("overflow-hidden");
+        });
     });
-
 });

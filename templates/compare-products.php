@@ -18,7 +18,7 @@ $args = [
 ];
 $recent_prods = new WP_Query($args);
 ?>
-<section class="compare-products">
+<section class="compare-products margin-top">
     <div class="container">
         <?php woocommerce_breadcrumb(); ?>
         <?php if ($recent_prods->found_posts) : ?>

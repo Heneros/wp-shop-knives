@@ -100,7 +100,7 @@ if (empty($product) || !$product->is_visible()) {
 
 
 	if (is_page('viewed-products')) : ?>
-		<button class="remove-product" data-product-id="<?php echo get_the_ID(); ?>">Remove product</button>
+		<button class="remove-product btn" data-product-id="<?php echo get_the_ID(); ?>">Remove product from list</button>
 		<script>
 			(function() {
 				const removeBtns = document.querySelectorAll(".remove-product");
