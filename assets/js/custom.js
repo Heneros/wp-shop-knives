@@ -4,16 +4,18 @@ jQuery(document).ready(function ($) {
 
     $(window).scroll(function () {
         if ($(window).scrollTop() > 200) {
-            $('button.back-to-top').addClass('active');
+            // $('button.back-to-top').addClass('active');
+            $('button.back-to-top').fadeIn(500);
         } else {
-            $('button.back-to-top').removeClass('active');
+            // $('button.back-to-top').removeClass('active');
+            $('button.back-to-top').fadeOut(500);
         }
     });
 
     $('button.back-to-top').click(function () {
         $('html, body').animate({
             scrollTop: 0
-        }, 800);
+        }, 1000);
         return false;
     });
 
@@ -899,26 +901,7 @@ jQuery(document).ready(function ($) {
 
 
     $(".submit").addClass("btn");
-
-    // $('#popup-form').submit(function (e) {
-    //     e.preventDefault();
-    //     var formData = $(this).serialize();
-    //     $.ajax({
-    //         method: 'POST',
-    //         url: my_ajax_object.ajax_url,
-    //         data: formData,
-    //         success: function (response) {
-    //             if (response.status === 'success') {
-    //                 alert('Message sent successfully');
-    //             } else {
-    //                 alert('Message sending failed');
-    //             }
-    //         },
-    //         error: function (error) {
-    //             console.log(error);
-    //         },
-    //     });
-    // });
+    $(".wpfFilterButton").addClass("btn");
 
 
     if (window.location.hash === '#model-success') {
@@ -937,15 +920,6 @@ jQuery(document).ready(function ($) {
         $('.popup-up-overlay').css("display", "block");
         $('body').addClass('overflow-hidden');
 
-        // var target = e.target;
-        // var ID = target.getAttribute('data-post-id');
-        // var btnOld = document.querySelector(".form");
-        // var input = document.createElement('input');
-        // input.setAttribute('type', 'hidden');
-        // input.setAttribute('name', 'form-post-id');
-        // input.setAttribute('value', ID);
-        // btnOld.append(input);
-
         $('.popup-up-overlay').click(function (e) {
             if (e.target === this) {
                 $(this).css("display", "none");
@@ -957,4 +931,11 @@ jQuery(document).ready(function ($) {
             $("body").removeClass("overflow-hidden");
         });
     });
+
+
+    $("#accept-cookie").click(function () {
+        document.cookie = "cookie_consent=accepted; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/d"
+    })
+
+
 });

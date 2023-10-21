@@ -1,14 +1,26 @@
 <?php
 wp_footer();
 
+    if (isset($_POST['accept_cookie'])) {
+  
+    } else {
+      
+    }
 
 ?>
+<div class="cookie-consent" id="cookie-consent">
+    By using our website and services, you agree to our use of cookies as described in our <a href="#!">Cookie Policy.</a>
+    <button id="decline-cookie">Decline</button>
+    <button name="accept_cookie" id="accept_cookie">Accept</button>
+</div>
+
 <div id="model-success" class="modal">
     <div class="modal-content">
         <h2>Thank you for contacting us!</h2>
         <p>We will contact you shortly.</p>
     </div>
 </div>
+
 
 
 <div class="popup-up-overlay">
@@ -34,7 +46,7 @@ wp_footer();
 
 <footer class="footer">
     <div class="container">
-        <button class="back-to-top" type="button"> </button>
+        <button class="back-to-top active" type="button"></button>
         <div class="footer-items">
             <div class="footer-item">
                 <span class="footer-item__title">

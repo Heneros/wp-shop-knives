@@ -110,7 +110,7 @@
     position: absolute;
     right: 0;
     left: 0;
-    top: 30%;
+    /* top: 30%; */
     margin: 0 auto;
     padding: unset;
     object-fit: unset;
@@ -297,6 +297,10 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
         margin: 0 auto 25px auto !important;
     }
 
+    .shop-category__breadcrumbs {
+        display: none;
+    }
+
     .custom-logo-link {
         padding-top: 20px;
     }
@@ -338,11 +342,12 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
         /* margin-top: -6.5%; */
     }
 
-    .header__second-line {
+    .site-container .header__second-line {
         height: 90px;
         z-index: 999;
         position: relative;
     }
+
 
     .header .cart-products {
         left: 0;
@@ -568,9 +573,28 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 
 .variations {
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.variations .value {
+    margin: 15px 0;
+    display: flex;
+}
+
+.variations .value label {
+    flex-basis: 30%;
 }
 
 
+.variations .value select {
+    flex-basis: 79%;
+}
+
+/* 
+.variations .value select option:hover {
+    background-color: #000;
+} */
 
 .value select {
     background: #fff;
@@ -701,7 +725,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
 .product-information__container .product-information__right-dropdowns .btn-yellow {
     background-color: #E8AA31;
     color: #fff;
-    min-width: 205px;
+    min-width: 228px;
     box-shadow: 0px 4px 20px rgba(232, 170, 49, 0.43);
     border-radius: 3px;
     outline: none;
@@ -883,9 +907,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
         margin-top: 1.5%;
     }
 
-    /* .site-container .compare-products {
-        margin-top: 5%;
-    } */
+
 }
 
 .main {
@@ -901,6 +923,10 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
         grid-gap: 20px;
+    }
+
+    .shop-category__title {
+        text-align: center;
     }
 }
 
@@ -1747,9 +1773,9 @@ body {
     gap: 35px;
 }
 
-.single-products .bestsellers-products-item__favorites img {
+/* .single-products .bestsellers-products-item__favorites img {
     left: 0 !important;
-}
+} */
 
 .clear_wishlist {
     color: #e8aa31;
@@ -1924,11 +1950,11 @@ tbody .card-info .favorites__info-title {
     background-color: unset !important;
 }
 
-.shop-catalog__products .bestsellers-products-item__bottom img {
+/* .shop-catalog__products .bestsellers-products-item__bottom img {
     width: 100%;
     left: 0;
     max-width: 100px;
-}
+} */
 
 
 .bestsellers-products-item__icons {
@@ -1985,7 +2011,7 @@ tbody .card-info .favorites__info-title {
 
 
 .shop-catalog__left .shop-catalog__filters .wpfFilterWrapper .wfpTitle {
-    width: 90%;
+    width: 100%;
     background-color: #000;
     padding: 23px 0 23px 30px;
     color: #fff;
@@ -2075,6 +2101,7 @@ tbody .card-info .favorites__info-title {
 
 .bestsellers-products-item {
     display: flex;
+    height: 100%;
 }
 
 @media(max-width: 756px) {
@@ -2131,9 +2158,6 @@ tbody .card-info .favorites__info-title {
 }
 
 
-.variations .value {
-    margin: 15px 0;
-}
 
 
 @media(max-width: 600px) {
@@ -2617,18 +2641,6 @@ tbody .card-info .favorites__info-title {
     border: 1px solid #ccc;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 button.back-to-top {
     margin: 0;
     padding: 0;
@@ -2646,6 +2658,7 @@ button.back-to-top {
     outline: none;
     border: 2px solid #141414;
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 button.back-to-top.active {
@@ -2658,6 +2671,7 @@ button.back-to-top.active:hover,
 button.back-to-top.active:active,
 button.back-to-top.active:focus {
     outline: 0 !important;
+    opacity: .5;
 }
 
 
@@ -2921,4 +2935,61 @@ table .remove_compare:hover {
     font-weight: bold;
     color: #000;
     cursor: pointer;
+}
+
+
+
+.site-container .wpfFilterWrapper .wfpTitle {
+    height: 60px;
+}
+
+.woocommerce img,
+.woocommerce-page img {
+    height: 100%;
+
+}
+
+.woocommerce .bestsellers-products-item__favorites img,
+.woocommerce-page .bestsellers-products-item__favorites img {
+    height: auto;
+    max-width: unset;
+    min-height: 21px;
+}
+
+.woocommerce .woocommerce-ordering {
+    margin: unset;
+}
+
+.site-container .shop-catalog .bestsellers-products-item:not(:last-child) {
+    margin-right: unset;
+}
+
+.site-container .shop-catalog .bestsellers-products-item__btn {
+    margin: unset;
+}
+
+@media(max-width: 1200px) {
+    .site-container .header__left {
+        grid-column: 9 span;
+    }
+
+    .site-container .header__right {
+        grid-column: 3 span;
+    }
+
+    .header__profile-name {
+        flex-basis: 60%;
+    }
+}
+
+
+.cookie-consent {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 30%;
+    z-index: 9999999;
+    background-color: #fff;
+    max-height: 300px;
+    padding: 30px;
 }
