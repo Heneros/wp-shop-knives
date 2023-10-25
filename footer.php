@@ -1,17 +1,12 @@
 <?php
 wp_footer();
-
-    if (isset($_POST['accept_cookie'])) {
-  
-    } else {
-      
-    }
-
 ?>
 <div class="cookie-consent" id="cookie-consent">
-    By using our website and services, you agree to our use of cookies as described in our <a href="#!">Cookie Policy.</a>
-    <button id="decline-cookie">Decline</button>
-    <button name="accept_cookie" id="accept_cookie">Accept</button>
+    By using our website and services, you agree to our use of cookies as described in our <a href="#!" class="link">Cookie Policy.</a>
+    <div class="btns-popup">
+        <button class="btn btn-decline" name="decline_cookie" id="decline_cookie">Decline</button>
+        <button class="btn btn-accept" name="accept_cookie" id="accept_cookie">Accept</button>
+    </div>
 </div>
 
 <div id="model-success" class="modal">

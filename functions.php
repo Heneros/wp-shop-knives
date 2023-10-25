@@ -13,7 +13,20 @@ require get_template_directory() . '/inc/compare_products.php';
 require get_template_directory() . '/inc/request_call.php';
 
 
+add_action('wp_ajax_nopriv_accept_cookie', 'accept_cookie');
+add_action('wp_ajax_accept_cookie', 'accept_cookie');
 
+function accept_cookie()
+{
+    if (isset($_POST['accept_cookie'])) {
+        $_SESSION['id'] = session_id();
+        setcookie('cookie_consent', $_SESSION['id'], time() + 60 * 60 * 24 * 365, '/');
+        echo 'success';
+    } elseif (isset($_POST['decline_cookie'])) {
+        setcookie('cookie_consent', 'declined', time() + 60 * 60 * 24 * 365, '/');
+        echo 'error';
+    }
+}
 
 
 
