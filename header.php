@@ -17,11 +17,11 @@
 <body <?php body_class(); ?>>
 
     <div class="site-container">
-        <!-- <div class="loader-screen">
+        <div class="loader-screen">
             <div class="ball-rotate">
                 <div></div>
             </div>
-        </div> -->
+        </div>
         <div class="main-wrapperOverflow"></div>
         <!-- <header data-aos="fade-down" class="header page-header" id="myHeader"> -->
         <header class="header page-header" id="myHeader">
