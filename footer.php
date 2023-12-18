@@ -16,8 +16,6 @@ wp_footer();
     </div>
 </div>
 
-
-
 <div class="popup-up-overlay">
     <div class="popup-up">
         <div class="popup-dialog">

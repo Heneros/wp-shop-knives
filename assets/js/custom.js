@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 success: function (response) {
                     console.log(response);
                     miniCartAjaxUpdate();
-                    let miniCartCount = document.getElementById("mini-cart-count");
+                    let addToCartminiCartCount = document.getElementById("mini-cart-count");
                     let miniCartCountMob = document.getElementById("mini-cart-count-mob");
                     let currentCount = parseInt(miniCartCount.innerText) + 1;
                     let currentCountMob = parseInt(miniCartCountMob.innerText) + 1;
@@ -590,6 +590,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // let quantity = $("input[name=prod_quantity]").val();
             // let getIdFromUrl = addToCartUrlWithQuantity.split('=');
             // let productID = parseInt(getIdFromUrl[1]);
+     
             let addToCartUrlWithQuantity = $(this).attr('href');
             let productID = parseInt(addToCartUrlWithQuantity.split('=')[1]);
             let quantity = parseInt($(this).closest('.product-information__btns').find("input[name=prod_quantity]").val());
@@ -933,15 +934,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         var isCookieAccepted = getCookie('cookie_consent');
-        if (isCookieAccepted) {
-            $('#cookie-consent').hide();
+        if (!isCookieAccepted) {
+            setTimeout(function () {
+                $('#cookie-consent').show();
+            }, 3000);
         }
+
 
         function getCookie(name) {
             var value = '; ' + document.cookie;
             var parts = value.split('; ' + name + '=');
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
+
 
 
         $('#accept_cookie').click(function (e) {

@@ -1003,7 +1003,8 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     height: 14px;
     position: absolute;
     right: 0;
-    background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/location.svg');
+    /* location.svg */
+
 }
 
 .loadmore {
@@ -1030,7 +1031,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     position: absolute;
     margin-left: -28px;
     background-repeat: no-repeat;
-    background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/plus-button.svg');
+    /* plus-button.svg */
 }
 
 
@@ -1151,7 +1152,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     height: 14px;
     position: absolute;
     right: 0;
-    background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/location.svg');
+    /* location.svg */
 }
 
 .loadmore {
@@ -1179,7 +1180,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     position: absolute;
     margin-left: -28px;
     background-repeat: no-repeat;
-    background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/plus-button.svg');
+    /* plus-button.svg */
 }
 
 .filters-project {
@@ -1316,7 +1317,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     height: 14px;
     position: absolute;
     right: 0;
-    background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/location.svg');
+    /* ocation.svg */
 }
 
 .loadmore {
@@ -1349,7 +1350,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     left: -38px;
     top: 0px;
     background-repeat: no-repeat;
-    background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/plus-button.svg');
+
 } */
 
 /* .filters-project {
@@ -1449,7 +1450,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     left: 33px;
     border: unset;
     outline: unset;
-    background-image: url("https://topaz.exit-tech.com/wp-content/uploads/2023/03/arrow-list.svg");
+    /* arrow-list.svg */
     transition: transform 0.3s ease;
 }
 
@@ -1531,7 +1532,7 @@ body {
         background-repeat: no-repeat;
         width: 20px;
         height: 20px;
-        background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/search-icon.svg');
+        /* search-icon.svg */
     }
 
     .adaptive-title-filter {
@@ -1625,7 +1626,7 @@ body {
         cursor: pointer;
         z-index: 999;
         background-repeat: no-repeat;
-        background-image: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/close.svg');
+        /* close.svg */
     }
 
     .select-wrapper {
@@ -1682,7 +1683,7 @@ body {
         left: 0;
         background-position: center;
         background-size: cover;
-        background: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/btn-filter.svg') no-repeat;
+        /* btn-filter.svg */
     }
 
 
@@ -1728,7 +1729,7 @@ body {
         bottom: 0;
         background-position: center;
         background-size: cover;
-        background: url('https://topaz.exit-tech.com/wp-content/uploads/2023/03/search-icon.svg') no-repeat;
+        /* search-icon.svg */
     }
 
     .select-header-list {
@@ -2989,6 +2990,7 @@ table .remove_compare:hover {
     max-height: 300px;
     max-width: 450px;
     padding: 30px;
+    display: none;
 }
 
 .cookie-consent .link {
