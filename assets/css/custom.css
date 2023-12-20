@@ -143,13 +143,17 @@
 }
 
 .cart-content {
-    /* margin: unset !important; */
-    /* padding: 38px 45px 39px 45px;
-    width: max-content;
-    max-height: max-content; */
     padding: 38px 11px 39px 23px;
-    /* width: max-content; */
     max-height: max-content;
+}
+
+.cart-products .card-item {
+    display: grid;
+    padding: 14px 0px 15px 0px;
+    position: relative;
+    cursor: pointer;
+    grid-template-columns: 25% 25% 17% 23% 2%;
+    border-top: 1px solid #e8aa31;
 }
 
 .card-item {
@@ -161,8 +165,6 @@
     justify-content: space-between; */
     align-items: center;
     justify-content: space-between;
-    display: grid;
-    /* grid-template-columns: repeat(5, minmax(90px, 5fr)); */
     grid-template-columns: 25% 25% 17% 23% 2%;
     border-top: 1px solid #e8aa31;
 }
@@ -1003,7 +1005,8 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     height: 14px;
     position: absolute;
     right: 0;
-    /* location.svg */
+    /*  */
+    background: url('../img/location.svg') no-repeat center;
 
 }
 
@@ -1032,14 +1035,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     margin-left: -28px;
     background-repeat: no-repeat;
     /* plus-button.svg */
-}
-
-
-
-
-
-.elementor-widget-shortcode .elementor-shortcode {
-    display: none;
+    background: url('../img/plus-button.svg') no-repeat center;
 }
 
 .items-project {
@@ -1153,6 +1149,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     position: absolute;
     right: 0;
     /* location.svg */
+    background: url('../img/location.svg') no-repeat center;
 }
 
 .loadmore {
@@ -1181,6 +1178,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     margin-left: -28px;
     background-repeat: no-repeat;
     /* plus-button.svg */
+    background: url('../img/plus-button.svg') no-repeat center;
 }
 
 .filters-project {
@@ -1318,6 +1316,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     position: absolute;
     right: 0;
     /* ocation.svg */
+    background: url('../img/location.svg') no-repeat center;
 }
 
 .loadmore {
@@ -1451,6 +1450,7 @@ body .site-container header .dgwt-wcas-search-form .dgwt-wcas-search-input:focus
     border: unset;
     outline: unset;
     /* arrow-list.svg */
+    background: url('../img/arrow-list.svg') no-repeat center;
     transition: transform 0.3s ease;
 }
 
@@ -1533,14 +1533,16 @@ body {
         width: 20px;
         height: 20px;
         /* search-icon.svg */
+        background: url('../img/search-icon.svg') no-repeat center;
     }
 
     .adaptive-title-filter {
         display: none;
     }
+
 }
 
-
+/* 767px */
 @media screen and (max-width: 767px) {
     .adaptive-title-filter {
         display: flex;
@@ -1627,6 +1629,7 @@ body {
         z-index: 999;
         background-repeat: no-repeat;
         /* close.svg */
+        background: url('../img/close.svg') no-repeat center;
     }
 
     .select-wrapper {
@@ -1684,6 +1687,7 @@ body {
         background-position: center;
         background-size: cover;
         /* btn-filter.svg */
+        background: url('../img/btn-filter.svg') no-repeat center;
     }
 
 
@@ -1730,6 +1734,7 @@ body {
         background-position: center;
         background-size: cover;
         /* search-icon.svg */
+        background: url('../img/search-icon.svg') no-repeat center;
     }
 
     .select-header-list {
@@ -1763,16 +1768,23 @@ body {
     .filter-search.active .input-search {
         display: block;
     }
+
+    .woocommerce .cookie-consent {
+        width: 100%;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
 }
+
+/* max width 767px */
 
 
 .shop-catalog__products {
     gap: 35px;
 }
-
-/* .single-products .bestsellers-products-item__favorites img {
-    left: 0 !important;
-} */
 
 .clear_wishlist {
     color: #e8aa31;
@@ -2473,6 +2485,7 @@ tbody .card-info .favorites__info-title {
 
 .woocommerce-MyAccount-navigation ul {
     list-style-type: none;
+    padding-left: 10px;
 }
 
 .woocommerce-MyAccount-navigation ul li {
@@ -2568,10 +2581,6 @@ tbody .card-info .favorites__info-title {
     outline: unset !important;
 }
 
-/* :focus-visible {
-    outline: -webkit-focus-ring-color auto 1px;
-} */
-
 .site-container .product-tabs .comment-form .btn {
     background-color: #e8aa31 !important;
     box-shadow: 0 4px 20px rgba(232, 170, 49, .43) !important;
@@ -2583,28 +2592,10 @@ tbody .card-info .favorites__info-title {
     border: none !important;
 }
 
-/* Header icon */
-/* .header__container .header__profile-name{
-    flex-basis: unset;
-}
-.header__container .header__right {
-    grid-column: 1 span;
-}
-.header__container .header__left {
-    grid-column: 11 span;
-} */
 
-/* .site-container .header__profile:hover::after {
-    background-image: unset;
-} */
 .header__profile:hover .header__profile-name {
     color: #e8aa31;
 }
-
-
-/* .addonify-compare-products-table .adfy-compare-products-table-row-content .attachment-woocommerce_thumbnail {
-    width: 50%;
-} */
 
 .addonify-compare-products-table tbody {
     display: flex;
@@ -2646,7 +2637,6 @@ button.back-to-top {
     display: none;
     color: transparent;
     position: fixed;
-    /* right: calc(50% - 470px - 40px - 16px); */
     right: 5%;
     bottom: 16px;
     cursor: pointer;
@@ -2684,7 +2674,6 @@ button.back-to-top.active::after {
     margin: 17px auto 0;
     width: 0;
     border-radius: 20px;
-    /* visibility: hidden; */
 }
 
 button.back-to-top.active::after {
@@ -2692,7 +2681,6 @@ button.back-to-top.active::after {
     position: relative;
     top: -24px;
 }
-
 
 .compare_btn {
     background: url('../img/sprite.svg#scales') no-repeat center;
@@ -2704,7 +2692,6 @@ button.back-to-top.active::after {
     background-color: unset;
     cursor: pointer;
     padding: 25px;
-
 }
 
 .compare-products table,
@@ -2760,16 +2747,12 @@ button.back-to-top.active::after {
     }
 
     table th {
-
         clip: rect(0 0 0 0);
         overflow: hidden;
         position: absolute;
-
-
     }
 
 }
-
 
 table .remove_compare {
     color: #e8aa31;
@@ -2783,8 +2766,6 @@ table .remove_compare:hover {
     font: 700 18px/21px Montserrat, sans-serif;
     cursor: pointer;
 }
-
-
 
 .popup-up-overlay {
     width: 100%;
@@ -2943,7 +2924,10 @@ table .remove_compare:hover {
 .woocommerce img,
 .woocommerce-page img {
     height: 100%;
+}
 
+.header__location img {
+    height: 24px !important;
 }
 
 .woocommerce .bestsellers-products-item__favorites img,

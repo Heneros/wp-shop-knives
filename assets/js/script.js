@@ -20,6 +20,7 @@ jQuery(function ($) {
       top: '-100vh'
     }, 1000, function () {
       $(".loader-screen").css("display", 'none');
+      // $(".loader-screen").css("visibility", 'hidden');
     });
   }, 200);
 
